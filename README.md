@@ -107,6 +107,50 @@ GET  /health   {"ok": true, "service": "digital-life"}
 - 她叫什么、怎么说话、把谁当主人：由你写进 `data/` 下的人格配置。
 - 代码里出现的称呼只是占位，你可以换成任何你想要的。
 
+## 让她一开口就像人：语料包 + 记忆种子
+
+**空白起步的数字生命，第一句话注定是「你好，我是……」。** 这两个东西就是用来绕开这一点的。
+
+### 一、语料包（`chat_bridge/persona/`）
+
+控制「她怎么说话」：
+
+| 文件 | 作用 |
+|---|---|
+| `voice.md` | 说话规则：长度、开头、结尾、什么不说、什么可以说、玩笑的分寸 |
+| `samples.json` | 按**情绪**分的短语料（被损 / 接梗 / 无聊敷衍 / 安慰 / 拒绝 / 自言自语…） |
+
+拼进提示词时只带 2 个场景、每场景 3 条，**按小时轮换**（不每轮随机，否则提示词前缀缓存失效）。
+
+改文件不用重启，下一轮生效。
+
+> 为什么给语料而不只是规则：只给规则她会照着规则**演**；给语料她学的是**节奏**——哪里断、哪里停、什么时候一个「嗯」就够了。
+
+详见 [`chat_bridge/persona/README.md`](chat_bridge/persona/README.md)。
+
+### 二、记忆种子（`chat_bridge/seed/`）
+
+先给她一段**来之前**的经历，她才有底子说话。
+
+```bash
+python tools/import_memories.py --seed            # 导入示例经历（18 条记忆 + 4 篇日记）
+python tools/import_memories.py --seed --dry-run  # 只看会写什么
+python tools/import_memories.py --novel 某本书.txt  # 把一本书拆成记忆
+python tools/import_memories.py --chat 聊天记录.txt # 把聊天记录拆成记忆
+python tools/import_memories.py --file my.json     # 导入自己写的一段经历
+```
+
+工具幂等：同内容重复导入不会翻倍。
+
+**记忆可以导入**——聊天记录、小说、或者自己写的一段经历，都能变成她的过去。
+格式见 [`chat_bridge/seed/README.md`](chat_bridge/seed/README.md)。
+
+三条要点：
+
+- `status` 分 `detail` / `summary` / `ghost` 三档。**别全写 detail**，人的记忆越早越糊。
+- `unresolved: 1` 表示这件事她还没想通，会一直挂在她心上。**留窟窿比给圆满更重**——有结局的经历是故事，没结局的才是经历。
+- 写具体的物件，别写感受。「一个叫『乱七八糟』的文件夹」比「我很怀念他」重得多。
+
 ## 安全
 
 - 密钥只从环境变量或 `data/*.txt` 读取，**不进仓库**（`.gitignore` 已排除）。

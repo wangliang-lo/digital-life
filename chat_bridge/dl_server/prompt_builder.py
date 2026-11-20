@@ -925,7 +925,7 @@ def _block_applies(name: str) -> bool:
     free_time = "自由时间" in str(_get_turn_message() or "") or channel.startswith("solver")
 
     # 一直要带的：身份、位置、记忆机制这类小字
-    if name in ("记忆机制", "他提过的事", "她自己想要的", "主人是谁", "对面是谁",
+    if name in ("语感", "记忆机制", "他提过的事", "她自己想要的", "主人是谁", "对面是谁",
                 "和这个人的经历", "你在哪", "这个地方", "身体时钟"):
         return True
     # 2026-11-13：来访的朋友（web_guest）不必带这些大块，省 token 也快一点
@@ -955,7 +955,23 @@ def _block_applies(name: str) -> bool:
     return True  # 没列到的照旧带
 
 
+def _voice_block() -> str:
+    """语料包：persona/voice.md 的说话习惯 + persona/samples.json 的语感样例。
+
+    2026-11-20 新加：给「一开始就有人味」的公开版用。
+    没装语料文件就返回空串，不影响原有行为。
+    """
+    try:
+        from dl_server.persona_pack import voice_block
+
+        return voice_block()
+    except Exception:  # noqa: BLE001
+        return ""
+
+
 PERSONA_TAIL_BLOCKS = [
+    # 语感放最前：它定的是"怎么说话"，比后面那些事实性块更该先读到
+    ("语感", _voice_block),
     ("记忆机制", lambda: (
         "\n【你的记忆】想起来的次数越多越清楚、越难忘；太久没想起就只剩梗概，"
         "再久只剩一点感觉。你能决定某条记忆烂得快还是慢（[MEMORY_CONTROL] 里给 decay_rate）。"
