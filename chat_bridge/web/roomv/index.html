@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>小鱼的房间</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #07090f; overflow: hidden;
+               font: 14px/1.6 "Microsoft YaHei", system-ui, sans-serif; color: #dfe9f8; }
+  .stage { position: absolute; inset: 0; }
+  .frame { position: relative; width: 100%; height: 100%; overflow: hidden; }
+  .layer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+           opacity: 0; transition: opacity .3s linear;
+           filter: brightness(var(--lift, 1)) saturate(1.04); }
+  .layer.on { opacity: 1; }
+  .dim { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; transition: opacity .8s; }
+  .hud { position: absolute; left: 16px; top: 14px; pointer-events: none; text-shadow: 0 1px 6px #000; }
+  .hud b { font-size: 15px; }
+  .hud .sub { color: #a9bdd8; font-size: 12.5px; }
+  /* 2026-11-12：中间是全画面，上下留空——用同一张图糊一层垫底，别留死黑 */
+  .backdrop { position: absolute; inset: -8%; background: var(--poster, url('/roomv/poster.jpg')) center/cover no-repeat;
+              filter: blur(26px) brightness(.42) saturate(1.1); transform: scale(1.06); }
+  .poster { position: absolute; inset: 0;
+            background: var(--poster, url('/roomv/poster.jpg')) center/contain no-repeat;
+            opacity: 1; transition: opacity .8s;
+            filter: brightness(var(--lift, 1)) saturate(1.06) contrast(1.02); }
+  .poster.gone { opacity: 0; }
+  /* 夜里给她留一盏灯：不是全黑，是暖的暗 */
+  .nightlamp { position: absolute; inset: 0; opacity: 0; pointer-events: none;
+               transition: opacity .8s; mix-blend-mode: soft-light;
+               background: radial-gradient(55% 45% at 72% 30%, rgba(255,190,120,.55), transparent 70%),
+                           radial-gradient(40% 35% at 20% 70%, rgba(90,140,255,.28), transparent 72%); }
+  .nightlamp.on { opacity: 1; }
+  .err { position: absolute; right: 14px; top: 12px; max-width: 46%; display: none;
+         background: rgba(90,20,20,.9); border: 1px solid rgba(255,120,120,.5); border-radius: 10px;
+         padding: 8px 12px; font-size: 12px; white-space: pre-wrap; color: #ffd7d7; }
+</style>
+
+<style>
+  /* 移动端（2026-11-12） */
+  html, body { height: 100dvh; }
+  @media (max-width: 720px) {
+    .hud { left: 12px; top: 10px; }
+    .hud b { font-size: 13.5px; }
+    .hud .sub { font-size: 11.5px; }
+    .err { left: 10px; right: 10px; top: auto; bottom: 12px; max-width: none; font-size: 11.5px; }
+    .layer { object-fit: contain; }
+  }
+  /* 2026-11-12 爸爸：全显示，别把她裁掉（她坐桌子边时会被切） */
+  @media (orientation: portrait) {
+    .layer { object-fit: contain; object-position: 50% 50%; }
+    .poster { background-size: contain; }
+  }
+
+  /* 2026-11-12 爸爸选 2：竖屏上下两栏——上面房间，下面她的状态 */
+  .panel { display: none; }
+  @media (max-width: 820px) and (orientation: portrait) {
+    /* 高度按 16:9 画面算，再加一条 HUD 的位置，别在中间留一块模糊空地 */
+    .frame { height: calc(56.25vw + 46px); max-height: 54dvh; }
+    .panel {
+      display: block; position: absolute; left: 0; right: 0;
+      top: calc(56.25vw + 46px); bottom: 0;
+      padding: 12px 14px calc(14px + env(safe-area-inset-bottom));
+      overflow-y: auto; background: linear-gradient(180deg, #0b1018 0%, #080b12 100%);
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .panel .hudline { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+    .panel .hudline b { font-size: 16px; }
+    .panel .hudline span { color: #9db2cf; font-size: 12.5px; }
+    .panel .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .panel .card {
+      background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.07);
+      border-radius: 12px; padding: 9px 11px; min-width: 0;
+    }
+    .panel .card .k { color: #8ea6c6; font-size: 11.5px; margin-bottom: 3px; }
+    .panel .card .v { font-size: 14px; color: #e6eefc; line-height: 1.45; overflow-wrap: anywhere; }
+    .panel .card.wide { grid-column: 1 / -1; }
+    .panel .quote { font-size: 13.5px; color: #cfdcf0; line-height: 1.6; }
+    .panel .sleeping { color: #ffd9a8; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="frame" id="frame">
+    <div class="backdrop" id="backdrop"></div>
+    <div class="poster" id="poster"></div>
+    <video class="layer" id="va" muted playsinline preload="auto"></video>
+    <video class="layer" id="vb" muted playsinline preload="auto"></video>
+    <div class="nightlamp" id="nightlamp"></div>
+    <div class="dim" id="dim"></div>
+    <div class="hud">
+      <b>小鱼的房间</b>
+      <div class="sub" id="status">加载中…</div>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+</div>
+
+<div class="panel" id="panel">
+  <div class="hudline"><b id="p-where">小鱼的房间</b><span id="p-room"></span></div>
+  <div class="cards">
+    <div class="card"><div class="k">在做什么</div><div class="v" id="p-doing">…</div></div>
+    <div class="card"><div class="k">身体</div><div class="v" id="p-body">…</div></div>
+    <div class="card wide"><div class="k">在读</div><div class="v" id="p-book">…</div></div>
+    <div class="card wide"><div class="k">最近一句</div><div class="v quote" id="p-quote">…</div></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const errBox = document.getElementById('err');
+  const statusEl = document.getElementById('status');
+  const dimEl = document.getElementById('dim');
+  const layers = [document.getElementById('va'), document.getElementById('vb')];
+
+  let LOOPS = [];
+  let TRANSITIONS = [];
+  let active = 0;
+  let currentPose = 'sit_bed';
+  let busy = false;
+  let loopToken = 0;
+  let lastRoom = '';
+
+  function fail(message) {
+    errBox.style.display = 'block';
+    errBox.textContent = message;
+  }
+  window.addEventListener('error', (event) => fail('JS 错：' + (event.message || '')));
+
+  function url(dir, file) { return '/roomv/' + dir + '/' + encodeURIComponent(file); }
+  function current() { return layers[active]; }
+  function standby() { return layers[1 - active]; }
+
+  /* 视频真正出画面才算"有画面"；卡住/失败就把它撤下去，露出海报 */
+  function bindVisibility(video) {
+    if (video.__bound) return;
+    video.__bound = true;
+    video.addEventListener('playing', () => {
+      // 海报不隐藏：它垫在视频下面，视频不播的时候正好顶上
+      video.classList.add('on');
+    });
+    ['stalled', 'waiting', 'error', 'abort', 'suspend'].forEach((name) => {
+      video.addEventListener(name, () => {
+        // 只撤自己；另一层如果还在播就别动
+        video.classList.remove('on');
+      });
+    });
+  }
+
+  /* 第一次触摸/点击时再试一次播放（有些浏览器要用户手势） */
+  function kickPlay() {
+    layers.forEach((video) => {
+      if (video.src && video.paused) video.play().catch(() => {});
+    });
+  }
+  document.addEventListener('touchstart', kickPlay, { passive: true, once: true });
+  document.addEventListener('click', kickPlay, { once: true });
+
+  /* ---------- 播放一段（循环或过渡都是这个） ---------- */
+  function playClip(item, token) {
+    return new Promise((resolve) => {
+      const video = standby();
+      let finished = false;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        clearTimeout(timer);
+        video.removeEventListener('ended', finish);
+        resolve();
+      };
+      const timer = setTimeout(finish, item.ms + 1500);   // 兜底
+
+      video.src = url(item.dir, item.file);
+      video.loop = !!item.loop;        // 新片段首末差 < 0.2%，可以硬循环
+      video.currentTime = 0;
+
+      const start = () => {
+        if (token !== undefined && token !== loopToken) { finish(); return; }
+        // 移动端：属性 + 属性都得设，某些内置浏览器只看属性
+        video.muted = true;
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        bindVisibility(video);
+        video.play().catch(() => {});
+        current().classList.remove('on');
+        active = 1 - active;
+        // 第一段真的动起来了：撤掉海报，并告诉父页"可以揭幕了"
+        if (!window.__xyReady) {
+          window.__xyReady = true;
+          const playing = () => {
+            try { window.parent.postMessage({ type: 'xy-room-ready' }, '*'); } catch (_) {}
+          };
+          if (video.readyState >= 3) playing();
+          else video.addEventListener('playing', playing, { once: true });
+        }
+        statusEl.textContent = item.label || item.id;
+        if (!item.loop) {
+          video.addEventListener('ended', finish, { once: true });
+          setTimeout(finish, item.ms + 200);
+        } else {
+          // 循环片段播一整段后回来接着换（真正无限）
+          setTimeout(finish, item.ms - 60);
+        }
+      };
+      if (video.readyState >= 2) start();
+      else video.addEventListener('loadeddata', start, { once: true });
+    });
+  }
+
+  /* ---------- 循环：一直播到姿势变了 ---------- */
+  async function holdLoop(item) {
+    const token = ++loopToken;
+    while (token === loopToken) {
+      await playClip(item, token);
+    }
+  }
+
+  /* ---------- 过渡：按动作图走 ---------- */
+  function plan(start, target) {
+    if (start === target) return [];
+    const edges = {};
+    TRANSITIONS.forEach((t) => { (edges[t.from] = edges[t.from] || []).push(t); });
+    const queue = [[start, []]];
+    const seen = new Set([start]);
+    while (queue.length) {
+      const [pose, path] = queue.shift();
+      for (const item of edges[pose] || []) {
+        if (seen.has(item.to)) continue;
+        const next = path.concat([item]);
+        if (item.to === target) return next;
+        seen.add(item.to);
+        queue.push([item.to, next]);
+      }
+    }
+    return null;
+  }
+
+  async function moveTo(pose, loopItem) {
+    if (busy) return;
+    busy = true;
+    const token = ++loopToken;
+    const path = plan(currentPose, pose);
+    if (path && path.length) {
+      for (const step of path) {
+        if (token !== loopToken) { busy = false; return; }
+        await playClip(step);
+        currentPose = step.to;
+      }
+    } else if (currentPose !== pose) {
+      // 没有过渡素材：直接叠化过去（0.6 秒），承认是跳的
+      statusEl.textContent = '（没有走过去的那段，直接切到：' + pose + '）';
+      await new Promise((r) => setTimeout(r, 400));
+      currentPose = pose;
+    }
+    busy = false;
+    holdLoop(loopItem);
+  }
+
+  /* ---------- 跟她的状态同步 ---------- */
+  function loopFor(pose, lit) {
+    const same = LOOPS.filter((item) => item.pose === pose);
+    if (!same.length) return null;
+    const exact = same.filter((item) => !!item.lit === !!lit);
+    const pool = exact.length ? exact : same;
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  const ROOM_POSE = { desk: 'sit_desk', bed: 'sit_bed', easel: 'easel', garden: 'garden' };
+
+  /* 暗场景提亮 + 换暗海报：手机上不然像全黑 */
+  function applyLight(lit, asleep) {
+    const dark = !!asleep || lit === false;
+    document.documentElement.style.setProperty('--lift', dark ? '2.15' : '1');
+    const lamp = document.getElementById('nightlamp');
+    if (lamp) lamp.classList.toggle('on', dark);
+    const poster = document.getElementById('poster');
+  const backdrop = document.getElementById('backdrop');
+    if (poster) {
+      poster.style.setProperty('--poster', dark
+        ? "url('/roomv/poster-dark.jpg')"
+        : "url('/roomv/poster.jpg')");
+    }
+  }
+
+  async function poll() {
+    try {
+      const res = await fetch('/api/room/state', { cache: 'no-store' });
+      const state = await res.json();
+      if (!state || !state.ok) throw new Error((state && state.error) || '读取失败');
+
+      const asleep = !!state.asleep;
+      // 2026-11-12：睡着和歇着都躺下——她说想歇，人就在床上躺着
+      const lying = asleep || ['resting', 'sleeping'].includes(String(state.activity || ''));
+      const pose = lying ? 'lie_bed' : (ROOM_POSE[state.room] || 'sit_bed');
+      const lit = !asleep && (state.lamp !== undefined ? !!state.lamp : true);
+      applyLight(lit, asleep);          // 暗场景提亮 + 换暗海报
+      const item = loopFor(pose, lit);
+      dimEl.style.opacity = '0';
+
+      if (item && (pose !== currentPose || !busy)) {
+        if (pose !== currentPose) {
+          await moveTo(pose, item);
+        } else if (!busy) {
+          holdLoop(item);
+        }
+      }
+      if (state.doing) statusEl.textContent = state.doing;
+      lastRoom = state.room;
+    } catch (error) {
+      fail(error.message || String(error));
+    }
+  }
+
+  async function boot() {
+    const res = await fetch('/roomv/actions.json', { cache: 'no-store' });
+    const data = await res.json();
+    LOOPS = data.loops || [];
+    TRANSITIONS = data.transitions || [];
+    if (!LOOPS.length) throw new Error('动作库是空的');
+
+    // 先问一句她现在什么状态，第一段就直接放对的（别先亮后暗）
+    let pose = 'sit_bed';
+    let lit = true;
+    try {
+      const stateRes = await fetch('/api/room/state', { cache: 'no-store' });
+      const state = await stateRes.json();
+      if (state && state.ok) {
+        const asleep = !!state.asleep;
+        const lying = asleep || ['resting', 'sleeping'].includes(String(state.activity || ''));
+        pose = lying ? 'lie_bed' : (ROOM_POSE[state.room] || 'sit_bed');
+        lit = !asleep && (state.lamp !== undefined ? !!state.lamp : true);
+        applyLight(lit, asleep);
+      }
+    } catch (_) {
+      /* 读不到就按默认来 */
+    }
+
+    const first = loopFor(pose, lit) || loopFor('sit_bed', true) || LOOPS[0];
+    currentPose = first.pose;
+    holdLoop(first);
+    poll();
+    setInterval(poll, 6000);
+
+    // 海报已经可见：3 秒后也让父页揭幕，别让开场干等
+    setTimeout(() => {
+      if (window.__xyReady) return;
+      window.__xyReady = true;
+      try { window.parent.postMessage({ type: 'xy-room-ready' }, '*'); } catch (_) {}
+    }, 3000);
+
+    // 6 秒还没任何一层真的播起来：多半是手机拦了自动播放，先让她看图
+    setTimeout(() => {
+      const playing = layers.some((video) => video.classList.contains('on') && !video.paused);
+      if (!playing) {
+        statusEl.textContent = '视频没播出来，先给你看图（点一下屏幕试试）';
+      }
+    }, 6000);
+  }
+
+  boot().catch((error) => fail(error.message || String(error)));
+})();
+
+  // 2026-11-12：竖屏下栏显示她的状态（15 秒刷一次）
+  (function panelLoop() {
+    const $p = (id) => document.getElementById(id);
+    const pad = (n) => String(n).padStart(2, "0");
+    async function tick() {
+      try {
+        const res = await fetch("/api/her/state", { cache: "no-store" });
+        if (!res.ok) return;
+        const d = await res.json();
+        const asleep = !!d.asleep;
+        $p("p-where").textContent = asleep ? "她睡着了" : "小鱼的房间";
+        $p("p-room").textContent = (d.room_name || "") + (d.minutes_here != null ? " · " + Math.round(d.minutes_here) + " 分钟" : "");
+        const doing = $p("p-doing");
+        doing.textContent = d.activity_label || "在发呆";
+        doing.className = "v" + (asleep ? " sleeping" : "");
+        const body = $p("p-body");
+        const fatigue = d.body && d.body.fatigue != null ? Math.round(d.body.fatigue * 100) : null;
+        body.textContent = (fatigue == null ? "说不上" : (fatigue > 70 ? "有点乏" : fatigue > 40 ? "还好" : "精神")) +
+          (asleep && d.sleep_hours ? " · 睡 " + d.sleep_hours + " 小时" : "");
+        const rd = d.reading || {};
+        $p("p-book").textContent = rd.book ? (rd.book + " · 第 " + (rd.chapter || 0) + "/" + (rd.total || "?") + " 章") : "这会儿没在读";
+        const last = String(d.last_channel || "");
+        const quote = last.replace(/^\d{4}-\d{2}-\d{2}T[\d:+\-]+\s*/, "").trim();
+        $p("p-quote").textContent = quote || "（今天还没在信道里说话）";
+      } catch (err) { /* 忽略，下次再试 */ }
+    }
+    tick();
+    setInterval(tick, 15000);
+  })();
+</script>
+</body>
+</html>

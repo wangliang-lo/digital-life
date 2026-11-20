@@ -1,0 +1,6 @@
+# 多模态可选依赖：不需要语音/看图就别装，中间件会自动降级成占位符。
+#
+#   pip install -r requirements-media.txt
+#
+faster-whisper>=1.0.0
+pillow>=10.0.0

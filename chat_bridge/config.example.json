@@ -1,0 +1,106 @@
+{
+  "api": {
+    "base_url": "http://127.0.0.1:8000",
+    "chat_path": "/chat",
+    "proactive_path": "/proactive",
+    "timeout": 120,
+    "retries": 1,
+    "token": ""
+  },
+  "chat": {
+    "adapter": "ntchat",
+    "chat_exe_path": "",
+    "login_timeout": 180,
+    "version_spoof_enabled": false,
+    "version_spoof_target": "3.9.12.15",
+    "wake_words": ["她", "小鱼"],
+    "private_enabled": true,
+    "group_enabled": true,
+    "group_reply_at": true,
+    "strip_leading_at": true,
+    "allowed_rooms": [],
+    "allowed_wxids": [],
+    "blocked_wxids": [],
+    "owner_wxids": [],
+    "user_id_strategy": "sender",
+    "fixed_user_id": "default",
+    "min_reply_interval": 2.0,
+    "max_reply_chars": 1200,
+    "split_long_reply": true,
+    "send_gap": 0.8,
+    "fallback_on_error": "",
+    "max_input_chars": 1000,
+    "max_queue": 50,
+    "dedupe_ttl": 300,
+    "echo_guard_seconds": 60
+  },
+  "media": {
+    "enabled": true,
+    "workers": 2,
+    "voice_enabled": true,
+    "image_enabled": true,
+    "emoji_enabled": true,
+    "cache_dir": "media_cache",
+    "placeholder_voice": "[对方发来一条语音，你没听清]",
+    "placeholder_image": "[对方发来一张图片，你没看清]",
+    "placeholder_emoji": "[对方发来一个表情]"
+  },
+  "asr": {
+    "provider": "faster-whisper",
+    "local_model": "small",
+    "device": "cpu",
+    "compute_type": "int8",
+    "download_root": "",
+    "language": "zh",
+    "timeout": 120,
+    "base_url": "https://api.openai.com/v1",
+    "api_key": "",
+    "api_model": "whisper-1"
+  },
+  "vision": {
+    "provider": "ollama",
+    "model": "gemma3:4b",
+    "base_url": "http://127.0.0.1:11434",
+    "api_key": "",
+    "prompt": "用一句中文描述这张图片，40 字以内，只说你看到的东西，不要解释",
+    "timeout": 60,
+    "max_image_mb": 8,
+    "max_side": 1280
+  },
+  "stickers": {
+    "enabled": true,
+    "dir": "stickers",
+    "auto_collect": true,
+    "collect_emoji": true,
+    "collect_gif": true,
+    "chance": 0.25,
+    "mood_enabled": true,
+    "max_kb": 2048,
+    "commands_enabled": true
+  },
+  "proactive": {
+    "enabled": true,
+    "interval_minutes": 45,
+    "jitter": 0.25,
+    "quiet_hours": ["23:30", "08:00"],
+    "target": "文件传输助手",
+    "user_id": "default",
+    "strip_tags": true,
+    "max_chars": 800,
+    "run_on_start": false,
+    "min_gap_minutes": 20
+  },
+  "control": {
+    "enabled": true,
+    "host": "127.0.0.1",
+    "port": 8765,
+    "token": ""
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "logs/bridge.log",
+    "max_bytes": 5242880,
+    "backup_count": 3,
+    "console": true
+  }
+}

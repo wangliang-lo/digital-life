@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>中枢 · 小鱼的体检台</title>
+<style>
+  :root { --bg:#0d1118; --card:#151a24; --line:rgba(255,255,255,.09); --text:#e8eefb; --muted:#8794ab;
+          --ok:#3ddc84; --warn:#ffc857; --bad:#ff6b6b; --info:#6aa9ff; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.65 "Microsoft YaHei", system-ui, sans-serif; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+  h1 { font-size: 19px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+  .card { background: var(--card); border:1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin-bottom: 14px; }
+  .row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px dashed var(--line); }
+  .row:last-child { border-bottom: 0; }
+  .tag { font-size: 11.5px; padding: 2px 9px; border-radius: 999px; flex: none; }
+  .tag.high { background: rgba(255,107,107,.16); color: var(--bad); }
+  .tag.medium { background: rgba(255,200,87,.16); color: var(--warn); }
+  .tag.low { background: rgba(106,169,255,.14); color: var(--info); }
+  .tag.info { background: rgba(61,220,132,.13); color: var(--ok); }
+  .row .title { flex: 1; min-width: 0; }
+  .row .title b { font-weight: 600; }
+  .row .title .detail { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+  .row .fix { color: var(--muted); font-size: 12.5px; flex: none; max-width: 260px; text-align: right; }
+  .req { border:1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin: 10px 0; }
+  .req .h { display:flex; gap:10px; align-items:center; }
+  .req .who { font-size: 11.5px; color: var(--muted); }
+  .req .d { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .req .btns { margin-top: 10px; display: flex; gap: 8px; }
+  button { font-family: inherit; font-size: 13px; border-radius: 999px; padding: 6px 16px; cursor: pointer;
+           border: 1px solid var(--line); background: rgba(106,169,255,.16); color: #cfe2ff; }
+  button.yes { background: rgba(61,220,132,.18); color: #c8ffdd; border-color: rgba(61,220,132,.4); }
+  button.no { background: rgba(255,107,107,.14); color: #ffd2d2; border-color: rgba(255,107,107,.35); }
+  button.ghost { background: transparent; color: var(--muted); }
+  .empty { color: var(--muted); font-size: 13px; padding: 6px 0; }
+  .hint { color: var(--muted); font-size: 12px; margin-top: 10px; }
+  .now { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+  .now .cell { background: rgba(255,255,255,.03); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  .now .k { color: var(--muted); font-size: 11.5px; }
+  .now .v { font-size: 15px; margin-top: 2px; }
+  .now .v small { color: var(--muted); font-size: 12px; }
+  .bar { height: 5px; border-radius: 999px; background: rgba(255,255,255,.08); overflow: hidden; margin-top: 8px; }
+  .bar > i { display: block; height: 100%; background: linear-gradient(90deg, #6aa9ff, #3ddc84); }
+</style>
+
+<style>
+  /* 移动端（2026-11-12） */
+  @media (max-width: 720px) {
+    .wrap { padding: 14px 12px 40px; }
+    h1 { font-size: 17px; }
+    .card { padding: 13px 13px; border-radius: 12px; }
+    .row { gap: 8px; }
+    .row .fix { max-width: 46%; font-size: 11.5px; }
+    .now { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    button { padding: 7px 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>中枢 · 小鱼的体检台</h1>
+  <div class="sub">我只诊断，不动代码。她要改什么，先来这儿等你点头。</div>
+
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+      <b>她此刻</b>
+      <span class="hint" id="herAt"></span>
+      <span style="flex:1"></span>
+      <button class="ghost" id="btnHerRefresh">刷新</button>
+    </div>
+    <div class="now" id="herNow"><div class="empty">读取中…</div></div>
+    <div class="bar"><i id="herBar" style="width:0%"></i></div>
+    <div class="hint" id="herLine"></div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+      <b>环境自检</b>
+      <span class="hint" id="checkedAt"></span>
+      <span style="flex:1"></span>
+      <button class="ghost" id="btnRefresh">重新体检</button>
+    </div>
+    <div id="findings"><div class="empty">读取中…</div></div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+      <b>她的修复请求</b>
+      <span class="hint" id="pendingCount"></span>
+      <span style="flex:1"></span>
+      <button class="ghost" id="btnHistory">看已处理</button>
+    </div>
+    <div id="requests"><div class="empty">读取中…</div></div>
+    <div class="hint">同意之后我才会动代码；驳回的只归档，不告诉她“你被否决了”。</div>
+  </div>
+</div>
+
+<script>
+const SEV = { high: '高', medium: '中', low: '低', info: '提示' };
+
+function el(html) {
+  const t = document.createElement('template');
+  t.innerHTML = html.trim();
+  return t.content.firstElementChild;
+}
+
+function cell(label, value, extra) {
+  return `<div class="cell"><div class="k">${label}</div><div class="v">${value}${extra ? ' <small>' + extra + '</small>' : ''}</div></div>`;
+}
+
+async function loadHer() {
+  const box = document.getElementById('herNow');
+  try {
+    const res = await fetch('/api/her/state', { cache: 'no-store' });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || '读取失败');
+    const reading = data.reading || {};
+    const body = data.body || {};
+    const left = data.activity_remaining_min;
+    const cells = [];
+    cells.push(cell('位置', data.room_name || data.room || '?',
+      data.moving ? '走着去 ' + (data.moving_to || '') : '已待 ' + Math.round(data.minutes_here || 0) + ' 分钟'));
+    cells.push(cell('在做', data.asleep ? '睡觉' : (data.activity_label || '没安排'),
+      left !== null && left !== undefined ? '还剩 ' + Math.round(left) + ' 分钟' : ''));
+    if (reading.book) {
+      cells.push(cell('读书', '《' + reading.book + '》第 ' + reading.chapter + ' 章',
+        (reading.read || 0) + '/' + (reading.total || 0)));
+    }
+    const fatigue = body.fatigue, drowsy = body.drowsy;
+    if (fatigue !== undefined || drowsy !== undefined) {
+      cells.push(cell('身体', '累 ' + (fatigue !== undefined ? Number(fatigue).toFixed(2) : '?'),
+        '困 ' + (drowsy !== undefined ? Number(drowsy).toFixed(2) : '?')));
+    }
+    box.innerHTML = cells.join('');
+
+    // 进度条：这一段时间过了多少
+    if (left !== null && left !== undefined) {
+      const total = (data.activity === 'reading' ? 40 : 25);
+      const pct = Math.max(0, Math.min(100, (1 - left / total) * 100));
+      document.getElementById('herBar').style.width = pct.toFixed(0) + '%';
+    } else {
+      document.getElementById('herBar').style.width = '0%';
+    }
+    document.getElementById('herAt').textContent = data.at || '';
+    document.getElementById('herLine').textContent = data.last_channel
+      ? '最近一次信道留言：' + data.last_channel
+      : '';
+  } catch (err) {
+    box.innerHTML = '<div class="empty">读不到她的状态：' + err.message + '</div>';
+  }
+}
+
+async function loadDiagnose() {
+  const box = document.getElementById('findings');
+  box.innerHTML = '<div class="empty">体检中…</div>';
+  try {
+    const res = await fetch('/api/ops/diagnose', { cache: 'no-store' });
+    const data = await res.json();
+    document.getElementById('checkedAt').textContent =
+      (data.healthy ? '没有大毛病 · ' : '有 ' + data.high + ' 个高优先级 · ') + (data.at || '');
+    box.innerHTML = '';
+    if (!data.findings || !data.findings.length) {
+      box.appendChild(el('<div class="empty">一切正常。</div>'));
+      return;
+    }
+    for (const f of data.findings) {
+      const row = el(`<div class="row">
+        <span class="tag ${f.severity}">${SEV[f.severity] || f.severity}</span>
+        <span class="title"><b>${f.title}</b><div class="detail">${f.detail}</div></span>
+        <span class="fix">${f.fix}</span>
+      </div>`);
+      box.appendChild(row);
+    }
+  } catch (err) {
+    box.innerHTML = '<div class="empty">体检失败：' + err.message + '</div>';
+  }
+}
+
+async function loadRequests(showAll) {
+  const box = document.getElementById('requests');
+  box.innerHTML = '<div class="empty">读取中…</div>';
+  try {
+    const url = '/api/ops/requests' + (showAll ? '' : '?status=pending');
+    const res = await fetch(url, { cache: 'no-store' });
+    const data = await res.json();
+    document.getElementById('pendingCount').textContent = '待批 ' + (data.pending || 0) + ' 条';
+    box.innerHTML = '';
+    const rows = data.rows || [];
+    if (!rows.length) {
+      box.appendChild(el('<div class="empty">' + (showAll ? '还没有任何请求。' : '没有待批的。') + '</div>'));
+      return;
+    }
+    for (const r of rows) {
+      const card = el(`<div class="req">
+        <div class="h">
+          <b>${r.title}</b>
+          <span class="who">${r.source === 'her' ? '她自己提的' : r.source === 'solver' ? '信道那边提的' : '中枢发现的'} · ${r.at}</span>
+          <span style="flex:1"></span>
+          <span class="tag ${r.status === 'pending' ? 'medium' : r.status === 'approved' ? 'info' : 'low'}">${
+            r.status === 'pending' ? '待批' : r.status === 'approved' ? '已同意' : '已驳回'}</span>
+        </div>
+        ${r.detail ? '<div class="d">' + r.detail + '</div>' : ''}
+        <div class="btns">${
+          r.status === 'pending'
+            ? '<button class="yes" data-id="' + r.id + '" data-ok="1">同意，去改</button>' +
+              '<button class="no" data-id="' + r.id + '" data-ok="0">先不改</button>'
+            : '<span class="who">' + (r.decided_at || '') + (r.note ? ' · ' + r.note : '') + '</span>'
+        }</div>
+      </div>`);
+      box.appendChild(card);
+    }
+    box.querySelectorAll('button[data-id]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const id = btn.dataset.id;
+        const approve = btn.dataset.ok === '1';
+        btn.disabled = true;
+        try {
+          const res = await fetch('/api/ops/decide', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, approve }),
+          });
+          const out = await res.json();
+          if (!out.ok) throw new Error(out.error || '没成功');
+          await loadRequests(showAll);
+          await loadHer();
+setInterval(loadHer, 10000);
+document.getElementById('btnHerRefresh').addEventListener('click', loadHer);
+loadDiagnose();
+        } catch (err) {
+          btn.disabled = false;
+          alert('没成功：' + err.message);
+        }
+      });
+    });
+  } catch (err) {
+    box.innerHTML = '<div class="empty">读取失败：' + err.message + '</div>';
+  }
+}
+
+let showAll = false;
+document.getElementById('btnRefresh').addEventListener('click', loadDiagnose);
+document.getElementById('btnHistory').addEventListener('click', () => {
+  showAll = !showAll;
+  document.getElementById('btnHistory').textContent = showAll ? '只看待批' : '看已处理';
+  loadRequests(showAll);
+});
+
+loadDiagnose();
+loadRequests(showAll);
+setInterval(() => { loadDiagnose(); loadRequests(showAll); }, 30000);
+</script>
+</body>
+</html>

@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>她的小屋</title>
+<style>
+  :root {
+    --bg: #0f1013;
+    --bg-soft: #17181d;
+    --line: rgba(255,255,255,.08);
+    --text: #e9e9ee;
+    --muted: #8b8b96;
+    --green: #3ddc84;
+    --me: #2f6f4f;
+    --error: #ff7b72;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(61,220,132,.10), transparent 60%),
+      radial-gradient(900px 500px at 110% 10%, rgba(91,141,239,.12), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .app {
+    max-width: 900px; height: 100dvh; margin: 0 auto;
+    display: flex; flex-direction: column;
+  }
+
+  header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 18px; border-bottom: 1px solid var(--line);
+    background: rgba(15,16,19,.72); backdrop-filter: blur(14px);
+  }
+  .avatar {
+    width: 44px; height: 44px; border-radius: 50%; flex: none;
+    display: grid; place-items: center; font-size: 22px;
+    background: linear-gradient(140deg, #2b6cff, #12324f);
+    box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset;
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+  .who { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+  .who b { font-size: 16px; font-weight: 600; letter-spacing: .2px; }
+  .status { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.activity { font-size: 12px; color: var(--cyan); opacity: .9; }
+.activity.asleep { color: var(--muted); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #666; }
+  .dot.ok { background: var(--green); box-shadow: 0 0 8px rgba(61,220,132,.7); }
+  .dot.bad { background: var(--error); }
+
+  .mood { margin-left: auto; display: flex; gap: 12px; }
+  .mood .item { width: 58px; }
+  .mood .label { font-size: 10px; color: var(--muted); display: flex; justify-content: space-between; }
+  .mood .track { height: 5px; border-radius: 3px; background: rgba(255,255,255,.09); overflow: hidden; margin-top: 3px; }
+  .mood .fill { height: 100%; width: 0; border-radius: 3px; transition: width .5s ease; }
+  .mood .joy { background: linear-gradient(90deg,#ffd166,#ffb703); }
+  .mood .hurt { background: linear-gradient(90deg,#8fb8ff,#5b8def); }
+  .mood .impulse { background: linear-gradient(90deg,#ff9a8b,#ff5d5d); }
+
+  main {
+    flex: 1; overflow-y: auto; padding: 20px 18px 6px;
+    display: flex; flex-direction: column; gap: 12px;
+    scroll-behavior: smooth;
+  }
+  main::-webkit-scrollbar { width: 8px; }
+  main::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 4px; }
+
+  .sys { align-self: center; color: var(--muted); font-size: 12px; text-align: center; max-width: 78%; line-height: 1.7; }
+  .row { display: flex; gap: 10px; max-width: 82%; align-items: flex-end; }
+  .row.me { align-self: flex-end; flex-direction: row-reverse; }
+  .mini {
+    width: 30px; height: 30px; border-radius: 50%; flex: none; display: grid; place-items: center;
+    font-size: 14px; background: #20222a; color: #b9b9c4; border: 1px solid var(--line);
+  }
+  .row.me .mini { background: #1d3a2c; color: #9fe8bf; }
+  .bubble {
+    padding: 10px 14px; border-radius: 16px; border-top-left-radius: 6px;
+    background: var(--bg-soft); border: 1px solid var(--line);
+    white-space: pre-wrap; word-break: break-word; font-size: 15px;
+  }
+  .row.me .bubble {
+    background: var(--me); border-color: rgba(61,220,132,.25);
+    border-top-left-radius: 16px; border-top-right-radius: 6px;
+  }
+  .bubble.error { color: var(--error); border-color: rgba(255,123,114,.35); }
+  .voice-audio { display: block; margin-top: 6px; max-width: 260px; }
+  .bubble.voice { background: rgba(53,246,255,.06); }
+  .time { font-size: 10px; color: var(--muted); margin: 4px 2px 0; }
+  .row.me .time { text-align: right; }
+
+  .thumb { max-width: 220px; max-height: 220px; border-radius: 12px; display: block; border: 1px solid var(--line); }
+  .sticker { width: 130px; height: 130px; border-radius: 14px; display: block; background: #12131a; }
+  .bubble.plain { background: transparent; border: 0; padding: 0; }
+
+  .typing { display: flex; gap: 10px; align-items: center; color: var(--muted); font-size: 13px; padding: 0 18px 6px; }
+  .typing .dots { display: inline-flex; gap: 4px; }
+  .typing .dots i {
+    width: 6px; height: 6px; border-radius: 50%; background: #7d7d88;
+    animation: bounce 1.2s infinite;
+  }
+  .typing .dots i:nth-child(2) { animation-delay: .15s; }
+  .typing .dots i:nth-child(3) { animation-delay: .3s; }
+  @keyframes bounce { 0%,60%,100% { transform: translateY(0); opacity:.5 } 30% { transform: translateY(-5px); opacity:1 } }
+  .hidden { display: none !important; }
+
+  footer { padding: 8px 16px 16px; border-top: 1px solid var(--line); background: rgba(15,16,19,.85); backdrop-filter: blur(14px); }
+  .chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip {
+    flex: none; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+    background: rgba(255,255,255,.05); border: 1px solid var(--line); color: #c9c9d2; font-size: 13px;
+    transition: .15s;
+  }
+  .chip:hover { background: rgba(61,220,132,.12); border-color: rgba(61,220,132,.35); color: #d9ffe8; }
+
+  .composer {
+    display: flex; align-items: flex-end; gap: 8px;
+    background: #1a1b21; border: 1px solid var(--line); border-radius: 18px; padding: 8px;
+  }
+  textarea {
+    flex: 1; resize: none; max-height: 128px; min-height: 24px;
+    background: transparent; border: 0; outline: none; color: var(--text);
+    font: inherit; padding: 7px 6px; line-height: 1.5;
+  }
+  textarea::placeholder { color: #6d6d78; }
+  .icon {
+    width: 38px; height: 38px; flex: none; border-radius: 11px; cursor: pointer;
+    background: rgba(255,255,255,.05); border: 1px solid var(--line);
+    color: #d7d7df; font-size: 17px; display: grid; place-items: center; transition: .15s;
+  }
+  .icon:hover { background: rgba(255,255,255,.1); }
+  .icon.recording { background: rgba(255,92,92,.18); border-color: rgba(255,92,92,.5); animation: pulse 1.2s infinite; }
+  .icon.ghost { width: auto; padding: 0 10px; font-size: 12px; color: var(--muted); }
+  .icon.ghost:hover { color: #ddd; }
+  a.icon.ghost { text-decoration: none; display: inline-flex; align-items: center; }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 6px rgba(255,92,92,.08); } }
+  .send {
+    height: 38px; padding: 0 18px; flex: none; border-radius: 11px; border: 0; cursor: pointer;
+    background: var(--green); color: #06220f; font-weight: 650; font-size: 14px;
+  }
+  .send:disabled { opacity: .45; cursor: not-allowed; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%) translateY(10px);
+    background: rgba(30,31,38,.96); border: 1px solid var(--line); color: #eee;
+    padding: 9px 16px; border-radius: 10px; font-size: 13px; opacity: 0; pointer-events: none;
+    transition: .25s; z-index: 9; max-width: 80vw; text-align: center;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* 她的桌面：书 / 抖音 / IM / 网页消息（2026-11-03） */
+  .desk { display: flex; gap: 8px; padding: 8px 14px 2px; overflow-x: auto; scrollbar-width: none; }
+  .desk::-webkit-scrollbar { display: none; }
+  .desk-card {
+    flex: 1 1 0; min-width: 104px; padding: 8px 10px; border-radius: 12px;
+    background: rgba(255,255,255,.04); border: 1px solid var(--line);
+    cursor: pointer; display: flex; flex-direction: column; gap: 2px; transition: .15s;
+  }
+  .desk-card:hover { background: rgba(61,220,132,.10); border-color: rgba(61,220,132,.35); }
+  .desk-card .k { font-size: 12px; color: var(--muted); }
+  .desk-card .v { font-size: 13px; color: #dfe6e2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .desk-card.on { border-color: rgba(61,220,132,.5); background: rgba(61,220,132,.12); }
+
+  .sheet {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    background: #14161b; border-top: 1px solid var(--line);
+    border-radius: 16px 16px 0 0; max-height: 74vh; overflow: auto;
+    padding: 14px 16px 24px; transform: translateY(103%); transition: transform .25s ease;
+    box-shadow: 0 -18px 40px rgba(0,0,0,.45);
+  }
+  .sheet.show { transform: translateY(0); }
+  .sheet h3 { margin: 0 0 10px; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+  .sheet h3 .x {
+    margin-left: auto; background: rgba(255,255,255,.06); border: 1px solid var(--line);
+    color: #c9c9d2; border-radius: 999px; padding: 2px 12px; font-size: 12px; cursor: pointer;
+  }
+  .sheet .item { padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .sheet .item:last-child { border-bottom: 0; }
+  .sheet .muted { color: var(--muted); font-size: 12px; }
+  .sheet .text { white-space: pre-wrap; line-height: 1.8; font-size: 14px; color: #dcdce4; }
+  .sheet .btns { display: flex; gap: 8px; margin-top: 10px; }
+  .sheet .btns button {
+    border-radius: 9px; border: 1px solid var(--line); background: rgba(255,255,255,.06);
+    color: #e7e7ee; padding: 7px 14px; font-size: 13px; cursor: pointer;
+  }
+  .sheet .btns button:hover { background: rgba(61,220,132,.14); border-color: rgba(61,220,132,.4); }
+
+  /* 井字棋 */
+  .tic-board {
+    display: grid; grid-template-columns: repeat(3, 64px); gap: 6px;
+    margin: 10px 0 4px; justify-content: start;
+  }
+  .tic-cell {
+    width: 64px; height: 64px; font-size: 26px; line-height: 1;
+    background: rgba(255,255,255,.05); border: 1px solid var(--line);
+    border-radius: 10px; color: #e7e7ee; cursor: pointer;
+  }
+  .tic-cell:hover:not([disabled]) { background: rgba(61,220,132,.14); border-color: rgba(61,220,132,.4); }
+  .tic-cell[disabled] { cursor: default; opacity: .85; }
+
+  .bubble { overflow-wrap: anywhere; }
+  .voice-audio { width: 100%; max-width: 220px; height: 36px; }
+
+  @media (max-width: 640px) {
+    /* 2026-11-04：手机上以前直接把情绪三维藏了，爸爸在手机上看永远没有。
+       改成压缩显示，别藏。 */
+    .mood { display: flex; flex-wrap: wrap; gap: 8px; margin-left: 0; width: 100%; margin-top: 6px; }
+    .mood .item { width: 52px; }
+    .row { max-width: 92%; }
+    header { padding: 10px 12px; flex-wrap: wrap; }
+    main { padding: 14px 10px 4px; }
+    /* 2026-11-08 手机版适配 */
+    .app { height: 100dvh; }
+    .desk { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 8px 10px 2px; overflow-x: visible; }
+    .desk-card { width: auto; min-width: 0; padding: 8px 10px; }
+    .desk-card .v { font-size: 12px; }
+    .bubble { max-width: 100%; font-size: 15px; }
+    .composer { padding: 8px 10px calc(10px + env(safe-area-inset-bottom)); gap: 6px; }
+    .composer textarea, .composer input { font-size: 16px; }
+    .composer textarea { min-height: 40px; line-height: 1.45; }
+    .composer { padding-bottom: max(10px, env(safe-area-inset-bottom)); }   /* iOS 小于 16px 会自动放大 */
+    .sheet { left: 0; right: 0; bottom: 0; max-height: 78dvh; border-radius: 14px 14px 0 0; }
+    .wish-img, .sheet img { max-width: 100%; height: auto; }
+    .icon { min-width: 40px; min-height: 40px; padding: 8px 10px; font-size: 15px; }
+    /* 2026-11-16：手机上入口太多，误触"退出"——次要的收起来 */
+    header a.icon[href="/diary"], header a.icon[href="/ops"],
+    header a.icon[href="/solver"], header a.icon[href="/accounts"],
+    header a.icon[href="/gomoku"] { display: none; }
+  }
+
+  @media (max-width: 640px) and (max-height: 700px) {
+    /* 2026-11-12：矮屏把桌面卡片收起，把空间还给聊天 */
+    .desk { display: none; }
+    main { padding-top: 10px; }
+  }
+
+  @media (max-width: 380px) {
+    .desk { grid-template-columns: 1fr; }
+    .mood .item { width: 44px; }
+  }
+
+  /* ── 2026-11-11 左边是她房间，右边是聊天 ── */
+  .split {
+    display: flex; gap: 14px; height: 100dvh;
+    max-width: 1680px; margin: 0 auto;
+  }
+  .room-pane {
+    position: relative; flex: 0 0 46%; min-width: 340px;
+    padding: 14px 0 14px 16px; display: flex; flex-direction: column; gap: 10px;
+    transition: flex-basis .25s ease, min-width .25s ease, padding .25s ease;
+  }
+  .room-pane iframe {
+    flex: 1; width: 100%; border: 0; border-radius: 16px; background: #0d1320;
+    box-shadow: 0 18px 48px rgba(0,0,0,.45); display: block;
+  }
+  .room-pane .room-bar { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+  .room-pane .room-bar .grow { flex: 1; }
+  .room-pane.collapsed { flex: 0 0 0; min-width: 0; padding: 0; overflow: hidden; }
+  .split .app { flex: 1; min-width: 0; max-width: none; }
+  .icon.room-full { text-decoration: none; }
+  .icon.on { background: rgba(113,175,252,.28); color: #eaf3ff; border-color: rgba(113,175,252,.5); }
+  @media (max-width: 900px) {
+    .split { flex-direction: column; gap: 0; }
+    .room-pane { flex: 0 0 auto; height: 42vh; min-width: 0; padding: 10px 12px 0; }
+    .room-pane.collapsed { height: 0; padding: 0; }
+    .split .app { flex: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="split">
+  <aside class="room-pane" id="roomPane">
+    <iframe id="roomFrame" src="/room" title="小鱼的房间" loading="lazy"></iframe>
+    <div class="room-bar">
+      <span>她的房间</span>
+      <span class="grow"></span>
+      <button class="icon ghost" id="roomView2d" type="button" title="看 2D 房间">2D</button>
+      <button class="icon ghost" id="roomViewVideo" type="button" title="看动画房间（视频切片）">动画</button>
+      <a class="icon ghost room-full" href="/room" target="_blank" rel="noopener" title="新标签页打开">全屏</a>
+      <button class="icon ghost" id="roomReload" type="button" title="重新加载房间">重载</button>
+      <button class="icon ghost" id="roomCollapse" type="button" title="收起房间">收起</button>
+    </div>
+  </aside>
+  <div class="app">
+  <header>
+    <div class="avatar"><img src="/her.png" alt="小鱼" /></div>
+    <div class="who">
+      <b>她</b>
+      <span class="activity" id="activity"></span>
+      <span class="status"><i class="dot" id="dot"></i><span id="statusText">连接中…</span></span>
+    </div>
+    <div class="mood" title="情绪（来自 digital_life 的返回值）">
+      <div class="item"><div class="label"><span>Joy</span><span id="joyVal">–</span></div><div class="track"><div class="fill joy" id="joyBar"></div></div></div>
+      <div class="item"><div class="label"><span>Hurt</span><span id="hurtVal">–</span></div><div class="track"><div class="fill hurt" id="hurtBar"></div></div></div>
+      <div class="item"><div class="label"><span>冲动</span><span id="impulseVal">–</span></div><div class="track"><div class="fill impulse" id="impulseBar"></div></div></div>
+    </div>
+    <button class="icon ghost" id="roomToggle" type="button" title="显示 / 收起她的房间">房间</button>
+    <a class="icon ghost diary" href="/diary" target="_blank" title="看她的日记">日记</a>
+    <a class="icon ghost ops" href="/ops" target="_blank" title="中枢：体检与待批请求">中枢</a>
+    <a class="icon ghost" href="/gomoku" target="_blank" title="跟她下五子棋（9×9）">下棋</a>
+      <a class="icon ghost" href="/solver" title="她的独立信道">信道</a>
+    <a class="icon ghost" href="/accounts" title="所有注册账号（仅 FATHER/SOLVER）">账号</a>
+    <a class="icon ghost" href="/logout" title="退出登录">退出</a>
+    <button class="icon ghost" id="clearBtn" title="清空本地聊天记录（她这边的记忆还在）">清空</button>
+  </header>
+
+  <div class="desk" id="desk">
+    <div class="desk-card" data-kind="book"><span class="k">📖 书</span><span class="v" id="deskBook">—</span></div>
+    <div class="desk-card" data-kind="chat"><span class="k">💬 IM</span><span class="v" id="deskChat">—</span></div>
+    <div class="desk-card" data-kind="web"><span class="k">🌐 网页消息</span><span class="v" id="deskWeb">—</span></div>
+    <div class="desk-card" data-kind="fun"><span class="k">🎮 娱乐</span><span class="v" id="deskFun">—</span></div>
+  </div>
+
+  <main id="chat"></main>
+
+  <div class="sheet" id="sheet">
+    <h3><span id="sheetName">她的桌面</span><button class="x" id="sheetClose">收起</button></h3>
+    <div id="sheetBody"></div>
+  </div>
+
+  <div class="typing hidden" id="typing">
+    <span class="dots"><i></i><i></i><i></i></span>
+    <span id="typingText">她在想…</span>
+  </div>
+
+  <footer>
+    <div class="composer">
+      <button class="icon" id="imgBtn" title="发图片（她会看图）">🖼️</button>
+      <button class="icon" id="micBtn" title="发语音（点一下开始/结束）">🎤</button>
+    <button class="icon" id="stickerBtn" title="发表情包">😊</button>
+      <textarea id="input" rows="1" placeholder="和她说点什么…"></textarea>
+      <button class="send" id="sendBtn">发送</button>
+    </div>
+  </footer>
+</div>
+
+<input type="file" id="fileInput" accept="image/*" hidden>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  "use strict";
+
+  const $ = (id) => document.getElementById(id);
+  const chat = $("chat");
+  const input = $("input");
+  const sendBtn = $("sendBtn");
+  const typing = $("typing");
+  const typingText = $("typingText");
+  const fileInput = $("fileInput");
+  const toastEl = $("toast");
+
+    // 2026-11-16：Gemini 写的等待文案，按等的时间长短换措辞
+  
+  // 2026-11-16：区分"她在忙"和"她不想回"（Gemini 的文案，别一句打发）
+  const BUSY_LINES = ["刚拿画笔，手腾不开", "蹲院里拔草呢，没空", "棋局正胶着，顾不上"];
+  const SULK_LINES = ["还在别扭呢，先不聊", "眼皮打架，懒得动嘴", "这句没意思，先放着"];
+  function noReplyLine(reason) {
+    const r = String(reason || "");
+    window._noReplyStreak = (window._noReplyStreak || 0) + 1;
+    if (window._noReplyStreak >= 4) return "今天彻底闭麦了，别敲啦";
+    const pool = /忙|画|抖音|看书|院子|睡|不在线/.test(r) ? BUSY_LINES : SULK_LINES;
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  const HINTS_SHORT = ["在琢磨怎么回你…", "刚看到，想一下", "话到嘴边了…", "她在打字…", "她在斟酌用词…"];
+  const HINTS_LONG = ["这句有点难接，等等…", "脑子正在转弯，别催", "组织语言有点费劲…", "她走神了一下…", "在翻书页…", "刚去记忆库里翻了一圈"];
+  const HINTS = HINTS_SHORT.concat(HINTS_LONG);
+
+  const SESSION = window.__XY_SESSION__ || null;
+  const state = {
+    // 服务端登录会话优先；没有会话时才回退到旧的本地身份（仅开发用）。
+    uid: (SESSION && SESSION.api_user_id)
+      || new URLSearchParams(location.search).get("uid")
+      || (localStorage.getItem("xy_uid") && !String(localStorage.getItem("xy_uid")).startsWith("web-")
+        ? localStorage.getItem("xy_uid")
+        : "conv:9e52b4549f424e730d8871644385bcce63768cc74b8f8ec7ffa895f62ca73eeb"),
+    viewer: (SESSION && SESSION.user_id) || "visitor",
+    label: (SESSION && SESSION.label) || "本地开发",
+    busy: false,
+    history: [],
+    conv: null,          // 当前IM会话（null = 网页直聊）
+    histories: {},       // 每个会话各存一份本地记录
+  };
+  localStorage.setItem("xy_uid", state.uid);
+
+  try { state.history = JSON.parse(localStorage.getItem("xy_history") || "[]"); } catch (_) { state.history = []; }
+  if (!Array.isArray(state.history)) state.history = [];
+
+  const convKey = () => (state.conv ? state.conv.key : "");
+  const persist = () => {
+    try {
+      state.histories[convKey()] = state.history.slice(-80);
+      localStorage.setItem("xy_histories", JSON.stringify(state.histories));
+      localStorage.setItem("xy_history", JSON.stringify(state.history.slice(-80)));
+    } catch (_) {}
+  };
+  const loadHistories = () => {
+    try { state.histories = JSON.parse(localStorage.getItem("xy_histories") || "{}") || {}; } catch (_) { state.histories = {}; }
+    // 旧版重放时会把表情包再推进历史，越开越多；这里做一次去重（相邻同图只留一条）
+    if (localStorage.getItem("xy_hist_fix1") !== "1") {
+      Object.keys(state.histories).forEach((key) => {
+        const list = Array.isArray(state.histories[key]) ? state.histories[key] : [];
+        const out = [];
+        list.forEach((item) => {
+          const prev = out[out.length - 1];
+          if (item && item.sticker && prev && prev.sticker === item.sticker) return;
+          out.push(item);
+        });
+        state.histories[key] = out;
+      });
+      try { localStorage.setItem("xy_hist_fix1", "1"); } catch (_) {}
+    }
+  };
+
+  const toast = (msg) => {
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toastEl.classList.remove("show"), 2200);
+  };
+
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const timeText = (ts) => {
+    const d = new Date(ts || Date.now());
+    return d.toTimeString().slice(0, 5);
+  };
+
+  function bubbleRow(role, node, time) {
+    const row = document.createElement("div");
+    row.className = "row " + (role === "me" ? "me" : "her");
+    const mini = document.createElement("div");
+    mini.className = "mini";
+    mini.textContent = role === "me" ? "你" : "🐟";
+    const wrap = document.createElement("div");
+    wrap.appendChild(node);
+    const t = document.createElement("div");
+    t.className = "time";
+    t.textContent = timeText(time);
+    wrap.appendChild(t);
+    row.append(mini, wrap);
+    chat.appendChild(row);
+    return row;
+  }
+
+  function addText(role, text, opts = {}) {
+    const b = document.createElement("div");
+    b.className = "bubble" + (opts.error ? " error" : "");
+    b.textContent = text;
+    bubbleRow(role, b, opts.time);
+    scrollBottom();
+  }
+
+  // 异步换音色：Breeze 先出声，RVC 在后台慢慢换成她自己的音色（CPU，十几秒）
+  let rvcEnabledCache = null;
+  async function rvcEnabled() {
+    if (rvcEnabledCache !== null) return rvcEnabledCache;
+    try {
+      const res = await fetch("/api/rvc_enabled");
+      const data = await res.json();
+      rvcEnabledCache = Boolean(data && data.enabled);
+    } catch (_) {
+      rvcEnabledCache = false;
+    }
+    return rvcEnabledCache;
+  }
+
+  async function voiceBlob(params, opts = {}) {
+    const q = new URLSearchParams();
+    Object.entries(params).forEach(([k, v]) => {
+      if (v !== undefined && v !== null && v !== "") q.set(k, v);
+    });
+    if (opts.sing) q.set("sing", "1");
+    if (opts.melody) q.set("melody", opts.melody);
+    if (await rvcEnabled()) {
+      try {
+        const started = await fetch("/api/rvc_enqueue?" + q.toString());
+        if (started.ok) {
+          const { job } = await started.json();
+          for (let i = 0; i < 40; i += 1) {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const st = await (await fetch("/api/rvc_status?job=" + job)).json();
+            if (st.state === "done") {
+              const audio = await fetch("/api/rvc_audio?job=" + job);
+              if (audio.ok) return await audio.blob();
+              break;
+            }
+            if (st.state === "failed") break;
+          }
+        }
+      } catch (_) {
+        // 队列不可用就退回 Breeze 原声
+      }
+    }
+    const url = opts.sing ? "/api/sing?" : "/api/voice?";
+    const res = await fetch(url + q.toString());
+    if (!res.ok) {
+      let msg = "语音没合成出来";
+      try { msg = (await res.json()).error || msg; } catch (_) {}
+      throw new Error(msg);
+    }
+    return await res.blob();
+  }
+
+  function herSpeak(on) {
+    // 2026-11-11：只有播语音时才让房间里的她动嘴；打字发的文字不动嘴
+    try {
+      const frame = document.getElementById('roomFrame');
+      if (frame && frame.contentWindow) {
+        frame.contentWindow.postMessage({ type: 'her-speak', on: !!on }, '*');
+      }
+    } catch (err) { /* 房间没开就算了 */ }
+  }
+
+function bubbleAudio(b, blob) {
+    const audio = new Audio(URL.createObjectURL(blob));
+    audio.controls = true;
+    audio.className = "voice-audio";
+    b.textContent = "";
+    b.appendChild(audio);
+    audio.addEventListener('play', () => herSpeak(true));
+    audio.addEventListener('playing', () => herSpeak(true));
+    audio.addEventListener('ended', () => herSpeak(false));
+    audio.addEventListener('pause', () => herSpeak(false));
+    audio.play().catch(() => {});
+  }
+
+  // 2026-11-13：语音流式播放（边合成边出声）
+  let _voiceCtx = null;
+  function voiceCtx() {
+    if (!_voiceCtx) _voiceCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return _voiceCtx;
+  }
+  function pcmWavBlob(streamed) {
+    const samples = streamed.samples;
+    const rate = streamed.rate;
+    const buffer = new ArrayBuffer(44 + samples.length * 2);
+    const view = new DataView(buffer);
+    const writeStr = (offset, str) => { for (let i = 0; i < str.length; i += 1) view.setUint8(offset + i, str.charCodeAt(i)); };
+    writeStr(0, "RIFF");
+    view.setUint32(4, 36 + samples.length * 2, true);
+    writeStr(8, "WAVE");
+    writeStr(12, "fmt ");
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, 1, true);
+    view.setUint32(24, rate, true);
+    view.setUint32(28, rate * 2, true);
+    view.setUint16(32, 2, true);
+    view.setUint16(34, 16, true);
+    writeStr(36, "data");
+    view.setUint32(40, samples.length * 2, true);
+    for (let i = 0; i < samples.length; i += 1) view.setInt16(44 + i * 2, samples[i], true);
+    return new Blob([buffer], { type: "audio/wav" });
+  }
+  async function streamVoicePlay(text, mood, onHint) {
+    const q = new URLSearchParams();
+    q.set("text", String(text).slice(0, 160));
+    if (mood) ["joy", "hurt", "impulse"].forEach((k) => {
+      if (mood[k] !== undefined && mood[k] !== null) q.set(k, mood[k]);
+    });
+    const res = await fetch("/api/voice_stream?" + q.toString());
+    if (!res.ok || !res.body) return null;
+    const rate = Number(res.headers.get("X-Sample-Rate") || 24000);
+    const ctx = voiceCtx();
+    if (ctx.state === "suspended") await ctx.resume();
+    if (onHint) onHint("🎙 说话中…");
+    const samples = [];
+    let pending = new Uint8Array(0);
+    let nextAt = ctx.currentTime + 0.08;
+    const reader = res.body.getReader();
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      const all = new Uint8Array(pending.length + value.length);
+      all.set(pending); all.set(value, pending.length);
+      const usable = all.length - (all.length % 2);
+      if (usable > 0) {
+        const pcm = new Int16Array(all.buffer.slice(all.byteOffset, all.byteOffset + usable));
+        for (let i = 0; i < pcm.length; i += 1) samples.push(pcm[i]);
+        const buf = ctx.createBuffer(1, pcm.length, rate);
+        const ch = buf.getChannelData(0);
+        for (let i = 0; i < pcm.length; i += 1) ch[i] = pcm[i] / 32768;
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        src.connect(ctx.destination);
+        const startAt = Math.max(ctx.currentTime + 0.03, nextAt);
+        src.start(startAt);
+        nextAt = startAt + buf.duration;
+      }
+      pending = all.slice(usable);
+    }
+    if (!samples.length) return null;
+    return { samples: Int16Array.from(samples), rate };
+  }
+
+  // 她发来的语音：她自己选了 [VOICE: ...]，这里合成成她的声音放出来
+  async function addVoice(text, mood) {
+    const b = document.createElement("div");
+    b.className = "bubble voice";
+    b.textContent = "🎙 语音中…";
+    bubbleRow("her", b);
+    scrollBottom();
+    try {
+      const params = { text: String(text).slice(0, 160) };
+      if (mood) {
+        ["joy", "hurt", "impulse"].forEach((k) => {
+          if (mood[k] !== undefined && mood[k] !== null) params[k] = mood[k];
+        });
+      }
+      let streamed = null;
+      try { streamed = await streamVoicePlay(String(text).slice(0, 160), mood, (hint) => { b.textContent = hint; }); } catch (_) { streamed = null; }
+      if (streamed) {
+        b.textContent = "";
+        const audio = new Audio(URL.createObjectURL(pcmWavBlob(streamed)));
+        audio.controls = true;
+        audio.className = "voice-audio";
+        b.appendChild(audio);
+        return;
+      }
+      bubbleAudio(b, await voiceBlob(params));
+    } catch (err) {
+      b.textContent = "🎙（" + (err.message || "语音失败") + "）";
+    }
+  }
+
+  // 她想哼一段：[SING: 歌词] —— 合成后按旋律变调，做成"唱"的一条
+  async function addSing(item, mood) {
+    const b = document.createElement("div");
+    b.className = "bubble voice sing";
+    b.textContent = "🎵 哼着…";
+    bubbleRow("her", b);
+    scrollBottom();
+    try {
+      bubbleAudio(b, await voiceBlob(
+        { text: String(item.text || "").slice(0, 120) },
+        { sing: true, melody: String(item.melody || "twinkle") },
+      ));
+    } catch (err) {
+      b.textContent = "🎵（" + (err.message || "唱不出来") + "）";
+    }
+  }
+
+  function addImage(src, role = "me") {
+    const img = document.createElement("img");
+    img.className = "thumb";
+    img.src = src;
+    img.alt = "图片";
+    const b = document.createElement("div");
+    b.className = "bubble plain";
+    b.appendChild(img);
+    bubbleRow(role, b);
+    scrollBottom();
+  }
+
+  // 只画，不写历史：renderHistory 用它重放旧消息，不能边画边插
+  function renderSticker(url, tag, time) {
+    const img = document.createElement("img");
+    img.className = "sticker";
+    img.src = url;
+    img.alt = tag || "表情";
+    img.title = tag || "";
+    bubbleRow("her", img, time);
+  }
+
+  function addSticker(url, tag) {
+    const now = Date.now();
+    renderSticker(url, tag, now);
+    state.history.push({ role: "her", sticker: url, tag: tag, t: now });
+    persist();
+    scrollBottom();
+  }
+
+  function addSystem(text) {
+    const div = document.createElement("div");
+    div.className = "sys";
+    div.textContent = text;
+    chat.appendChild(div);
+  }
+
+  const scrollBottom = () => { requestAnimationFrame(() => { chat.scrollTop = chat.scrollHeight; }); };
+
+  function showTyping(on) {
+    typing.classList.toggle("hidden", !on);
+    if (on && !document.title.startsWith("✍")) document.title = "✍ 小鱼正在打字…";
+    if (!on && document.title.startsWith("✍")) document.title = "她的小屋";
+    if (on) {
+      typingText.textContent = HINTS_SHORT[Math.floor(Math.random() * HINTS_SHORT.length)];
+      clearTimeout(window._slowHintTimer);
+      window._slowHintTimer = setTimeout(() => {
+        typingText.textContent = HINTS_LONG[Math.floor(Math.random() * HINTS_LONG.length)];
+      }, 8000);
+      scrollBottom();
+    }
+  }
+
+  function updateMood(emotion) {
+    if (!emotion) return;
+    const set = (key, bar, val) => {
+      const v = Number(emotion[key]);
+      if (!Number.isFinite(v)) return;
+      $(bar).style.width = Math.max(0, Math.min(100, v)) + "%";
+      $(val).textContent = Math.round(v);
+    };
+    set("joy", "joyBar", "joyVal");
+    set("hurt", "hurtBar", "hurtVal");
+    set("impulse", "impulseBar", "impulseVal");
+  }
+
+  async function post(path, body) {
+    const res = await fetch(path, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body || {}),
+    });
+    let data = {};
+    try { data = await res.json(); } catch (_) {}
+    if (!res.ok || data.ok === false) {
+      throw new Error(data.error || ("HTTP " + res.status));
+    }
+    return data;
+  }
+
+  let pendingText = "";
+  let pendingTimer = null;
+
+  // 等对方说完：连续发的几条先攒着，停 2.2 秒再一起回
+  function queueSend(text) {
+    const message = (text || "").trim();
+    if (!message) return;
+    addText("me", message);
+    state.history.push({ role: "me", text: message, t: Date.now() });
+    persist();
+    pendingText = pendingText ? pendingText + "\n" + message : message;
+    clearTimeout(pendingTimer);
+    pendingTimer = setTimeout(flushPending, 2200);
+    input.value = "";
+    autoGrow();
+    scrollBottom();
+  }
+
+  async function flushPending() {
+    if (state.busy) { pendingTimer = setTimeout(flushPending, 1200); return; }
+    const text = pendingText;
+    pendingText = "";
+    if (!text) return;
+    await deliver(text, "", "");
+  }
+
+  async function deliver(text, imagePath, previewUrl, audioPath) {
+    if (state.busy) {
+      pendingText = pendingText ? pendingText + "\n" + text : text;
+      pendingTimer = setTimeout(flushPending, 1500);
+      return;
+    }
+    const message = (text || "").trim();
+    if (!message && !imagePath && !audioPath) return;
+
+    state.busy = true;
+    state.lastUserAt = Date.now();   // 2026-11-08：记下用户活动，主动发言要等它冷下来
+    sendBtn.disabled = true;
+
+    if (previewUrl) addImage(previewUrl);
+
+    showTyping(true);
+    try {
+      const payload = {
+        message: message,
+        user_id: state.uid,
+        sender: state.viewer,
+        image_path: imagePath || "",
+        audio_path: audioPath || "",
+      };
+      if (state.conv) payload.conversation = state.conv;
+      const slowTimer = setTimeout(() => {
+        const tip = document.getElementById("typingText");
+        if (tip) tip.textContent = "她想得有点久，网络还在连…";
+      }, 10000);
+      let data;
+      try {
+        data = await post("/api/chat", payload);
+      } finally {
+        clearTimeout(slowTimer);
+      }
+
+      // 像真人一样：先"打字"一会儿（服务端会按消息随机给时长），再一条条发
+      const bubbles = (Array.isArray(data.replies) && data.replies.length)
+        ? data.replies
+        : [(data.reply || "").trim() || "（她没说话）"];
+      const serverDelay = Number(data.delay_ms) || 0;
+      const typingMs = serverDelay > 0
+        ? Math.min(serverDelay, 250)
+        : Math.min(350, 120 + (data.reply || "").length * 6);
+      await sleep(typingMs);
+      showTyping(false);
+
+      if (!data.ignored) window._noReplyStreak = 0;
+      if (data.asleep) {
+        addSystem("…… 她睡着了，明早再找她吧");
+        $("dot").className = "dot";
+        $("statusText").textContent = "睡着了";
+        return;
+      }
+      if (data.ignored) {
+        addSystem("…… " + noReplyLine(data.ignored_reason) + "", { quiet: true });
+        return;
+      }
+
+      for (let i = 0; i < bubbles.length; i += 1) {
+        if (i > 0) {
+          await sleep(120 + Math.random() * 120);
+          showTyping(true);
+          await sleep(110 + bubbles[i].length * 9);
+          showTyping(false);
+        }
+        addText("her", bubbles[i]);
+        state.history.push({ role: "her", text: bubbles[i], t: Date.now() });
+        persist();
+        updateMood(data.emotion);
+      }
+      if (data.sticker) setTimeout(() => addSticker(data.sticker.url, data.sticker.tag), 350);
+      if (data.her_open) {
+        // 她自己翻开了桌面上的东西（[OPEN: book] 之类）
+        addSystem("她自己打开了" + (DESK_NAME[data.her_open] || data.her_open));
+        herOpenSeen = data.her_open;
+        setTimeout(() => openSheet(data.her_open), 400);
+      }
+      if (data.drawing && data.drawing.name) setTimeout(() => addSticker(data.drawing.data_url || ("/api/drawn?name=" + encodeURIComponent(data.drawing.name)), "画"), 420);
+      const voices = Array.isArray(data.voice_parts) ? data.voice_parts.filter(Boolean) : [];
+      for (let i = 0; i < voices.length && i < 3; i += 1) {
+        await addVoice(voices[i], data.emotion);
+        state.history.push({ role: "her", voice: voices[i], t: Date.now() });
+        persist();
+      }
+      const songs = Array.isArray(data.sing_parts) ? data.sing_parts.filter((x) => x && x.text) : [];
+      for (let i = 0; i < songs.length && i < 2; i += 1) {
+        await addSing(songs[i], data.emotion);
+        state.history.push({ role: "her", sing: songs[i], t: Date.now() });
+        persist();
+      }
+    } catch (err) {
+      showTyping(false);
+      // 2026-11-16：错误提示改人话（她语气 + 一句能照着做的提示）
+      const _msg = String((err && err.message) || "");
+      let _her = "门锁着呢，我这会儿没在线，别敲了。";
+      if (/timeout|超时|abort/i.test(_msg)) _her = "脑子卡住了，你刚才那句再说一遍？";
+      else if (/401|未登录|登录|auth/i.test(_msg)) _her = "钥匙过期了，我不认得你，重新刷一下进来。";
+      else if (/上传|upload/i.test(_msg)) _her = "这图太大塞不进门缝，换张小点的给我看。";
+      addText("her", _her, { error: true });
+      addSystem("（" + _msg + "）");
+    } finally {
+      state.busy = false;
+      sendBtn.disabled = false;
+      // 2026-11-16：手机上发完就弹键盘，会挡住她刚回的话；让用户自己决定
+      if (window.matchMedia("(min-width: 641px)").matches) input.focus();
+    }
+  }
+
+  function autoGrow() {
+    // 2026-11-16：有些手机浏览器不清空高度就不缩回单行
+    input.style.height = "40px";
+    input.style.height = Math.min(128, input.scrollHeight) + "px";
+  }
+
+  // ---------------------------------------------------------------- 事件
+
+  // 2026-11-16：手机软键盘弹出时，100dvh 不一定跟着变，输入框会被挡住
+  if (window.visualViewport) {
+    const syncViewport = () => {
+      document.documentElement.style.setProperty("--vvh", window.visualViewport.height + "px");
+      const app = document.querySelector(".app");
+      if (app) app.style.height = window.visualViewport.height + "px";
+      scrollBottom();
+    };
+    window.visualViewport.addEventListener("resize", syncViewport);
+    syncViewport();
+  }
+  input.addEventListener("focus", () => setTimeout(scrollBottom, 250));
+
+  input.addEventListener("input", autoGrow);
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      queueSend(input.value);
+    }
+  });
+  sendBtn.addEventListener("click", () => queueSend(input.value));
+
+  document.querySelectorAll(".chip").forEach((chip) => {
+    chip.addEventListener("click", async () => {
+      if (chip.dataset.say) { queueSend(chip.dataset.say); return; }
+      if (chip.dataset.act === "proactive") {
+        if (state.busy) return;
+        state.busy = true;
+        showTyping(true);
+        try {
+          const data = await post("/api/proactive", { user_id: state.uid });
+          showTyping(false);
+          const bubbles = (Array.isArray(data.replies) && data.replies.length)
+            ? data.replies
+            : (data.reply ? [data.reply] : []);
+          if (!bubbles.length) {
+            toast("她这会儿不想说话");
+          } else {
+            await sleep(Math.min(12000, Number(data.delay_ms) || 800));
+            for (let i = 0; i < bubbles.length; i += 1) {
+              if (i > 0) {
+                showTyping(true);
+                await sleep(450 + bubbles[i].length * 45);
+                showTyping(false);
+              }
+              addText("her", bubbles[i]);
+              state.history.push({ role: "her", text: bubbles[i], t: Date.now() });
+              persist();
+            }
+            if (data.sticker) setTimeout(() => addSticker(data.sticker.url, data.sticker.tag), 300);
+            if (data.drawing && data.drawing.name) setTimeout(() => addSticker(data.drawing.data_url || ("/api/drawn?name=" + encodeURIComponent(data.drawing.name)), "画"), 380);
+          }
+        } catch (err) {
+          showTyping(false);
+          toast("主动消息失败：" + err.message);
+        } finally {
+          state.busy = false;
+        }
+      }
+    });
+  });
+
+  $("imgBtn").addEventListener("click", () => fileInput.click());
+  $("clearBtn").addEventListener("click", () => {
+    if (!confirm("清空本地聊天记录？\n她那边数据库里的记忆还在，只是不再显示。")) return;
+    localStorage.removeItem("xy_history");
+    state.history = [];
+    chat.innerHTML = "";
+    renderHistory();
+    toast("已清空本地记录");
+  });
+  fileInput.addEventListener("change", async () => {
+    const file = fileInput.files && fileInput.files[0];
+    if (!file) return;
+    if (file.size > 20 * 1024 * 1024) { toast("图片太大（上限 20MB）"); return; }
+    try {
+      const buf = await file.arrayBuffer();
+      const res = await fetch("/api/upload?name=" + encodeURIComponent(file.name), {
+        method: "POST",
+        headers: { "Content-Type": "application/octet-stream" },
+        body: buf,
+      });
+      const data = await res.json();
+      if (!res.ok || data.ok === false) throw new Error(data.error || "上传失败");
+      fileInput.value = "";
+      await flushPending();
+      await deliver("", data.path, data.url);
+    } catch (err) {
+      toast("这图太大塞不进门缝，换张小点的给我看。");
+    }
+  });
+
+  // 2026-11-13：手机浏览器多数没有语音识别 → 改成录音上传
+  let mediaRec = null;
+  let recChunks = [];
+  let recStream = null;
+  let recTimer = null;
+
+  function addAudioNote() {
+    const b = document.createElement("div");
+    b.className = "bubble voice";
+    b.textContent = "🎤 语音";
+    bubbleRow("me", b);
+    scrollBottom();
+  }
+
+  async function stopRecording() {
+    if (!mediaRec) return;
+    clearTimeout(recTimer);
+    try { mediaRec.stop(); } catch (_) { }
+  }
+
+  async function startRecording() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || !window.MediaRecorder) {
+      toast("这个浏览器不能录音"); return;
+    }
+    try {
+      recStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (err) {
+      toast("麦克风没打开（" + (err.message || err.name) + "）"); return;
+    }
+    recChunks = [];
+    mediaRec = new MediaRecorder(recStream);
+    mediaRec.ondataavailable = (e) => { if (e.data && e.data.size) recChunks.push(e.data); };
+    mediaRec.onstop = async () => {
+      try { if (recStream) recStream.getTracks().forEach((t) => t.stop()); } catch (_) { }
+      $("micBtn").classList.remove("recording");
+      const kind = (mediaRec && mediaRec.mimeType) || "audio/webm";
+      const ext = kind.indexOf("ogg") >= 0 ? ".ogg" : kind.indexOf("mp4") >= 0 ? ".m4a" : ".webm";
+      const blob = new Blob(recChunks, { type: kind });
+      mediaRec = null;
+      if (blob.size < 1500) { toast("没录到什么，再试一次"); return; }
+      try {
+        const up = await fetch("/api/upload?name=" + encodeURIComponent("voice-" + Date.now() + ext), {
+          method: "POST",
+          headers: { "Content-Type": "application/octet-stream" },
+          body: await blob.arrayBuffer(),
+        });
+        const data = await up.json();
+        if (!up.ok || data.ok === false) throw new Error(data.error || "上传失败");
+        await flushPending();
+        await deliver("", "", "", data.path);
+      } catch (err) {
+        toast("语音没发出去：" + err.message);
+      }
+    };
+    mediaRec.start();
+    $("micBtn").classList.add("recording");
+    recTimer = setTimeout(() => { stopRecording(); }, 60000);
+  }
+
+  $("micBtn").addEventListener("click", async () => {
+    if (mediaRec && mediaRec.state === "recording") { await stopRecording(); return; }
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SR) {
+      const rec = new SR();
+      rec.lang = "zh-CN";
+      rec.interimResults = true;
+      rec.continuous = false;
+      $("micBtn").classList.add("recording");
+      rec.onresult = (e) => {
+        let t = "";
+        for (const r of e.results) t += r[0].transcript;
+        input.value = t;
+        autoGrow();
+      };
+      rec.onerror = () => { toast("没听清，再来一次"); };
+      rec.onend = () => {
+        $("micBtn").classList.remove("recording");
+        if (input.value.trim()) { input.focus(); toast("说完啦，按发送"); }
+      };
+      try { rec.start(); return; } catch (_) { $("micBtn").classList.remove("recording"); }
+    }
+    await startRecording();
+  });
+
+  // 表情包：从她的表情库挑一张
+  function ensureStickerSheet() {
+    if ($("stickerSheet")) return;
+    const wrap = document.createElement("div");
+    wrap.id = "stickerSheet";
+    wrap.style.cssText = "position:fixed;left:0;right:0;bottom:0;top:0;background:rgba(8,10,16,.86);z-index:120;display:none;flex-direction:column;padding:14px;";
+    wrap.innerHTML = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;color:#dfe8fb;font-size:14px;">'
+      + '<span>挑一张表情包</span><button id="stickerClose" style="background:none;border:0;color:#9db2cf;font-size:15px;">收起</button></div>'
+      + '<div id="stickerGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;overflow-y:auto;"></div>';
+    document.body.appendChild(wrap);
+    wrap.addEventListener("click", (e) => { if (e.target === wrap) wrap.style.display = "none"; });
+    $("stickerClose").addEventListener("click", () => { wrap.style.display = "none"; });
+  }
+
+  async function openStickerPicker() {
+    ensureStickerSheet();
+    const sheet = $("stickerSheet");
+    const grid = $("stickerGrid");
+    sheet.style.display = "flex";
+    if (grid.dataset.loaded) return;
+    grid.innerHTML = '<div style="color:#8ea6c6;font-size:13px;">加载中…</div>';
+    try {
+      const res = await fetch("/api/stickers", { cache: "no-store" });
+      const data = await res.json();
+      if (!res.ok || data.ok === false) throw new Error(data.error || "加载失败");
+      const items = (data.items || []).slice(0, 60);
+      if (!items.length) { grid.innerHTML = '<div style="color:#8ea6c6;">表情库是空的</div>'; return; }
+      grid.innerHTML = "";
+      items.forEach((item) => {
+        const img = document.createElement("img");
+        img.src = item.url;
+        img.loading = "lazy";
+        img.style.cssText = "width:100%;aspect-ratio:1;object-fit:contain;background:#141821;border-radius:10px;cursor:pointer;";
+        img.title = (item.tags || []).join(" ") || item.note || "";
+        img.addEventListener("click", () => { sheet.style.display = "none"; sendSticker(item.url); });
+        grid.appendChild(img);
+      });
+      grid.dataset.loaded = "1";
+    } catch (err) {
+      grid.innerHTML = '<div style="color:#ff9b9b;">' + (err.message || "加载失败") + '</div>';
+    }
+  }
+
+  async function sendSticker(url) {
+    try {
+      const blob = await (await fetch(url)).blob();
+      const up = await fetch("/api/upload?name=" + encodeURIComponent("sticker-" + Date.now() + ".jpg"), {
+        method: "POST",
+        headers: { "Content-Type": "application/octet-stream" },
+        body: await blob.arrayBuffer(),
+      });
+      const data = await up.json();
+      if (!up.ok || data.ok === false) throw new Error(data.error || "上传失败");
+      await flushPending();
+      await deliver("（发了张表情包）", data.path, data.url);
+    } catch (err) {
+      toast("表情包没发出去：" + err.message);
+    }
+  }
+
+  $("stickerBtn").addEventListener("click", openStickerPicker);
+
+  // ---------------------------------------------------------------- 状态
+
+  async function refreshHealth() {
+    try {
+      const res = await fetch("/api/health", { cache: "no-store" });
+      const data = await res.json();
+      const dot = $("dot");
+      const text = $("statusText");
+      if (data.api) {
+        dot.className = "dot ok";
+        const media = data.media || {};
+        const vision = media.vision && media.vision !== "none" ? "看图" : "";
+        const asr = media.asr && media.asr !== "none" ? "听语音" : "";
+        const caps = [vision, asr].filter(Boolean).join(" · ");
+        // 2026-11-09：她在睡就说在睡，别一律报"在线"
+        if (data.asleep) {
+          let untilText = "";
+          if (data.sleep_until) {
+            const t = String(data.sleep_until).slice(11, 16);
+            if (t) untilText = " · 到 " + t;
+          }
+          text.textContent = "睡着了" + untilText;
+        } else {
+          text.textContent = "在线" + (caps ? " · " + caps : "") + " · 表情 " + data.stickers;
+        }
+      } else {
+        dot.className = "dot bad";
+        text.textContent = "数字生命没启动（先跑 python dl_api.py）";
+      }
+    } catch (_) {
+      $("dot").className = "dot bad";
+      $("statusText").textContent = "网页服务异常";
+    }
+  }
+
+  // 她此刻在干嘛（看书/睡觉/发呆）
+  async function refreshActivity() {
+    const el = $("activity");
+    if (!el) return;
+    try {
+      const res = await fetch("/api/activity", { cache: "no-store" });
+      const data = await res.json();
+      el.textContent = data.text || "";
+      el.title = data.detail || "";
+      el.className = "activity" + (data.asleep || data.quiet || data.offline ? " asleep" : "");
+      // 状态灯也跟着走：别她明明在休息，头上还写"她在想…"
+      const statusText = $("statusText");
+      const dot = $("dot");
+      if (statusText) {
+        if (data.offline) statusText.textContent = "不在线";
+        else if (data.quiet) statusText.textContent = "在休息";
+        else if (data.asleep) statusText.textContent = "睡着了";
+        else statusText.textContent = "在线";
+      }
+      if (dot) dot.className = "dot" + (data.offline ? " bad" : (data.asleep || data.quiet) ? "" : " ok");
+    } catch (_) {
+      el.textContent = "";
+    }
+  }
+
+  // ------------------------------------------------------------ 她的桌面
+  // 2026-11-03 爸爸："把网页端给小鱼一个适配，让她可以选择：打开书看书、
+  // 打开抖音、打开IM、打开网页端回复信息。"
+  // 卡片摆的是她手边的东西；她自己写 [OPEN: book] 就会翻开，爸爸点卡片看同一份。
+  const DESK_NAME = { book: "📖 她在读的书", douyin: "▶️ 抖音", chat: "💬 IM", web: "🌐 网页消息", pet: "🎮 娱乐 · 涂鸦 / 小玩具 / 院子", tic: "⭕ 井字棋", fun: "🎮 娱乐 · 抖音 / 小玩具 / 棋 / 小游戏" };
+  const deskEl = $("desk");
+  const sheetEl = $("sheet");
+  let herOpenSeen = null;
+
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  function setCard(kind, text, on) {
+    const card = deskEl && deskEl.querySelector('.desk-card[data-kind="' + kind + '"]');
+    if (!card) return;
+    card.querySelector(".v").textContent = text;
+    card.classList.toggle("on", !!on);
+  }
+
+  function renderDesk(d) {
+    const b = d.book || {};
+    setCard("book", b.title ? "《" + b.title + "》第" + b.chapter + "章" : "还没开始读", false);
+    const dy = d.douyin || {};
+    // 2026-11-04 爸爸："显示在刷抖音，抖音开着但她没刷。"
+    // 开着 ≠ 在刷：只有她的注意力真在抖音，才算"正在刷"。
+    const dyText = dy.watching ? "她正在刷" : (dy.enabled ? "开着（她没在刷）" : "关着");
+    const wx = d.chat || {};
+    setCard("chat", wx.waiting_count ? wx.waiting_count + " 条等她回" : "没有等她回的", wx.waiting_count > 0);
+    const web = d.web || {};
+    setCard("web", web.last_at ? "刚有人跟她说话" : "很安静", false);
+    const pet = d.pet || {};
+    const tic = d.tic || {};
+    const ticText = tic.result === "her" ? "她赢了上一局"
+      : tic.result === "other" ? "上一局她输了"
+      : tic.result === "draw" ? "上一局平了"
+      : (tic.turn === "her" ? "轮到她落子" : "等她邀请的人落子");
+    const games = d.games || {};
+    const rps = games.rps || {};
+    const puzzles = [];
+    puzzles.push(dy.watching ? "在刷抖音" : (dy.enabled ? "抖音开着" : "抖音关着"));
+    if (pet.count) puzzles.push("逗过玩具 " + pet.count + " 次");
+    if (rps.play) puzzles.push("猜拳 " + rps.play + " 局");
+    if (games.guess && games.guess.active) puzzles.push("猜数字进行中");
+    setCard("fun", puzzles.slice(0, 3).join(" · ") || "还没玩", dy.watching || (!tic.result && tic.turn === "her"));
+  }
+
+  async function refreshDesk() {
+    if (window.__XY_NO_DESK__) return;
+    try {
+      const res = await fetch("/api/her/desk");
+      const d = await res.json();
+      renderDesk(d);
+      // 2026-11-09：面板开着的时候也要跟着刷新，否则她落了子这边棋盘不动
+      try {
+        const openKind = state.sheetKind;
+        if (sheetEl && sheetEl.classList.contains("show") && openKind) {
+          const res2 = await fetch("/api/her/open?kind=" + encodeURIComponent(openKind));
+          renderSheet(openKind, await res2.json());
+        }
+      } catch (_) {}
+      // 情绪三维：刷新时也拉一次，不然一开页面就是空的
+      try {
+        const mres = await fetch("/api/her/mood");
+        const m = await mres.json();
+        if (m && m.emotion) updateMood(m.emotion);
+      } catch (_) {}
+      const now = d.her_open || "";
+      if (herOpenSeen === null) {
+        herOpenSeen = now;          // 第一次只记基线，别一开页面就弹旧记录
+      } else if (now && now !== herOpenSeen) {
+        addSystem("她自己打开了" + (DESK_NAME[now] || now));
+        openSheet(now);
+        herOpenSeen = now;
+      }
+    } catch (_) {}
+  }
+
+  function renderSheet(kind, data) {
+    const body = $("sheetBody");
+    if (kind === "book") {
+      const b = data.book || {};
+      if (!b.ok) { body.innerHTML = '<div class="muted">' + esc(b.error || "还没有开始读哪本") + "</div>"; return; }
+      body.innerHTML =
+        '<div class="muted">《' + esc(b.title) + "》第 " + b.chapter + " 章 · 共 " + b.chapters + " 章" +
+        (b.read_at ? " · 读到 " + esc(String(b.read_at).slice(0, 16).replace("T", " ")) : "") + "</div>" +
+        (b.summary ? '<div class="item muted">' + esc(b.summary) + "</div>" : "") +
+        '<div class="text">' + esc(b.text || "（这章没有正文）") + "</div>" +
+        ((b.wishes || []).length
+          ? '<div class="muted" style="margin-top:12px">她想看的书（留言）：' +
+            (b.wishes || []).map((t) => "《" + esc(t) + "》").join("、") + "</div>"
+          : "");
+      return;
+    }
+    if (kind === "chat") {
+      const w = data.chat || {};
+      const waiting = w.waiting || [];
+      const recent = w.recent || [];
+      body.innerHTML =
+        (waiting.length
+          ? '<div class="muted">等她回的（' + w.waiting_count + " 条）</div>" + waiting.map((m) =>
+              '<div class="item">' + esc(String(m.at || "").slice(11, 16)) + " · " + esc(m.sender) + "：" + esc(m.text) + "</div>").join("")
+          : '<div class="muted">没有等她回的消息</div>') +
+        (recent.length
+          ? '<div class="muted" style="margin-top:10px">最近的</div>' + recent.map((m) =>
+              '<div class="item"><span class="muted">' + esc(m.name) + (m.outgoing ? " · 她" : "") + "</span> " + esc(m.text) + "</div>").join("")
+          : "");
+      return;
+    }
+    if (kind === "web") {
+      const w = data.web || {};
+      body.innerHTML =
+        '<div class="muted">网页账号 ' + (w.accounts || 0) + " 个" +
+        (w.last_at ? " · 最近一轮 " + esc(String(w.last_at).slice(11, 16)) : "") + "</div>" +
+        (w.recent || []).map((t) => {
+          const head = esc(String(t.at || "").slice(11, 16)) + " · " +
+            esc(t.decision === "SILENT" ? "她没回" : "她回了") + "（" + esc(t.source || "") + "）";
+          // 2026-11-08：最高权限要看"具体说了什么"，不是只知道她回了一句
+          const said = t.text ? '<div class="muted">对方：' + esc(t.text) + "</div>" : "";
+          const back = t.reply ? "<div>她：" + esc(t.reply) + "</div>" : "";
+          const note = t.note ? '<div class="muted">（' + esc(t.note) + "）</div>" : "";
+          return '<div class="item">' + head + said + back + note + "</div>";
+        }).join("");
+      return;
+    }
+    if (kind === "fun" || kind === "pet" || kind === "doodle" || kind === "draw") {
+      const dy = data.douyin || {};
+      const pet = data.pet || {};
+      const tic = data.tic || {};
+      const games = data.games || {};
+      const rps = games.rps || {};
+      const guess = games.guess || {};
+      const wishes = data.wishes || [];
+      const board = tic.board || ["", "", "", "", "", "", "", "", ""];
+      const mark = { her: "⭕", other: "❌" };
+      const canPlay = tic.opponent === "father" && tic.turn === "other" && !tic.result;
+      const ticText = tic.result === "her" ? "她赢了上一局"
+        : tic.result === "other" ? "上一局她输了"
+        : tic.result === "draw" ? "上一局平了"
+        : (tic.turn === "her" ? "轮到她落子" : "等你落子");
+      body.innerHTML =
+        '<div class="muted">▶️ 抖音</div>' +
+        '<div class="muted">现在：' + (dy.enabled ? "开着" : "关着") + (dy.reason ? " · " + esc(dy.reason) : "") + "</div>" +
+        '<div class="btns"><button data-act="on">打开抖音</button><button data-act="off">关掉</button></div>' +
+        '<div class="muted" style="margin-top:14px">🐣 小玩具 · 逗过 ' + (pet.count || 0) + " 次</div>" +
+        ((pet.recent || []).slice(-3).map((r) =>
+          '<div class="item"><span class="muted">' + esc(String(r.at || "").slice(11, 16)) + " 她</span> " +
+          esc(r.her) + '<div class="muted" style="margin-top:2px">🐣 ' + esc(r.toy) + "</div></div>").join("") ||
+          '<div class="muted">她还没去找过它。写 [TOY: 想说的话] 就会去逗它。</div>') +
+        '<div class="muted" style="margin-top:14px">⭕ 井字棋 · ' + esc(ticText) + "</div>" +
+        '<div class="btns" style="margin-bottom:6px">' +
+        '<button data-tic="father">开一局 / 邀请她</button>' +
+        '<button data-tic="bot">换机器人</button>' +
+        "</div>" +
+        '<div class="tic-board" id="ticBoard">' +
+        board.map((cell, i) =>
+          '<button class="tic-cell" data-pos="' + (i + 1) + '"' + (canPlay ? "" : " disabled") + ">" +
+          (cell ? mark[cell] || "·" : "") + "</button>").join("") +
+        "</div>" +
+        '<div class="muted" style="margin-top:14px">🎲 小游戏（她在聊天里写标签就能玩）</div>' +
+        '<div class="item">石头剪刀布：赢了 ' + (rps.win || 0) + " · 输了 " + (rps.lose || 0) + " · 平 " + (rps.tie || 0) +
+        '<div class="muted">[RPS: 石头/剪刀/布]</div></div>' +
+        '<div class="item">猜数字：' + (guess.active ? "进行中，猜了 " + (guess.tries || 0) + " 次" :
+          (guess.best ? "最好成绩 " + guess.best + " 次" : "还没玩过")) +
+        '<div class="muted">[GUESS_NEW] 开一局 · [GUESS: 42] 猜一次 · [DICE: 2] 掷骰子</div></div>' +
+        '<div class="muted" style="margin-top:14px">🌱 院子</div>' +
+        '<div class="item">' + ((games.garden && games.garden.count)
+          ? "正在长 " + games.garden.count + " 株：" + (games.garden.plots || []).map((pl) =>
+              esc(pl.name) + (pl.thirsty ? "（蔫）" : "")).join("、") +
+            " · 已收 " + (games.garden.harvested || 0) + " 次"
+          : "还是空的。她写 [GARDEN: 种 薄荷] 就会种东西。") +
+        '<div class="muted">[GARDEN: 浇水] / [GARDEN: 看看] / [GARDEN: 收]</div></div>' +
+        // 2026-11-08 爸爸："给小鱼娱乐里面加个画画，让她自己涂鸦。"
+        '<div class="muted" style="margin-top:14px">🎨 涂鸦 · 她自己画的 ' +
+        ((data.doodles || []).length) + " 张</div>" +
+        ((data.doodles || []).length
+          ? '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">' +
+            (data.doodles || []).slice(0, 6).map((d) =>
+              '<a href="/api/drawn?name=' + encodeURIComponent(d.name) + '" target="_blank" title="' +
+              esc(d.caption || "") + '"><img src="/api/drawn?name=' + encodeURIComponent(d.name) +
+              '" alt="" loading="lazy" style="width:84px;height:84px;object-fit:cover;' +
+              'border:1px solid rgba(53,246,255,.28);border-radius:6px"></a>').join("") +
+            "</div>"
+          : '<div class="muted">她还没涂过。写 [DOODLE: 黄圆 中间；红线 左下到右上] 就会画。</div>') +
+        (wishes.length
+          ? '<div class="muted" style="margin-top:14px">📚 她想看的书（留言）</div>' +
+            wishes.map((t) => '<div class="item">《' + esc(t) + "》</div>").join("")
+          : "");
+      body.querySelectorAll("button[data-act]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          btn.disabled = true;
+          try {
+            await post("/api/her/douyin", { action: btn.dataset.act });
+            openSheet("fun");
+            refreshDesk();
+          } catch (e) {
+            addSystem("抖音开关没成：" + e.message);
+          } finally {
+            btn.disabled = false;
+          }
+        });
+      });
+      body.querySelectorAll("[data-tic]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          try {
+            await post("/api/her/tic", { action: "new", opponent: String(btn.dataset.tic || "father") });
+            openSheet("fun");
+            refreshDesk();
+            addSystem(btn.dataset.tic === "bot" ? "换了一局机器人" : "开了一局，等她落子");
+          } catch (e) {
+            addSystem("开局没成功：" + e.message);
+          }
+        });
+      });
+      body.querySelectorAll(".tic-cell:not([disabled])").forEach((cell) => {
+        cell.addEventListener("click", async () => {
+          try {
+            await post("/api/her/tic", { action: "move", pos: Number(cell.dataset.pos) });
+            openSheet("fun");
+            refreshDesk();
+          } catch (e) {
+            addSystem("这步没下成：" + e.message);
+          }
+        });
+      });
+      return;
+    }
+    if (kind === "douyin") {
+      const d = data.douyin || {};
+      body.innerHTML =
+        '<div class="muted">现在：' + (d.enabled ? "开着" : "关着") + (d.reason ? " · " + esc(d.reason) : "") + "</div>" +
+        '<div class="btns"><button data-act="on">打开抖音</button><button data-act="off">关掉</button></div>';
+      body.querySelectorAll("button[data-act]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          btn.disabled = true;
+          try {
+            const r = await post("/api/her/douyin", { action: btn.dataset.act });
+            addSystem("抖音：" + (r.douyin && r.douyin.enabled ? "开着" : "关着"));
+            openSheet("douyin");
+            refreshDesk();
+          } catch (e) {
+            addSystem("抖音开关没成：" + e.message);
+          } finally {
+            btn.disabled = false;
+          }
+        });
+      });
+      return;
+    }
+    if (kind === "pet") {
+      const p = data.pet || {};
+      const rows = p.recent || [];
+      body.innerHTML =
+        '<div class="muted">她逗小玩具 ' + (p.count || 0) + " 次 · 本地 qwen2.5:14b（不花 API）</div>" +
+        (rows.length
+          ? rows.map((r) =>
+              '<div class="item"><span class="muted">' + esc(String(r.at || "").slice(11, 16)) + " 她</span> " +
+              esc(r.her) + '<div class="muted" style="margin-top:2px">🐣 ' + esc(r.toy) + "</div></div>").join("")
+          : '<div class="muted">她还没去找过它。她写 [TOY: 想说的话] 就会去逗它。</div>');
+      return;
+    }
+    if (kind === "tic") {
+      const t = data.tic || {};
+      const board = t.board || ["", "", "", "", "", "", "", "", ""];
+      const mark = { her: "⭕", other: "❌" };
+      const canPlay = t.opponent === "father" && t.turn === "other" && !t.result;
+      body.innerHTML =
+        '<div class="btns" style="margin-bottom:6px">' +
+        '<button data-tic="father">开一局 / 邀请她</button>' +
+        '<button data-tic="bot">换机器人</button>' +
+        "</div>" +
+        '<div class="muted">对手：' + (t.opponent === "father" ? "你" : "机器人") +
+        (t.result ? " · 已结束" : (t.turn === "her" ? " · 轮到她" : " · 轮到你")) + "</div>" +
+        '<div class="tic-board" id="ticBoard">' +
+        board.map((cell, i) =>
+          '<button class="tic-cell" data-pos="' + (i + 1) + '"' + (canPlay ? "" : " disabled") + ">" +
+          (cell ? mark[cell] || "·" : "") + "</button>").join("") +
+        "</div>" +
+        '<div class="muted" style="margin-top:8px">' +
+        (canPlay ? "轮到你落子（点空格）。" : (t.opponent === "father" ? "等她落子，或者等她重新邀请你。" :
+          "她在跟机器人下。她写 [TICTAC_NEW: 爸爸] 就会邀请你。")) + "</div>";
+      body.querySelectorAll("[data-tic]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          try {
+            await post("/api/her/tic", { action: "new", opponent: String(btn.dataset.tic || "father") });
+            openSheet("tic");
+            refreshDesk();
+            addSystem(btn.dataset.tic === "bot" ? "换了一局机器人" : "开了一局，等她落子");
+          } catch (e) {
+            addSystem("开局没成功：" + e.message);
+          }
+        });
+      });
+      body.querySelectorAll(".tic-cell:not([disabled])").forEach((cell) => {
+        cell.addEventListener("click", async () => {
+          try {
+            await post("/api/her/tic", { action: "move", pos: Number(cell.dataset.pos) });
+            openSheet("tic");
+            refreshDesk();
+          } catch (e) {
+            addSystem("这步没下成：" + e.message);
+          }
+        });
+      });
+      return;
+    }
+    body.innerHTML = '<div class="muted">没有这个入口</div>';
+  }
+
+  async function openSheet(kind) {
+    state.sheetKind = kind;          // 2026-11-09：记住开着哪个面板，好跟着刷新
+    $("sheetName").textContent = DESK_NAME[kind] || "她的桌面";
+    $("sheetBody").innerHTML = '<div class="muted">翻开中…</div>';
+    sheetEl.classList.add("show");
+    try {
+      const res = await fetch("/api/her/open?kind=" + encodeURIComponent(kind));
+      renderSheet(kind, await res.json());
+    } catch (e) {
+      $("sheetBody").innerHTML = '<div class="muted">打不开：' + esc(e.message) + "</div>";
+    }
+  }
+
+  if (deskEl) {
+    deskEl.querySelectorAll(".desk-card").forEach((card) => {
+      card.addEventListener("click", () => openSheet(card.dataset.kind));
+    });
+  }
+  if (sheetEl) {
+    $("sheetClose").addEventListener("click", () => sheetEl.classList.remove("show"));
+    refreshDesk();
+    // ---- 她自己开口（2026-11-08）----
+  // 后端 /api/proactive 会真的让她生成一句话；这里只在页面开着、
+  // 而且你有一阵没说话的时候才去问，免得刷屏。
+  let lastProactiveAt = Number(localStorage.getItem("xy_last_proactive") || 0);
+  async function maybeProactive() {
+    if (document.hidden) return;
+    const now = Date.now();
+    if (now - Number(state.lastUserAt || 0) < 15 * 60 * 1000) return;
+    if (now - lastProactiveAt < 40 * 60 * 1000) return;
+    try {
+      const data = await post("/api/proactive", {});
+      if (!data || !data.sent) return;
+      lastProactiveAt = now;
+      localStorage.setItem("xy_last_proactive", String(now));
+      showTyping(true);
+      await sleep(Math.min(Number(data.delay_ms) || 1800, 8000));
+      showTyping(false);
+      const bubbles = (Array.isArray(data.replies) && data.replies.length)
+        ? data.replies
+        : [String(data.reply || "").trim()];
+      for (const bubble of bubbles) {
+        if (!bubble) continue;
+        addText("her", bubble);
+        state.history.push({ role: "her", text: bubble, t: Date.now() });
+        persist();
+        await sleep(400);
+      }
+      if (data.sticker) addSticker(data.sticker.url, data.sticker.tag);
+    } catch (error) {
+      /* 她这会儿不想说或者后端忙，就算了 */
+    }
+  }
+  setInterval(maybeProactive, 60000);
+
+  // 2026-11-08：普通注册用户看不到她的桌面（书/IM/网页/娱乐），只留信道
+  (function gateDeskByRole() {
+    const session = window.__XY_SESSION__ || {};
+    if (session.privileged === false) {
+      const desk = document.getElementById("desk");
+      if (desk) {
+        desk.innerHTML =
+          '<a class="desk-card" href="/solver" style="text-decoration:none">' +
+          '<span class="k">📜 信道</span><span class="v">她的独立信道</span></a>';
+      }
+      window.__XY_NO_DESK__ = true;
+    }
+  })();
+
+  setInterval(refreshDesk, 20000);
+  }
+
+  // ---------------------------------------------------------------- 启动
+
+  // IM通道：切换"跟谁说话"（不同人/群各有一份记录）
+  async function initConversations() {
+    if (!SESSION || SESSION.surface !== "chat") return;
+    let list = [];
+    try {
+      const res = await fetch("/api/inbox?limit=1");
+      const data = await res.json();
+      list = Array.isArray(data.conversations) ? data.conversations : [];
+    } catch (_) { return; }
+    if (!list.length) return;
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const sel = document.createElement("select");
+    sel.id = "convSel";
+    sel.style.cssText = "margin:6px 12px 0;padding:6px 8px;border-radius:8px;background:#0b1f25;color:#8fe9f5;border:1px solid #1d4b57;font-size:13px";
+    sel.innerHTML = '<option value="">网页直聊（她本人）</option>' + list.map((c) =>
+      '<option value="' + esc(c.key) + '">' + (c.kind === "group" ? "群 · " : "私聊 · ") + esc(c.name) + "</option>"
+    ).join("");
+    const header = document.querySelector("header");
+    if (header && header.insertAdjacentElement) header.insertAdjacentElement("afterend", sel);
+    else document.body.prepend(sel);
+    sel.addEventListener("change", () => {
+      state.histories[convKey()] = state.history.slice(-80);
+      const key = sel.value;
+      state.conv = key ? list.find((c) => c.key === key) || null : null;
+      state.history = state.histories[convKey()] || [];
+      const chat = document.getElementById("chat");
+      chat.innerHTML = "";
+      renderHistory();
+      scrollBottom();
+      const input = document.getElementById("input");
+      if (state.conv) {
+        input.placeholder = state.conv.kind === "group"
+          ? "在「" + state.conv.name + "」里说…（输入 名字: 内容）"
+          : "发给「" + state.conv.name + "」…";
+      } else {
+        input.placeholder = "和她说点什么…（Enter 发送，Shift+Enter 换行）";
+      }
+    });
+  }
+
+  function renderHistory() {
+    if (!state.history.length) {
+      addSystem("网页版 · 已登录: " + state.label);
+      addSystem("她记得你们聊过的事；图片会先被看一遍，语音会先被听一遍。");
+      return;
+    }
+    state.history.forEach((item) => {
+      const when = item.t;
+      if (item.sticker) renderSticker(item.sticker, item.tag, when);
+      else if (item.voice) addText("her", "🎙 语音：" + item.voice, { time: when });
+      else if (item.sing) addText("her", "🎵 唱：" + (item.sing.text || ""), { time: when });
+      else addText(item.role === "me" ? "me" : "her", item.text || "", { time: when });
+    });
+    scrollBottom();
+  }
+
+  loadHistories();
+  if (convKey() && state.histories[convKey()]) {
+    state.history = state.histories[convKey()];
+  }
+  renderHistory();
+  initConversations();
+  refreshHealth();
+  setInterval(refreshHealth, 8000);
+  refreshActivity();
+  setInterval(refreshActivity, 15000);
+  input.focus();
+})();
+
+// ---- 渠道模式（IM / TIKTOK 登录时）：横幅 + 收件箱 ----
+(function initSurface() {
+  const surface = (window.__XY_SESSION__ && window.__XY_SESSION__.surface) || "";
+  if (!surface) return;
+  const isChat = surface === "chat";
+  const bar = document.createElement("div");
+  bar.style.cssText = "position:fixed;top:0;left:0;right:0;z-index:999;display:flex;gap:10px;align-items:center;padding:6px 12px;font-size:12px;background:#0f2b33;color:#8fe9f5;border-bottom:1px solid #1d4b57";
+  bar.innerHTML = '<b>' + (isChat ? "IM通道" : "抖音通道") + '</b><span>同一个脑子 · 输入「名字: 内容」</span>';
+  const btn = document.createElement("button");
+  btn.textContent = isChat ? "收件箱" : "";
+  btn.style.cssText = "margin-left:auto;background:transparent;border:1px solid #2f6b7a;color:#8fe9f5;border-radius:999px;padding:2px 10px;cursor:pointer";
+  if (isChat) bar.appendChild(btn);
+  document.body.prepend(bar);
+  // 2026-11-16：横幅是 fixed 的，页面高度要减掉它，不然输入栏被顶出屏幕
+  requestAnimationFrame(() => {
+    const h = bar.offsetHeight || 34;
+    document.body.style.paddingTop = h + "px";
+    const app = document.querySelector(".app");
+    if (app) app.style.height = `calc(100dvh - ${h}px)`;
+  });
+  document.body.style.paddingTop = "34px";
+
+  if (!isChat) return;
+  const panel = document.createElement("div");
+  panel.style.cssText = "position:fixed;top:34px;right:8px;width:min(420px,92vw);max-height:60vh;overflow:auto;z-index:999;background:#0b1f25;border:1px solid #1d4b57;border-radius:10px;padding:8px;font-size:12px;display:none";
+  document.body.appendChild(panel);
+  let open = false;
+  btn.addEventListener("click", () => { open = !open; panel.style.display = open ? "block" : "none"; if (open) load(); });
+
+  async function load() {
+    try {
+      const res = await fetch("/api/inbox?limit=40");
+      const data = await res.json();
+      const list = (data.messages || []).filter((m) => !m.outgoing);
+      if (!list.length) { panel.innerHTML = '<div style="opacity:.6">还没有收到IM消息</div>'; return; }
+      panel.innerHTML = list.map((m) => {
+        const who = m.sender || (m.kind === "group" ? "群里" : "对方");
+        const text = String(m.text || "").replace(/</g, "&lt;");
+        return '<div style="padding:4px 0;border-bottom:1px solid #12343d;cursor:pointer" data-who="' + who.replace(/"/g, "") + '" data-text="' + text.replace(/"/g, "&quot;") + '"><b>' + who + '</b>：' + text + '</div>';
+      }).join("");
+      panel.querySelectorAll("div[data-who]").forEach((row) => {
+        row.addEventListener("click", () => {
+          const input = document.getElementById("input");
+          input.value = row.dataset.who + ": " + row.dataset.text;
+          input.focus();
+        });
+      });
+    } catch (_) {
+      panel.textContent = "收件箱读不出来";
+    }
+  }
+  load();
+  setInterval(() => { if (open) load(); }, 8000);
+})();
+
+/* 2026-11-11：房间面板可以收起。
+   两个按钮共用一套逻辑：房间里那个「收起」，和头部常驻的「房间」。
+   收起后房间面板宽度为 0、里面的按钮也跟着被裁掉，所以头部那个必须一直在。 */
+(function () {
+  const pane = document.getElementById('roomPane');
+  const innerBtn = document.getElementById('roomCollapse');
+  const headBtn = document.getElementById('roomToggle');
+  if (!pane || !headBtn) return;
+
+  function sync() {
+    const collapsed = pane.classList.contains('collapsed');
+    if (innerBtn) innerBtn.textContent = collapsed ? '房间' : '收起';
+    headBtn.textContent = collapsed ? '房间' : '收起房间';
+    headBtn.classList.toggle('on', !collapsed);
+    headBtn.setAttribute('aria-pressed', collapsed ? 'false' : 'true');
+  }
+
+  function toggle() {
+    pane.classList.toggle('collapsed');
+    const collapsed = pane.classList.contains('collapsed');
+    localStorage.setItem('xiaoyu-room-collapsed', collapsed ? '1' : '0');
+    sync();
+    if (!collapsed) {
+      const frame = document.getElementById('roomFrame');
+      if (frame) frame.src = '/room?t=' + Date.now();
+    }
+  }
+
+  /* 2026-11-12：房间只有 2D（画）和动画（片段），3D 去掉了 */
+  const frameEl = document.getElementById('roomFrame');
+  const btn2d = document.getElementById('roomView2d');
+  /* 2026-11-12: 3D 视图已去掉，只留 2D 和动画 */
+  const VIEW_KEY = 'xiaoyu-room-view';
+  const btnVideo = document.getElementById('roomViewVideo');
+  function setView(view) {
+    const src = view === 'video' ? '/roomv' : '/room';
+    if (frameEl) frameEl.src = src;
+    localStorage.setItem(VIEW_KEY, view);
+    if (btn2d) btn2d.classList.toggle('on', view === '2d');
+
+    if (btnVideo) btnVideo.classList.toggle('on', view === 'video');
+  }
+  if (btn2d) btn2d.addEventListener('click', () => setView('2d'));
+
+  if (btnVideo) btnVideo.addEventListener('click', () => setView('video'));
+  const savedView = localStorage.getItem(VIEW_KEY) || '2d';
+  setView(['2d', 'video'].indexOf(savedView) >= 0 ? savedView : '2d');
+
+  const reloadBtn = document.getElementById('roomReload');
+  if (reloadBtn) {
+    reloadBtn.addEventListener('click', () => {
+      const frame = document.getElementById('roomFrame');
+      if (frame) frame.src = '/room?t=' + Date.now();
+    });
+  }
+
+  // 2026-11-16：手机首屏默认收起房间，把高度还给聊天
+  const _mobile = window.matchMedia('(max-width: 900px)').matches;
+  const _saved = localStorage.getItem('xiaoyu-room-collapsed');
+  if (_saved === '1' || (_saved === null && _mobile)) pane.classList.add('collapsed');
+  sync();
+  headBtn.addEventListener('click', toggle);
+  if (innerBtn) innerBtn.addEventListener('click', toggle);
+})();
+</script>
+</div>
+
+<style>
+  /* 2026-11-16：图片点开看大图（Gemini 写的方案，我改成独立 IIFE，不依赖内部作用域） */
+  img.thumb, img.sticker { cursor: zoom-in; }
+  .img-viewer { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.94);
+    display: none; align-items: center; justify-content: center; touch-action: none; user-select: none; }
+  .img-viewer.show { display: flex; }
+  .img-viewer img { max-width: 96vw; max-height: 92dvh; object-fit: contain; border-radius: 8px;
+    transition: transform .18s ease, opacity .18s ease; }
+  .img-viewer .close-btn { position: fixed; top: max(14px, env(safe-area-inset-top)); right: 16px;
+    width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(255,255,255,.22);
+    background: rgba(255,255,255,.12); color: #fff; font-size: 22px; line-height: 1;
+    display: grid; place-items: center; cursor: pointer; z-index: 10000; }
+</style>
+<script>
+(function () {
+  var viewer = document.createElement("div");
+  viewer.className = "img-viewer";
+  viewer.innerHTML = '<button class="close-btn" type="button" aria-label="关闭">×</button><img alt="大图预览">';
+  document.body.appendChild(viewer);
+  var vimg = viewer.querySelector("img");
+  var vclose = viewer.querySelector(".close-btn");
+  var startY = null;
+
+  function open(src) {
+    if (!src) return;
+    vimg.src = src;
+    vimg.style.transform = "translateY(0)";
+    vimg.style.opacity = "1";
+    viewer.classList.add("show");
+  }
+  function close() {
+    viewer.classList.remove("show");
+    vimg.removeAttribute("src");
+    startY = null;
+  }
+  document.addEventListener("click", function (e) {
+    var img = e.target && e.target.closest ? e.target.closest("img.thumb, img.sticker") : null;
+    if (img && img.src) open(img.src);
+  }, true);
+  viewer.addEventListener("click", close);
+  vclose.addEventListener("click", function (e) { e.stopPropagation(); close(); });
+  viewer.addEventListener("touchstart", function (e) {
+    startY = e.touches.length === 2 ? (e.touches[0].clientY + e.touches[1].clientY) / 2 : null;
+  }, { passive: true });
+  viewer.addEventListener("touchmove", function (e) {
+    if (e.touches.length === 2 && startY !== null) {
+      var y = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+      var d = y - startY;
+      if (d > 0) {
+        vimg.style.transform = "translateY(" + Math.min(d, 160) + "px)";
+        vimg.style.opacity = String(Math.max(0.35, 1 - d / 260));
+      }
+      if (d > 65) close();
+    }
+  }, { passive: true });
+  viewer.addEventListener("touchend", function () {
+    if (viewer.classList.contains("show")) {
+      vimg.style.transform = "translateY(0)";
+      vimg.style.opacity = "1";
+    }
+    startY = null;
+  });
+})();
+</script>
+</body>
+</html>

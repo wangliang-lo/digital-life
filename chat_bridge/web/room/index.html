@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>小鱼的房间</title>
+<style>
+  :root { --brightness: 1; --ambient: #ffffff; --sun: .3; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0d1320; color: #e8eefb; font: 15px/1.6 "Microsoft YaHei", system-ui, sans-serif; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 14px; }
+  .topbar { display: flex; align-items: center; gap: 10px; padding: 4px 2px 10px; }
+  .topbar .who { font-size: 15px; color: #cfe2ff; }
+  .topbar .sub { color: #8fa6c8; font-size: 12.5px; }
+  .badge { margin-left: auto; background: rgba(47,111,208,.25); border: 1px solid rgba(113,175,252,.4);
+           border-radius: 999px; padding: 4px 12px; font-size: 12.5px; color: #dcecff; }
+  .badge.focus { background: rgba(150,110,255,.28); border-color: rgba(178,108,255,.55); color: #efe6ff; }
+  .art { position: relative; aspect-ratio: 3 / 2; isolation: isolate; border-radius: 16px; overflow: hidden;
+         background: #222b3d; box-shadow: 0 18px 50px rgba(0,0,0,.45); }
+  .art > svg { width: 100%; height: 100%; display: block; }
+  .art image, .art .base { filter: brightness(var(--brightness)) saturate(var(--saturation, 1)); transition: filter 5s; }
+  .color-cast { fill: var(--ambient); opacity: .16; mix-blend-mode: soft-light; transition: fill 5s; }
+  .sunbeam { opacity: var(--sun); mix-blend-mode: screen; transition: opacity 5s; }
+  .hz { fill: transparent; cursor: pointer; }
+  .hz:hover { fill: rgba(255,255,255,.07); }
+  .hint { position: absolute; pointer-events: none; padding: 4px 9px; border-radius: 8px;
+          background: rgba(8,14,26,.85); font-size: 12px; opacity: 0; transition: opacity .15s; white-space: nowrap; }
+  .drawer { position: absolute; width: 268px; background: rgba(12,20,36,.95); border: 1px solid rgba(113,175,252,.3);
+            border-radius: 12px; padding: 14px 16px; display: none; z-index: 5; }
+  .drawer h4 { margin: 0 0 4px; font-size: 15px; }
+  .drawer .sub { color: #8fa6c8; font-size: 12px; margin-bottom: 10px; }
+  .drawer .kv { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; padding: 3px 0; color: #cfdcf2; }
+  .drawer .kv span:last-child { color: #9fb6d8; text-align: right; }
+  .drawer .x { position: absolute; right: 10px; top: 8px; cursor: pointer; color: #8fa6c8; font-size: 16px; }
+  .tip { color: #7d8ba6; font-size: 12px; margin-top: 12px; }
+  #her #her-body { animation: breathe 4.2s ease-in-out infinite; transform-origin: 50% 100%; }
+  @keyframes breathe { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-5px) scale(1.015); } }
+  #her-shadow { animation: shadow 4.2s ease-in-out infinite; transform-origin: center; }
+  @keyframes shadow { 0%,100% { opacity: .34; } 50% { opacity: .22; } }
+  #her-ring { animation: pulse 2.4s ease-out infinite; }
+  @keyframes pulse { 0% { r: 54; opacity: .5; } 100% { r: 108; opacity: 0; } }
+  #room-tag { position: absolute; left: 14px; bottom: 12px; background: rgba(8,14,26,.78);
+              border: 1px solid rgba(113,175,252,.25); border-radius: 999px; padding: 5px 13px;
+              font-size: 12.5px; color: #cfe2ff; backdrop-filter: blur(6px); }
+  /* 2026-11-11：她是活的——Live2D 画布盖在房间上，静止立绘作兜底 */
+  #her-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; transition: opacity .5s; }
+  #her-static { transition: opacity .4s; }
+  body.live2d-on #her-static { opacity: 0; }
+  body.embedded .wrap { max-width: none; padding: 8px; }
+  body.embedded .tip, body.embedded .sub { display: none; }
+  body.embedded .topbar { padding: 2px 2px 8px; }
+  body.embedded .art { border-radius: 12px; box-shadow: none; }
+  /* 她：一个会走的小点 */
+  #her { transition: transform 3.6s cubic-bezier(.4,.1,.3,1), opacity .3s; }
+  #her .dot { fill: #7fd3ff; filter: drop-shadow(0 0 8px rgba(127,211,255,.85)); }
+  #her .label { fill: #dff3ff; font-size: 26px; text-anchor: middle; }
+  @media (max-width: 640px) {
+    /* 2026-11-12：手机上房间卡片贴顶、下面空一大块——改成整体居中 */
+    .wrap { min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; padding: 10px 12px calc(14px + env(safe-area-inset-bottom)); }
+    .art { border-radius: 12px; }
+    .tip { text-align: center; }
+  }
+</style>
+
+<style>
+  /* 移动端（2026-11-12） */
+  @media (max-width: 720px) {
+    .wrap { padding: 8px 8px 20px; }
+    .topbar { flex-wrap: wrap; gap: 6px; row-gap: 4px; }
+    .topbar .who { font-size: 14px; }
+    .topbar .sub { font-size: 11.5px; }
+    .badge { padding: 3px 9px; font-size: 11.5px; }
+    /* 画框保持 3:2：Live2D 与 SVG 的坐标都是按这个比例算的，改了会错位 */
+    .art { border-radius: 12px; }
+    .controls { flex-wrap: wrap; gap: 6px; }
+    .controls button { padding: 7px 12px; font-size: 12.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div>
+      <div class="who" id="who">小鱼的房间</div>
+      <div class="sub" id="sub">正在看她此刻在哪儿</div>
+    </div>
+    <div class="badge" id="badge">读取中…</div>
+  </div>
+
+  <div class="art" id="art">
+    <canvas id="her-canvas"></canvas>
+    <svg viewBox="0 0 1536 1024" id="svg">
+      <defs>
+        <!-- 2026-11-11 前景遮挡：把她盖在这些家具后面，看着才像在房间里 -->
+        <clipPath id="clip-bed" clipPathUnits="userSpaceOnUse">
+          <rect x="60" y="690" width="640" height="230"/>
+        </clipPath>
+        <clipPath id="clip-chair" clipPathUnits="userSpaceOnUse">
+          <rect x="700" y="560" width="330" height="260"/>
+        </clipPath>
+        <radialGradient id="lampG"><stop offset="0" stop-color="#ffe9bf" stop-opacity=".85"/><stop offset="1" stop-color="#ffe9bf" stop-opacity="0"/></radialGradient>
+      </defs>
+      <g class="base">
+        <image href="/room/sample-room.png" width="1536" height="1024" preserveAspectRatio="none"/>
+      </g>
+      <rect class="color-cast" width="1536" height="1024"/>
+      <path class="sunbeam" d="M1200 400 L1360 470 L900 1024 L700 1024 Z" fill="#ffdcac" opacity="0"/>
+      <g id="hz-layer"></g>
+      <g id="blanket" opacity="0" style="transition: opacity .8s">
+        <path d="M250 700 Q430 655 620 700 L620 820 Q430 850 250 820 Z"
+              fill="#dfe9f7" opacity=".94"/>
+        <path d="M250 712 Q430 668 620 712" stroke="#b9cbe6" stroke-width="7" fill="none" opacity=".85"/>
+      </g>
+      <circle id="lamp-glow" cx="1010" cy="330" r="0" fill="url(#lampG)"/>
+      <g id="easel-art" style="display:none">
+        <rect x="700" y="600" width="230" height="230" rx="10" fill="#0f1a2b" opacity=".55"/>
+        <image id="easel-img" x="708" y="608" width="214" height="214" preserveAspectRatio="xMidYMid slice"/>
+        <rect x="700" y="600" width="230" height="230" rx="10" fill="none"
+              stroke="rgba(180,215,255,.55)" stroke-width="3"/>
+        <text id="easel-cap" x="715" y="858" fill="#cfe2ff" font-size="18" opacity=".8"></text>
+      </g>
+      <g id="her-sleep" style="display:none">
+        <ellipse cx="470" cy="640" rx="210" ry="96" fill="#f2f7ff" opacity=".5"/>
+        <image href="/her_sleep.png" x="300" y="470" width="330" height="178"
+               preserveAspectRatio="xMidYMax meet"/>
+        <text x="648" y="520" fill="#cfe6ff" font-size="42" opacity=".8">z</text>
+        <text x="684" y="486" fill="#cfe6ff" font-size="30" opacity=".6">z</text>
+        <text x="712" y="458" fill="#cfe6ff" font-size="22" opacity=".45">z</text>
+      </g>
+      <g id="her" transform="translate(1180,470)">
+        <ellipse id="her-shadow" cx="0" cy="6" rx="62" ry="18" fill="#0a1220" opacity=".32"/>
+        <circle id="her-ring" r="60" fill="none" stroke="#7fd3ff" stroke-width="2.5" opacity="0"/>
+        <g id="her-body">
+          <g id="her-static">
+            <image href="/her.png" x="-158" y="-330" width="316" height="330" preserveAspectRatio="xMidYMax meet"/>
+          </g>
+        </g>
+      </g>
+      <!-- 前景：床沿 + 椅子，画在她之后，所以会挡住她的下半身 -->
+      <image id="fg-bed" href="/room/sample-room.png" width="1536" height="1024"
+             clip-path="url(#clip-bed)" opacity="0" pointer-events="none"/>
+      <image id="fg-chair" href="/room/sample-room.png" width="1536" height="1024"
+             clip-path="url(#clip-chair)" opacity="0" pointer-events="none"/>
+
+    </svg>
+    <div class="hint" id="hint"></div>
+    <div id="room-tag">…</div>
+    <div id="her-error" style="display:none; position:absolute; right:12px; top:10px; max-width:52%;
+         background:rgba(80,20,20,.9); border:1px solid rgba(255,120,120,.5); border-radius:10px;
+         padding:6px 10px; font-size:11.5px; color:#ffd7d7; white-space:pre-wrap;"></div>
+    <div class="drawer" id="drawer">
+      <span class="x" id="drawer-x">×</span>
+      <h4 id="d-title">—</h4>
+      <div class="sub" id="d-sub"></div>
+      <div id="d-body"></div>
+    </div>
+  </div>
+  <p class="tip">这是她的房间，不是控制台：你只能看她。点房间里的东西，看那儿现在有什么。</p>
+</div>
+
+<!-- 顺序要紧：Cubism core 必须在 pixi-live2d-display 之前 -->
+<script src="/live2d/vendor/live2dcubismcore.min.js"></script>
+<script src="/live2d/vendor/pixi.min.js"></script>
+<script src="/live2d/vendor/pixi-live2d-display.cubism4.min.js"></script>
+<script src="/room/live2d.js"></script>
+<script>
+/* ── 1. 天色：按真实小时插值，和她的时间一致 ── */
+const periods = [
+  { id:'dawn',      hour:6,  ambient:'#b9c9e6', brightness:0.92, sun:0.35 },
+  { id:'noon',      hour:12, ambient:'#ffffff', brightness:1.00, sun:0.10 },
+  { id:'afternoon', hour:16, ambient:'#ffe0c0', brightness:0.97, sun:0.55 },
+  { id:'night',     hour:20, ambient:'#2a3760', brightness:0.72, sun:0 },
+];
+const lerp = (a,b,t) => a + (b-a)*t;
+const hex = (h) => [1,3,5].map(i => parseInt(h.slice(i,i+2),16));
+const mixHex = (a,b,t) => '#' + hex(a).map((v,i) => Math.round(lerp(v, hex(b)[i], t)).toString(16).padStart(2,'0')).join('');
+
+function resolve(hour) {
+  const list = [...periods].sort((x,y)=>x.hour-y.hour);
+  const ext = [...list, {...list[0], hour: list[0].hour + 24}];
+  for (let i = 0; i < ext.length - 1; i++) {
+    const a = ext[i], b = ext[i+1];
+    const h = hour < a.hour ? hour + 24 : hour;
+    if (h >= a.hour && h <= b.hour) {
+      const t = (h - a.hour) / (b.hour - a.hour);
+      return { ambient: mixHex(a.ambient, b.ambient, t),
+               brightness: lerp(a.brightness, b.brightness, t),
+               sun: lerp(a.sun, b.sun, t) };
+    }
+  }
+  return list[0];
+}
+
+const art = document.getElementById('art');
+function paint(hour) {
+  const s = resolve(hour);
+  art.style.setProperty('--brightness', s.brightness.toFixed(3));
+  art.style.setProperty('--ambient', s.ambient);
+  art.style.setProperty('--sun', (s.sun * .6).toFixed(2));
+}
+
+/* ── 2. 热区：id 对应 space.py 里的房间 ── */
+const DEFAULT_SLOTS = [
+  { id:'bed',    label:'床',      rect:[150, 360, 590, 380] },
+  { id:'desk',   label:'电脑桌',  rect:[975, 300, 380, 380] },
+  { id:'shelf',  label:'书架',    rect:[500, 140, 210, 320] },
+  { id:'easel',  label:'地毯／画画的角落', rect:[700, 700, 380, 200] },
+  { id:'garden', label:'植物角',  rect:[1180, 720, 180, 220] },
+];
+let slots = JSON.parse(localStorage.getItem('xiaoyu-room-hotspots') || 'null') || DEFAULT_SLOTS;
+
+/* 每个房间她站的位置（viewBox 坐标） */
+const ANCHORS = {
+  desk:   [1150, 790],
+  bed:    [430, 745],
+  easel:  [880, 880],
+  garden: [1250, 900],
+  hall:   [800, 815],
+};
+
+const hzLayer = document.getElementById('hz-layer');
+const hint = document.getElementById('hint');
+const drawer = document.getElementById('drawer');
+
+function drawSlots() {
+  hzLayer.innerHTML = '';
+  slots.forEach((s) => {
+    const r = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    r.setAttribute('x', s.rect[0]); r.setAttribute('y', s.rect[1]);
+    r.setAttribute('width', s.rect[2]); r.setAttribute('height', s.rect[3]);
+    r.setAttribute('class','hz');
+    r.addEventListener('mousemove', (e) => {
+      hint.textContent = s.label;
+      hint.style.left = (e.offsetX + 14) + 'px';
+      hint.style.top = (e.offsetY + 12) + 'px';
+      hint.style.opacity = 1;
+    });
+    r.addEventListener('mouseleave', () => { hint.style.opacity = 0; });
+    r.addEventListener('click', () => openSlot(s.id));
+    hzLayer.appendChild(r);
+  });
+}
+
+async function openSlot(id) {
+  document.getElementById('d-title').textContent = '…';
+  document.getElementById('d-sub').textContent = '';
+  document.getElementById('d-body').innerHTML = '';
+  drawer.style.display = 'block';
+  drawer.style.left = '16px';
+  drawer.style.top = '12%';
+  try {
+    const res = await fetch('/api/room/inspect?slot=' + encodeURIComponent(id), { cache: 'no-store' });
+    const data = await res.json();
+    document.getElementById('d-title').textContent = data.title || id;
+    document.getElementById('d-sub').textContent = data.sub || '';
+    document.getElementById('d-body').innerHTML = (data.lines || [])
+      .map(([k, v]) => '<div class="kv"><span>' + k + '</span><span>' + v + '</span></div>').join('')
+      || '<div class="kv"><span>这里还空着</span><span>—</span></div>';
+  } catch (err) {
+    document.getElementById('d-sub').textContent = '没打开（' + err.message + '）';
+  }
+}
+document.getElementById('drawer-x').onclick = () => { drawer.style.display = 'none'; };
+
+/* ── 3. 她的位置与状态 ── */
+const her = document.getElementById('her');
+function place(room) {
+  const p = ANCHORS[room] || ANCHORS.desk;
+  her.setAttribute('transform', 'translate(' + p[0] + ',' + p[1] + ')');
+}
+
+async function poll() {
+  try {
+    const res = await fetch('/api/room/state', { cache: 'no-store' });
+    const s = await res.json();
+    if (!s.ok) throw new Error(s.error || '读取失败');
+    place(s.room);
+    document.getElementById('who').textContent = s.room_name || '小鱼的房间';
+    document.getElementById('sub').textContent = s.doing || '';
+    const badge = document.getElementById('badge');
+    badge.textContent = s.badge || '';
+    badge.className = 'badge' + (s.mode === 'focus' ? ' focus' : '');
+    document.getElementById('lamp-glow').setAttribute('r', s.lamp ? 210 : 0);
+    if (typeof s.hour === 'number') paint(s.hour);
+    const blanket = document.getElementById('blanket');
+    if (blanket) blanket.setAttribute('opacity', s.asleep ? '0.95' : '0');
+    // 前景遮挡：只有她站在家具后面时才铺上来
+    // 画架上那张画（她最近画的一张）
+    const easelBox = document.getElementById('easel-art');
+    if (easelBox) {
+      const art = s.objects && s.objects.easel;
+      if (art && art.url) {
+        const img = document.getElementById('easel-img');
+        if (img && img.getAttribute('href') !== art.url) img.setAttribute('href', art.url);
+        const cap = document.getElementById('easel-cap');
+        if (cap) cap.textContent = (art.name || '').slice(0, 16) + (art.at ? ' · ' + art.at : '');
+        easelBox.style.display = 'block';
+      } else {
+        easelBox.style.display = 'none';
+      }
+    }
+    const fgBed = document.getElementById('fg-bed');
+    const fgChair = document.getElementById('fg-chair');
+    if (fgBed) fgBed.setAttribute('opacity', s.room === 'bed' ? '1' : '0');
+    if (fgChair) fgChair.setAttribute('opacity', (s.room === 'desk' || s.room === 'hall') ? '1' : '0');
+    const sleepy = document.getElementById('her-sleep');
+    const herGroup = document.getElementById('her');
+    const canvasEl = document.getElementById('her-canvas');
+    if (sleepy) sleepy.style.display = s.asleep ? 'block' : 'none';
+    if (herGroup) herGroup.style.display = s.asleep ? 'none' : '';
+    if (canvasEl) canvasEl.style.opacity = s.asleep ? '0' : '1';
+    if (s.asleep && window.HerLive2D) window.HerLive2D.speak(false);
+    if (window.HerLive2D && window.HerLive2D.ready) {
+      window.HerLive2D.setState(s);
+    }
+    const ring = document.getElementById('her-ring');
+    if (ring) ring.style.opacity = s.mode === 'focus' ? '1' : '0';
+    const tag = document.getElementById('room-tag');
+    if (tag) tag.textContent = s.badge + (s.calls ? ' · 有人叫她' : '') + (s.doing ? ' · ' + s.doing : '');
+    if (s.slots) { slots = s.slots; }
+  } catch (err) {
+    document.getElementById('badge').textContent = '连不上' + (err.message ? '：' + err.message : '');
+  }
+}
+
+if (window.self !== window.top) document.body.classList.add('embedded');
+drawSlots();
+
+/* 2026-11-11 校准辅助：?calib=1 时把每个房间的站位画成红点 */
+(function drawAnchorMarks() {
+  if (new URLSearchParams(location.search).get('calib') !== '1') return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const layer = document.getElementById('hz-layer');
+  Object.entries(ANCHORS).forEach(([room, point]) => {
+    const dot = document.createElementNS(NS, 'circle');
+    dot.setAttribute('cx', point[0]);
+    dot.setAttribute('cy', point[1]);
+    dot.setAttribute('r', 9);
+    dot.setAttribute('fill', 'rgba(255,80,80,.75)');
+    dot.setAttribute('stroke', '#fff');
+    dot.setAttribute('stroke-width', '2');
+    layer.appendChild(dot);
+    const label = document.createElementNS(NS, 'text');
+    label.setAttribute('x', point[0] + 14);
+    label.setAttribute('y', point[1] + 6);
+    label.setAttribute('fill', '#ffd0d0');
+    label.setAttribute('font-size', '20');
+    label.textContent = room;
+    layer.appendChild(label);
+  });
+})();
+
+paint(new Date().getHours() + new Date().getMinutes() / 60);
+
+
+
+
+/* 2026-11-11：先试 Live2D，成了就把静态立绘淡出；不成保持原样 */
+function showHerError(message) {
+  const box = document.getElementById('her-error');
+  if (!box) return;
+  box.style.display = 'block';
+  box.textContent = message;
+}
+
+async function tryLive2d() {
+  const canvas = document.getElementById('her-canvas');
+  if (!canvas) return;
+  if (!window.HerLive2D) {
+    showHerError('Live2D 脚本没加载到（/room/live2d.js）');
+    return;
+  }
+  if (!window.Live2DCubismCore) {
+    showHerError('Cubism core 没加载到（/live2d/vendor/live2dcubismcore.min.js）');
+    return;
+  }
+  if (!window.PIXI || !window.PIXI.live2d) {
+    showHerError('渲染库没就绪：' + (window.PIXI ? 'pixi 有、live2d 插件没有' : 'pixi 没加载到'));
+    return;
+  }
+  const ok = await window.HerLive2D.init(canvas);
+  if (ok) {
+    document.body.classList.add('live2d-on');
+    const herGroup = document.getElementById('her');
+    if (herGroup) herGroup.style.display = 'none';
+    document.getElementById('her-error').style.display = 'none';
+  } else if (window.HerLive2D.failed) {
+    showHerError('模型没加载起来：' + window.HerLive2D.failed);
+  } else {
+    // 尺寸还是 0（房间收起来了）：不报错，等它出现再试
+    setTimeout(tryLive2d, 1200);
+  }
+}
+tryLive2d();
+
+/* 打字不动嘴；只有播语音时才动（父页面发消息进来） */
+window.addEventListener('message', (event) => {
+  const data = event.data || {};
+  if (data.type === 'her-speak' && window.HerLive2D) window.HerLive2D.speak(!!data.on);
+});
+poll();
+setInterval(poll, 5000);
+</script>
+</body>
+</html>

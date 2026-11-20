@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+config.json
+logs/
+_tmp/
+_test_tmp/
+_test_tmp_*/
+_demo/
+data/
+web_uploads/
+*.db
+*.db-wal
+*.db-shm
+.venv/

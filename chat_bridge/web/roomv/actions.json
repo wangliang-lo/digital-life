@@ -1,0 +1,181 @@
+{
+  "loops": [
+    {
+      "id": "idle_bed_phone_lit",
+      "dir": "clips2",
+      "file": "01_床上静坐抱手机_亮.mp4",
+      "pose": "sit_bed",
+      "lit": true,
+      "ms": 6000,
+      "loop": true,
+      "label": "床上抱着手机"
+    },
+    {
+      "id": "idle_bed_phone_dark",
+      "dir": "clips2",
+      "file": "02_床上静坐抱手机_暗.mp4",
+      "pose": "sit_bed",
+      "lit": false,
+      "ms": 6000,
+      "loop": true,
+      "label": "床上抱着手机"
+    },
+    {
+      "id": "idle_typing_lit",
+      "dir": "clips2",
+      "file": "03_桌前打字_亮.mp4",
+      "pose": "sit_desk",
+      "lit": true,
+      "ms": 6000,
+      "loop": true,
+      "label": "桌前打字"
+    },
+    {
+      "id": "idle_typing_dark",
+      "dir": "clips2",
+      "file": "04_桌前打字_暗.mp4",
+      "pose": "sit_desk",
+      "lit": false,
+      "ms": 6000,
+      "loop": true,
+      "label": "桌前打字"
+    },
+    {
+      "id": "idle_sleep",
+      "dir": "clips2",
+      "file": "05_躺床睡觉_暗.mp4",
+      "pose": "lie_bed",
+      "lit": false,
+      "ms": 8000,
+      "loop": true,
+      "label": "躺着睡了"
+    },
+    {
+      "id": "idle_draw",
+      "dir": "clips2",
+      "file": "06_画架前画画_亮.mp4",
+      "pose": "easel",
+      "lit": true,
+      "ms": 6000,
+      "loop": true,
+      "label": "画架前画画"
+    },
+    {
+      "id": "idle_window",
+      "dir": "clips2",
+      "file": "07_窗边看窗外_暗.mp4",
+      "pose": "window",
+      "lit": false,
+      "ms": 6000,
+      "loop": true,
+      "label": "站在窗边看外面"
+    },
+    {
+      "id": "idle_plants",
+      "dir": "clips2",
+      "file": "08_窗台弄植物_暗.mp4",
+      "pose": "garden",
+      "lit": false,
+      "ms": 6000,
+      "loop": true,
+      "label": "在窗台弄植物"
+    },
+    {
+      "id": "idle_stretch",
+      "dir": "clips2",
+      "file": "09_伸懒腰_暗.mp4",
+      "pose": "floor",
+      "lit": false,
+      "ms": 4000,
+      "loop": true,
+      "label": "在地毯上伸懒腰"
+    },
+    {
+      "id": "idle_drink",
+      "dir": "clips2",
+      "file": "16_床边喝水_亮.mp4",
+      "pose": "sit_bed",
+      "lit": true,
+      "ms": 3000,
+      "loop": true,
+      "label": "坐在床边喝水"
+    }
+  ],
+  "transitions": [
+    {
+      "id": "get_up_walk_desk",
+      "dir": "clips",
+      "file": "03_起身走到书桌.mp4",
+      "from": "sit_bed",
+      "to": "stand_desk",
+      "ms": 6000
+    },
+    {
+      "id": "sit_open_laptop",
+      "dir": "clips",
+      "file": "04_坐下打开电脑.mp4",
+      "from": "stand_desk",
+      "to": "sit_desk",
+      "ms": 5000
+    },
+    {
+      "id": "stand_walk_bed",
+      "dir": "clips",
+      "file": "06_起身走回床.mp4",
+      "from": "sit_desk",
+      "to": "bed_edge",
+      "ms": 7000
+    },
+    {
+      "id": "sit_down_bed",
+      "dir": "clips",
+      "file": "07_床上坐下.mp4",
+      "from": "bed_edge",
+      "to": "sit_bed",
+      "ms": 8000
+    },
+    {
+      "id": "get_up_walk_desk_b",
+      "dir": "clips",
+      "file": "10_起身走到书桌_B.mp4",
+      "from": "sit_bed",
+      "to": "stand_desk",
+      "ms": 7000
+    },
+    {
+      "id": "sit_open_laptop_b",
+      "dir": "clips",
+      "file": "11_坐下打开电脑_B.mp4",
+      "from": "stand_desk",
+      "to": "sit_desk",
+      "ms": 4000
+    },
+    {
+      "id": "stand_walk_bed_b",
+      "dir": "clips",
+      "file": "13_起身走回床_B.mp4",
+      "from": "sit_desk",
+      "to": "bed_edge",
+      "ms": 7000
+    },
+    {
+      "id": "sit_down_bed_b",
+      "dir": "clips",
+      "file": "14_床上坐下_B.mp4",
+      "from": "bed_edge",
+      "to": "sit_bed",
+      "ms": 8000
+    }
+  ],
+  "poses": [
+    "sit_bed",
+    "sit_desk",
+    "lie_bed",
+    "easel",
+    "window",
+    "garden",
+    "floor",
+    "stand_desk",
+    "bed_edge"
+  ]
+}

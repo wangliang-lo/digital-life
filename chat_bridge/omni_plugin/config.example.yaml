@@ -1,0 +1,77 @@
+# omni-bot-sdk 配置模板（给「IM 4.x」路线用）
+# 复制成 config.yaml，填好 dbkey 再启动。
+# 完整字段见 omni 仓库的 config.example.yaml；这里只保留跑起来需要的。
+
+# IM数据库密钥：用 DbkeyHookCMD.exe / DbkeyHookUI.exe 获取
+dbkey: ""
+
+# 图片 AES 密钥与 XOR，留空让 omni 自己找
+aes_xor_key: ""
+
+logging:
+  level: INFO
+  path: logs
+  max_size: 10485760
+  backup_count: 5
+
+# MQTT 只有 MCP 场景需要，纯聊天机器人可以不理
+mqtt:
+  host: 127.0.0.1
+  port: 1883
+  username: weixin
+  password: "YOUR_MQTT_PASSWORD"
+  client_id: weixin_omni
+
+mcp:
+  host: 127.0.0.1
+  port: 8001
+
+rpa:
+  action_delay: 0.3
+  scroll_delay: 1
+  switch_contact_delay: 0.3
+  timeout: 30
+  window_margin: 20
+  window_show_delay: 1.5
+  max_retries: 3
+  ocr:
+    merge_threshold: 5.0
+    min_confidence: 0.5
+    use_remote: false
+    remote_url: http://example.com/ocr
+
+plugins:
+  # omni 内置：屏蔽自己发的消息（插件这边还会再挡一次）
+  self-msg-plugin:
+    enabled: true
+    priority: 1998
+
+  # omni 内置：没有群名的消息无法处理
+  block-empty-room-plugin:
+    enabled: true
+    priority: 2000
+
+  # ★ 我们的数字生命插件
+  digital-life-plugin:
+    enabled: true
+    priority: 1500
+    api_base_url: http://127.0.0.1:8000
+    api_timeout: 120
+    wake_words: [她, 小鱼]
+    private_enabled: true
+    group_enabled: true
+    at_reply: true
+    fallback_on_error: ""
+    user_id_strategy: sender
+    fixed_user_id: default
+    stickers_enabled: true
+    # 和 chat_bridge 共用同一个表情目录（绝对路径最稳）
+    stickers_dir: C:/aihuman/chat_bridge/stickers
+    sticker_chance: 0.25
+    sticker_max_kb: 2048
+    proactive_enabled: true
+    proactive_interval_minutes: 45
+    proactive_quiet_hours: ["23:30", "08:00"]
+    proactive_target: 文件传输助手
+    proactive_user_id: default
+    dedupe_ttl_seconds: 600

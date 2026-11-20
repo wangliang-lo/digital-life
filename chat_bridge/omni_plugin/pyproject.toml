@@ -1,0 +1,16 @@
+[project]
+name = "omni-digital-life-plugin"
+version = "0.1.0"
+description = "把 omni-bot-sdk 的IM消息接到本地数字生命 API（/chat /proactive）"
+requires-python = ">=3.12"
+dependencies = ["omni-bot-sdk>=2.0.0"]
+
+[project.entry-points."omni_bot.plugins"]
+digital-life-plugin = "omni_digital_life_plugin:DigitalLifePlugin"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["omni_digital_life_plugin"]
