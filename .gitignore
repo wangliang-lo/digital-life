@@ -1,4 +1,4 @@
-data/
+﻿data/
 *.db
 *.db-wal
 *.db-shm
@@ -36,3 +36,6 @@ _reply.txt
 _say.txt
 _traces.json
 *.db.gz
+# 基准图表要进仓库（2026-11-25）
+!docs/charts/
+!docs/charts/*.png
