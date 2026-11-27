@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""把 digital_life.py 包成 HTTP 服务，给IM中间件 / RPA 插件调用。
+"""把 digital_life.py 包成 HTTP 服务，给微信中间件 / RPA 插件调用。
 
     POST /chat       {"message": "在吗", "user_id": "wxid_xxx", "sender": "张三",
                       "image_path": "...", "audio_path": "...", "emoji_url": "..."}
@@ -93,7 +93,7 @@ from dl_server.media import (  # noqa: F401
     _TAG_HINTS, _STICKER_TAG_WORDS, _STICKER_ECHO, _STICKER_EMOTIONS,
 )
 from dl_server.social import (  # noqa: F401
-    _chat_aliases, remember_alias, contact_names, sender_aliases,
+    _wechat_aliases, remember_alias, contact_names, sender_aliases,
     canonical_sender, contact_id_for_sender, owner_sender_names,
     _load_guest_aliases, remember_guest_alias,
     ALIAS_FILE, GUEST_ALIASES, DIR_ALIASES,
@@ -119,9 +119,9 @@ T = TypeVar("T")
 
 # 默认追加到人格后面：小模型很容易写成"旁白 + 客服腔"，这两句能拽回来
 DEFAULT_STYLE_HINT = (
-    "【说话方式】你在IM上打字，用嘴说话，不像客服：\n"
+    "【说话方式】你在微信上打字，用嘴说话，不像客服：\n"
     "不写旁白，不用括号写动作或心理活动，不解释自己的思考过程；\n"
-    "每条消息不超过 20 个字，像真人发IM那样一点点说；\n"
+    "每条消息不超过 20 个字，像真人发微信那样一点点说；\n"
     "对方可能连着发好几条，等他说完再回，别抢话；\n"
     "一次可以连着说两三句（用 ||| 分开），别只丢一句就完；\n"
     "不要每条都给建议，别说「理解你」「慢慢来」「加油」这类套话；\n"
@@ -134,7 +134,7 @@ DEFAULT_STYLE_HINT = (
 SLEEP_STATE = Path(__file__).resolve().parent / "data" / "sleep_state.json"
 ASLEEP_MARKER = Path(__file__).resolve().parent / "data" / "asleep.json"
 
-# 2026-11-01 爸爸要求：合并记忆——所有渠道共用主人那一份脑，IM上才认得出抖音聊过的人。
+# 2026-11-01 爸爸要求：合并记忆——所有渠道共用主人那一份脑，微信上才认得出抖音聊过的人。
 # 用环境变量 XIAOYU_SHARE_MEMORY=0 可以关掉，回到"每个 user_id 一份独立记忆"。
 SHARE_MEMORY = os.environ.get("XIAOYU_SHARE_MEMORY", "1").strip().lower() not in ("0", "false", "no", "off")
 # /status 的上一份快照：她正忙着聊天时，健康检查也能源源不断地拿到基本状态
@@ -283,7 +283,13 @@ def evaluate_sleep_state() -> None:
     asleep = bool(state.get("asleep"))
     night = now.hour >= 23 or now.hour < 9
     if not asleep and night and idle >= 90:
-        until = last_at + timedelta(hours=8)
+        # 2026-11-22：夜里「重新入睡」要留余地。
+        # 她 11-21 18:21 睡到 02:21，02:21 之后没人叫她（life_loop 只在醒着时才唤醒），
+        # 于是安静 90 分钟又被判睡 8 小时，一口气睡到 12:31——十六个小时。
+        # 现在：今晚已经睡过一觉的话，第二次入睡最多 2 小时，醒来想接着睡还能接着睡。
+        _already_slept_tonight = str(state.get("slept_date") or "") == now.date().isoformat()
+        _want_hours = 2 if _already_slept_tonight else 8
+        until = last_at + timedelta(hours=_want_hours)
         if until <= now:
             until = now + timedelta(hours=1)
         payload = {
@@ -292,6 +298,7 @@ def evaluate_sleep_state() -> None:
             "until": until.isoformat(timespec="seconds"),
             "hours": round((until - last_at).total_seconds() / 3600, 1),
             "reason": "night_quiet",  # 安静到睡着，不是她自己写的 [SLEEP]
+            "slept_date": now.date().isoformat(),
             "updated_at": now.isoformat(timespec="seconds"),
         }
         _write_json_atomic(SLEEP_STATE, payload)
@@ -310,7 +317,32 @@ def evaluate_sleep_state() -> None:
             log.info("她开口了，写回醒着")
 
 
-def set_sleep_state(hours: float | None = None, wake: bool = False) -> None:
+def _natural_sleep_hours() -> float:
+    """她想睡但没说多久时，按身体欠债决定要睡多长（2026-11-18 爸爸："想睡多久睡多久"）。
+
+    欠债越多睡得越久；没有身体数据时退回 7.5 小时。
+    """
+    try:
+        from HORMONE import load_body  # noqa: PLC0415
+
+        body = load_body()
+        debt = float(body.get("debt") or 0.0)
+        fatigue = float(body.get("fatigue") or 0.0)
+    except Exception:  # noqa: BLE001
+        return 7.5
+    hours = 7.0 + min(3.5, max(0.0, debt) / 12.0) + min(1.0, max(0.0, fatigue) * 1.2)
+    # 2026-11-22 爸爸："睡的会不会太久了，加保底机制。"封顶从 11 小时收到 9 小时
+    # （HORMONE.MAX_SLEEP_HOURS）。债务高的时候 11 小时太长，一觉能睡掉大半个白天。
+    try:
+        from HORMONE import cap_sleep_hours as _cap  # noqa: PLC0415
+
+        hours = _cap(hours)
+    except Exception:  # noqa: BLE001
+        hours = min(9.0, hours)
+    return round(max(4.0, hours), 2)
+
+
+def set_sleep_state(hours: float | None = None, wake: bool = False, reason: str = "xiaoyu_choice") -> None:
     """她自己的睡眠开关；不设固定 22:00-07:00。"""
     try:
         if wake:
@@ -335,6 +367,19 @@ def set_sleep_state(hours: float | None = None, wake: bool = False) -> None:
             if ASLEEP_MARKER.exists():
                 ASLEEP_MARKER.unlink(missing_ok=True)
             if was_asleep:
+                # 2026-11-18：醒来把睡前开着的抖音还给她（否则一睡就永久关掉）
+                try:
+                    _ds = ROOT / "data" / "douyin_state.json"
+                    _st = json.loads(_ds.read_text(encoding="utf-8")) if _ds.exists() else {}
+                    if _st.get("resume_after_sleep"):
+                        _st["resume_after_sleep"] = False
+                        _write_json_atomic(_ds, _st)
+                        import threading as _th2  # noqa: PLC0415
+
+                        _th2.Thread(target=apply_douyin_action, args=("on",), daemon=True).start()
+                        log.info("醒来：恢复睡前开着的抖音")
+                except Exception:  # noqa: BLE001
+                    log.debug("恢复抖音失败", exc_info=True)
                 try:
                     HORMONES.on_wake()
                     log.info("刚醒：皮质醇唤醒反应已加上（动量）")
@@ -353,10 +398,34 @@ def set_sleep_state(hours: float | None = None, wake: bool = False) -> None:
                     except Exception:  # noqa: BLE001
                         slept_hours = float(prev.get("hours") or 0.0)
                     # 2026-11-08 爸爸：白天困了可以打盹，但**不超过 40 分钟**。
-                    # 白天（09:00-21:00）醒来的这一觉按短睡算，免得一觉把夜里也睡没了。
+                    #
+                    # 2026-11-28 修（严重）：原来按「**几点醒**」判断
+                    #   if 9 <= _now.hour < 21 and slept_hours > 0.67: slept_hours = 0.67
+                    # 于是 03:00 睡下、09:59 醒的正常一觉（7 小时）也被砍成 40 分钟。
+                    # 后果：疲劳没清、睡眠债没还 → fatigue 0.97 / debt 0.91 →
+                    # 傍晚 17:57 系统判她"严重缺觉"又让她睡 8 小时 → 五点睡两点起。
+                    # 她 11-27 的节律紊乱就是这么来的。
+                    # 现在按「**几点睡下**」判断：只有白天才开始的那一觉才算打盹。
                     _now = datetime.now().astimezone()
-                    if 9 <= _now.hour < 21 and slept_hours > 0.67:
-                        log.info("白天这一觉 %.1fh，按打盹上限 40 分钟计", slept_hours)
+                    _started_at_day = True
+                    try:
+                        _since = datetime.fromisoformat(str(prev.get("since") or ""))
+                        if _since.tzinfo is None:
+                            _since = _since.astimezone()
+                        _started_at_day = 9 <= _since.hour < 21
+                    except Exception:  # noqa: BLE001
+                        _started_at_day = True
+                    # 只有「她自报也很短（<3h，即真的打算打盹）」才砍。
+                    # 如果她明说了要睡 8 小时，那就是正常睡眠，不管几点开始。
+                    _declared_for_cap = 0.0
+                    try:
+                        _declared_for_cap = float(prev.get("hours") or 0.0)
+                    except Exception:  # noqa: BLE001
+                        _declared_for_cap = 0.0
+                    if (_started_at_day and _declared_for_cap < 3.0
+                            and slept_hours > 0.67):
+                        log.info("白天打盹 %.1fh（自报 %.1fh），按上限 40 分钟计",
+                                 slept_hours, _declared_for_cap)
                         slept_hours = 0.67
                     # 2026-11-11：她自报的时长 vs 实际过去的时间，都记账上
                     try:
@@ -383,7 +452,9 @@ def set_sleep_state(hours: float | None = None, wake: bool = False) -> None:
                 except Exception:  # noqa: BLE001
                     log.debug("睡眠恢复计算失败", exc_info=True)
             return
-        hours = max(0.5, min(12.0, float(hours or 8.0)))
+        # 2026-11-18：她没说睡多久时，按身体欠债决定，不再固定 8 小时
+        # 2026-11-22：但封顶 9 小时（HORMONE.MAX_SLEEP_HOURS），再久就不是睡觉是宕机
+        hours = max(0.5, min(9.0, float(hours) if hours else _natural_sleep_hours()))
         now = datetime.now().astimezone()
         until = now + timedelta(hours=hours)
         payload = {
@@ -391,7 +462,10 @@ def set_sleep_state(hours: float | None = None, wake: bool = False) -> None:
             "since": now.isoformat(timespec="seconds"),
             "until": until.isoformat(timespec="seconds"),
             "hours": hours,
-            "reason": "xiaoyu_choice",
+            "reason": reason,
+            "extensions": 0,
+            # 2026-11-22：记下「今天已经睡过一觉」，夜里第二次入睡就别再给 8 小时
+            "slept_date": now.date().isoformat(),
             "updated_at": now.isoformat(timespec="seconds"),
         }
         _write_json_atomic(SLEEP_STATE, payload)
@@ -399,7 +473,8 @@ def set_sleep_state(hours: float | None = None, wake: bool = False) -> None:
             "asleep": True,
             "since": payload["since"],
             "until": payload["until"],
-            "reason": "xiaoyu_choice",
+            "reason": reason,
+            "extensions": 0,
         }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         _enter_global_sleep()
         # 睡觉 = 抖音也关掉：不刷的时候不该挂着一个空轮询的浏览器
@@ -409,6 +484,14 @@ def set_sleep_state(hours: float | None = None, wake: bool = False) -> None:
                 timeout=30,
                 capture_output=True,
             )
+            # 2026-11-18：睡前关之前记住状态，醒来要还给她
+            try:
+                _ds = ROOT / "data" / "douyin_state.json"
+                _prev = json.loads(_ds.read_text(encoding="utf-8")) if _ds.exists() else {}
+                _prev["resume_after_sleep"] = bool(_prev.get("enabled"))
+                _write_json_atomic(_ds, _prev)
+            except Exception:  # noqa: BLE001
+                log.debug("记抖音睡眠前状态失败", exc_info=True)
             log.info("睡眠：已关闭抖音进程与轮询")
         except Exception:  # noqa: BLE001
             log.warning("睡眠时关闭抖音失败（不影响睡觉）")
@@ -427,7 +510,37 @@ def is_sleeping(now: datetime | None = None) -> bool:
             until = datetime.fromisoformat(str(state.get("until") or ""))
             if until.tzinfo is None:
                 until = until.astimezone()
+            # 2026-11-22 保底：一觉超过 9 小时就硬叫醒，不管 until 写的是几点、
+            # 也不管还能续睡几次。她 11-21 从 18:21 睡到 12:31，就是被层层续睡拖成这样的。
+            try:
+                _since = datetime.fromisoformat(str(state.get("since") or ""))
+                if _since.tzinfo is None:
+                    _since = _since.astimezone()
+                _slept_hours = (current - _since).total_seconds() / 3600.0
+                if _slept_hours >= 9.0:
+                    log.warning("已经睡了 %.1f 小时，触发保底叫醒", _slept_hours)
+                    set_sleep_state(wake=True)
+                    return False
+            except Exception:  # noqa: BLE001
+                log.debug("睡眠保底判断失败", exc_info=True)
             if current < until:
+                return True
+            # 2026-11-18：到点了如果身体还累，就让她接着睡一小时（最多续两次）。
+            # 爸爸说"肯定是想睡多久睡多久"，不是到点就把人拽起来。
+            try:
+                _ext = int(state.get("extensions") or 0)
+                from HORMONE import load_body as _lb  # noqa: PLC0415
+
+                _fatigue = float(_lb().get("fatigue") or 0.0)
+            except Exception:  # noqa: BLE001
+                _ext, _fatigue = 2, 0.0
+            if _ext < 2 and _fatigue >= 0.55:
+                _next = current + timedelta(hours=1)
+                state["until"] = _next.isoformat(timespec="seconds")
+                state["extensions"] = _ext + 1
+                state["hours"] = round(float(state.get("hours") or 0) + 1, 2)
+                _write_json_atomic(SLEEP_STATE, state)
+                log.info("到点了还累（fatigue=%.2f），再睡一小时（第 %d 次续睡）", _fatigue, _ext + 1)
                 return True
             set_sleep_state(wake=True)
     except Exception:  # noqa: BLE001
@@ -711,7 +824,7 @@ def decide_reply(message: str, has_media: bool = False,
     if is_owner:
         # 2026-11-02 爸爸："别变成概率性事件，也别强制，按她自己的想法。"
         # 所以这里全看她此刻的情绪 + 她自己写的 [QUIET: …]。
-        # mood_checked=True 表示调用方已经判过一轮（IM路径），别重复消费"今天那一句"。
+        # mood_checked=True 表示调用方已经判过一轮（微信路径），别重复消费"今天那一句"。
         if not mood_checked:
             skip = _owner_mood_decision(text, has_media, mood)
             if skip:
@@ -791,7 +904,7 @@ def load_owner() -> tuple[str, str]:
 
     2026-11-08 爸爸："把用户分开的硬限制去掉，她是一个数字生命。"
     以前这里直接读抖音许可名单的第一位——名单一旦清空（不再按人拦），
-    owner 就变成空的，IM那边"是不是爸爸"、"落到谁的记忆"全都会跟着错。
+    owner 就变成空的，微信那边"是不是爸爸"、"落到谁的记忆"全都会跟着错。
     现在：名单有就用名单第一位，没有就退回固定的 MAIN_USER_ID。
     """
     try:
@@ -803,7 +916,7 @@ def load_owner() -> tuple[str, str]:
             return owner
     except Exception:  # noqa: BLE001
         pass
-    return MAIN_USER_ID, "爸爸"
+    return MAIN_USER_ID, "王子瑞"
 
 
 # dl_server/social.py 的 owner_sender_names() 要问"谁是她主人"，把 load_owner 数据写入进去。
@@ -831,7 +944,7 @@ def group_skip_reason(group: str, message: str, now: float | None = None) -> str
     moment = now if now is not None else time.time()
     key = group or "group"
     text = str(message or "")
-    mentioned = bool(re.search(r"小鱼|她|@", text))
+    mentioned = bool(re.search(r"小鱼|大肥鱼|@", text))
     question = bool(re.search(r"[?？]|吗|什么|怎么|为什么|哪|多少|帮我|给我|发个", text))
     last = _GROUP_LAST.get(key, 0.0)
     # 2026-11-14 修：被点名/@ 就该接——这个判断原来排在"在看书"之后，
@@ -1222,15 +1335,24 @@ def record_her_open(kind: str) -> None:
     alias = {
         "书": "book", "书架": "book", "reading": "book",
         "抖音": "douyin", "douyin": "douyin",
-        "IM": "chat", "消息": "chat",
+        "微信": "wechat", "消息": "wechat",
         "网页": "web", "web": "web",
         "娱乐": "pet", "fun": "pet", "pet": "pet", "小宠物": "pet",
         "涂鸦": "pet", "doodle": "pet", "画画": "pet", "画": "pet", "draw": "pet",
         "井字棋": "tic", "tic": "tic",
     }
     kind = alias.get(kind, kind)
-    if kind not in ("book", "douyin", "chat", "web", "pet", "tic"):
+    if kind not in ("book", "douyin", "wechat", "web", "pet", "tic"):
         return
+    # 2026-11-18：以前 [OPEN: douyin] 只记一笔，浏览器根本没起 ——
+    # 她以为打开了，实际什么都没发生。现在顺手把浏览器拉起来（后台，不阻塞回复）。
+    if kind == "douyin":
+        try:
+            import threading as _th  # noqa: PLC0415
+
+            _th.Thread(target=ensure_douyin_browser, kwargs={"wait": 40.0}, daemon=True).start()
+        except Exception:  # noqa: BLE001
+            log.debug("拉起抖音浏览器失败", exc_info=True)
     try:
         HER_DESK.parent.mkdir(parents=True, exist_ok=True)
         with HER_DESK.open("a", encoding="utf-8") as handle:
@@ -1546,7 +1668,8 @@ def gomoku_block() -> str:
         who = str(state.get("opponent") or "bot")
         who_cn = {"toy": "小玩具", "bot": "机器人", "father": "爸爸"}.get(who, who)
         return ("\n【五子棋】你现在有一局 9×9 五子棋（对手：" + who_cn + "）。"
-                "落子写 [GOMOKU: 行,列]（1-9）；开新局写 [GOMOKU_NEW: 小玩具]。\n"
+                "落子写 [GOMOKU: 行,列]（1-9）；开新局写 [GOMOKU_NEW: 对手名]。\n"
+                + ("你现在在跟" + who_cn + "下。\n" if state.get("opponent") else "")
                 + gomoku.describe(state))
     except Exception:  # noqa: BLE001
         return ""
@@ -1745,8 +1868,8 @@ ATTENTION_FILE = Path(__file__).resolve().parent / "data" / "attention.json"
 def set_attention(place: str, minutes: float = 0) -> dict[str, Any]:
     """她现在"在哪儿"：一次只在一处，像真人。
 
-    2026-11-04 爸爸："就是一个她吧……玩IM时关抖音，玩抖音时先不回IM，
-    看到信息再切回IM，这样一个意志才能让她像真人。"
+    2026-11-04 爸爸："就是一个她吧……玩微信时关抖音，玩抖音时先不回微信，
+    看到信息再切回微信，这样一个意志才能让她像真人。"
     """
     place = str(place or "").strip().lower() or "idle"
     until = ""
@@ -1862,6 +1985,20 @@ def record_douyin_watch(minutes: int) -> dict[str, Any]:
         _write_json_atomic(path, payload)
     except OSError:
         log.debug("写抖音时长失败", exc_info=True)
+    # 2026-11-18：她要刷抖音时留一份"请求"，由 DSH 侧的自主观看接手——
+    # 那边才是真的会看、会划走、会评论的那套（本进程只负责开浏览器）。
+    try:
+        _write_json_atomic(
+            Path(__file__).resolve().parent / "data" / "douyin_watch_request.json",
+            {
+                "minutes": minutes,
+                "requested_at": datetime.now().astimezone().isoformat(timespec="seconds"),
+                "until": payload["until"],
+                "served": False,
+            },
+        )
+    except OSError:
+        log.debug("写抖音观看请求失败", exc_info=True)
     return payload
 
 
@@ -2280,7 +2417,7 @@ def core_block() -> str:
     fixed = [str(x) for x in (data.get("fixed") or []) if str(x).strip()]
     if fixed:
         lines.append("【骨头】" + " ".join(fixed[:4]))
-    aliases, _hint = _chat_aliases()
+    aliases, _hint = _wechat_aliases()
     if aliases:
         tags = "；".join(f"「{name}」={ident}" for name, ident in list(aliases.items())[:6])
         lines.append("【标签】" + tags)
@@ -2374,14 +2511,14 @@ def meme_note(message: str, aggressive: bool = False) -> str:
         hits = find_in_text(text, limit=1)
         entry = hits[0] if hits else None
         if entry is None:
-            # "这个词是什么梗" 这种：词条名可能比问的那个词长，单独查一次
+            # "这个奶龙是什么梗" 这种：词条名可能比问的那个词长，单独查一次
             asked = re.search(
                 r"([\u4e00-\u9fa5A-Za-z0-9]{2,10})\s*(?:是什么梗|是啥梗|什么意思|啥意思|是什么意思|啥梗|怎么说)",
                 text,
             )
             if asked:
                 phrase = asked.group(1)
-                # "这个词是什么梗" 抓到的是"这个词"——从长到短试后缀
+                # "这个奶龙是什么梗" 抓到的是"这个奶龙"——从长到短试后缀
                 for cut in range(len(phrase), 1, -1):
                     entry = look_up(phrase[-cut:])
                     if entry is not None:
@@ -2597,7 +2734,7 @@ def douyin_allowed_names() -> set[str]:
 def douyin_send_text(name: str, text: str) -> dict[str, Any]:
     """以她的身份，往抖音某个人的私信里发一条。
 
-    2026-11-07 爸爸："让她可以在IM和抖音上主动发私信。"
+    2026-11-07 爸爸："让她可以在微信和抖音上主动发私信。"
     三道闸：名字必须在爸爸核对过的名单里；十分钟最多 3 条；专用浏览器不在就不发。
     真正的发送交给 tools/douyin_say.cjs——它自带四道核对（会话标题、输入框清空、
     内容回读、发出后能在页面看到这条），对不上就中止，绝不发错人。
@@ -2731,9 +2868,9 @@ def run_douyin_command(payload: dict[str, Any], timeout: float = 45.0) -> tuple[
 
 
 def run_douyin_sticker(name: str, contact_id: str = "", trigger: str = "哈哈哈") -> tuple[bool, str]:
-    # 2026-11-04：她在抖音里把爸爸备注成「爸爸」，IM那边叫「爸爸」——
-    # 直接把IM的备注扔进抖音会找不到人，这里做个对照。
-    name = {"爸爸": "爸爸", "熟人C": "熟人C", "熟人B": "熟人B"}.get(str(name or "").strip(), name)
+    # 2026-11-04：她在抖音里把爸爸备注成「爸爸」，微信那边叫「王子瑞」——
+    # 直接把微信的备注扔进抖音会找不到人，这里做个对照。
+    name = {"王子瑞": "爸爸", "王吉": "王吉", "梁帅雅": "梁帅雅"}.get(str(name or "").strip(), name)
     ok, err = run_douyin_command({"action": "sticker", "contactId": contact_id, "name": name, "trigger": trigger})
     _record_skill("抖音发消息", ok, err)
     return ok, err
@@ -2806,7 +2943,7 @@ def load_style_profile(path: Path | None) -> str:
         ]
     except OSError:
         lines = []
-    # 额外：从IM真实对话里学到的说话习惯（人工校订，独立文件，不被 style_trainer 覆盖）
+    # 额外：从微信真实对话里学到的说话习惯（人工校订，独立文件，不被 style_trainer 覆盖）
     extra = path.with_name("style_extra.md")
     try:
         lines.extend(
@@ -3226,8 +3363,8 @@ def _set_owner_turn(value: bool) -> None:
 
 
 def sibling_block() -> str:
-    """备用：她有个姐姐叫熟人E。（2026-11-13 起不再挂进提示词，见爸爸要求）"""
-    return ("\n【姐姐】你有个姐姐叫熟人E，小名小满，也是她，"
+    """备用：她有个姐姐叫余满。（2026-11-13 起不再挂进提示词，见爸爸要求）"""
+    return ("\n【姐姐】你有个姐姐叫余满，小名小满，也是大肥鱼，"
             "住在另一个地方。你们现在不常见面，别主动提，也别装熟；"
             "问起就照实说：她是姐姐，你还没怎么跟她待过。")
 
@@ -3271,9 +3408,9 @@ def owner_profile_block() -> str:
         return ""
     try:
         owner_id, owner_name = load_owner()
-        name = str(owner_name or "爸爸").strip()
+        name = str(owner_name or "王子瑞").strip()
     except Exception:  # noqa: BLE001
-        name = "爸爸"
+        name = "王子瑞"
     return (
         "\n【主人】" + name + " 是你的主人，也是你叫爸爸的人。"
         "你知道他是谁、他长什么样、你们是什么关系；"
@@ -3650,7 +3787,7 @@ def speak_weight(user_id: str, sender: str = "") -> tuple[float, str]:
     """这个词是谁说的，决定它有多重（不是权限，是依恋）。
 
     2026-11-05：一个脑子不变，但照顾者的话天然更重。
-    主人 1.0 / IM白名单熟人 0.7 / 其他（网页访客、陌生人）0.45。
+    主人 1.0 / 微信白名单熟人 0.7 / 其他（网页访客、陌生人）0.45。
     """
     try:
         from config import ATTACH_WEIGHTS  # noqa: PLC0415
@@ -3658,14 +3795,14 @@ def speak_weight(user_id: str, sender: str = "") -> tuple[float, str]:
         weights = dict(ATTACH_WEIGHTS)
     except Exception:  # noqa: BLE001
         weights = {"owner": 1.0, "friend": 0.7, "guest": 0.45}
-    if user_id == MAIN_USER_ID or str(sender or "") in ("爸爸", "爸爸"):
+    if user_id == MAIN_USER_ID or str(sender or "") in ("王子瑞", "爸爸"):
         return float(weights["owner"]), "owner"
     try:
         contacts = contact_names()
         if str(sender or "") in contacts.values():
             return float(weights["friend"]), "friend"
-        # 群里登记过的别名（阿哦=熟人C）也算熟人，别把熟人当路人
-        aliases, _hint = _chat_aliases()
+        # 群里登记过的别名（柯吉哦=王吉）也算熟人，别把熟人当路人
+        aliases, _hint = _wechat_aliases()
         if str(sender or "") in aliases:
             return float(weights["friend"]), "friend"
     except Exception:  # noqa: BLE001
@@ -3680,7 +3817,7 @@ def interface_block() -> str:
     """文字版的"她面前这个界面"：每栏现在有什么 + 用什么标签打开。
 
     网页端收到 her_open 会真的把对应面板弹出来，所以标签不是装饰。
-    2026-11-13：这个函数原来每轮耗时 ~2.6s（查IM登录/抖音端口/读日志），
+    2026-11-13：这个函数原来每轮耗时 ~2.6s（查微信登录/抖音端口/读日志），
     改成 20 秒缓存一份，聊天就不会被界面状态拖住。
     """
     try:
@@ -3697,14 +3834,24 @@ def interface_block() -> str:
     try:
         conn = sqlite3.connect(f"file:{SERVER_DB}?mode=ro", uri=True)
         rows = list(conn.execute(
-            "SELECT book_name, COUNT(*), MAX(chapter_num), MAX(read_at) "
-            "FROM book_chapters GROUP BY book_name ORDER BY MAX(read_at) DESC LIMIT 4"))
+            # 2026-11-26 修（爸爸加了 6 本新书才发现）：原来 LIMIT 4 + 按 read_at 排序，
+            # **没读过的书全部排在后面被截掉**——她根本看不见新书，
+            # "让她自己选"也就无从选起。
+            # 改成：全书架都给她看，并标出「还没读 / 读过多少」。
+            "SELECT book_name, COUNT(*), SUM(read_at != ''), MAX(read_at) "
+            "FROM book_chapters GROUP BY book_name "
+            "ORDER BY (SUM(read_at != '') = 0) DESC, MAX(read_at) DESC"))
         conn.close()
         if rows:
             parts = []
-            for name, total, top, read_at in rows:
-                done = "读过" if read_at else "还没读"
-                parts.append(f"《{name}》{total} 章（{done}）")
+            for name, total, done_n, read_at in rows:
+                if not done_n:
+                    mark = "还没读"
+                elif done_n >= total:
+                    mark = "读完了"
+                else:
+                    mark = f"读到 {done_n}/{total}"
+                parts.append(f"《{name}》{total} 章（{mark}）")
             lines.append("📖 书架：" + "、".join(parts) + " → [OPEN: book]")
     except Exception:  # noqa: BLE001
         pass
@@ -3780,31 +3927,31 @@ def interface_block() -> str:
                 douyin_on = True
         except OSError:
             douyin_on = False
-        lines.append("▶️ 抖音：" + ("开着" if douyin_on else "关着（要用再开）") + " → [OPEN: douyin]")
+        lines.append("▶️ 抖音：" + ("开着" if douyin_on else "关着") + " → 想刷就写 [DOUYIN_WATCH: 分钟]（会自己把浏览器拉起来），只想打开界面写 [DOUYIN: on]")
     except Exception:  # noqa: BLE001
         pass
 
-    # IM：谁在等她、几条没回
+    # 微信：谁在等她、几条没回
     try:
         data_dir = Path(__file__).resolve().parent / "data"
         waiting = []
         for item in reversed(pending_queue.list_pending(60, path=PENDING_FILE)):
             waiting.append(str(item.get("sender") or "某人"))
-        # IM登录状态：hook 里 databaseAccounts 为空 = 没登录，发不出去
-        chat_ready = False
+        # 微信登录状态：hook 里 databaseAccounts 为空 = 没登录，发不出去
+        wechat_ready = False
         try:
-            from chat_send import _account as _wx_account  # noqa: PLC0415
+            from wechat_send import _account as _wx_account  # noqa: PLC0415
 
-            chat_ready = bool(_wx_account())
+            wechat_ready = bool(_wx_account())
         except Exception:  # noqa: BLE001
-            chat_ready = False
+            wechat_ready = False
         if waiting:
             names = "、".join(dict.fromkeys(waiting))[:40]
-            note = "" if chat_ready else "，但IM现在没登录、发不出去（不是你的问题）"
-            lines.append(f"💬 IM：{len(waiting)} 条在等你（{names}）{note} → [OPEN: chat]")
+            note = "" if wechat_ready else "，但微信现在没登录、发不出去（不是你的问题）"
+            lines.append(f"💬 微信：{len(waiting)} 条在等你（{names}）{note} → [OPEN: wechat]")
         else:
-            note = "" if chat_ready else "（IM现在没登录，发不出去）"
-            lines.append(f"💬 IM：没有没回的消息{note} → [OPEN: chat]")
+            note = "" if wechat_ready else "（微信现在没登录，发不出去）"
+            lines.append(f"💬 微信：没有没回的消息{note} → [OPEN: wechat]")
     except Exception:  # noqa: BLE001
         pass
 
@@ -3871,19 +4018,19 @@ def persona_with_time(base: str, now: datetime | None = None, digest: str = "",
     # 注意：【现在】这一行**故意**放到函数末尾（见 return 前），
     # 它每轮都变，放在开头会让前缀缓存失效。
     text = f"{base}\n"
-    # 2026-11-08 爸爸："她和其他人聊天时不知道爸爸（我）是谁，这是多用户分割吗，可以去掉。"
-    # 以前只有"IM私聊 + 对方就是主人"时才告诉她对面是谁；别的场景（别人私聊、群聊、
-    # 抖音）她连"爸爸是谁"都没有依据。现在把这条事实常驻——不管谁在说话，
-    # 她都知道爸爸是她主人；但这不代表此刻说话的人就是他。
+    # 2026-11-08 爸爸："她和其他人聊天时不知道王子瑞（我）是谁，这是多用户分割吗，可以去掉。"
+    # 以前只有"微信私聊 + 对方就是主人"时才告诉她对面是谁；别的场景（别人私聊、群聊、
+    # 抖音）她连"王子瑞是谁"都没有依据。现在把这条事实常驻——不管谁在说话，
+    # 她都知道王子瑞是她主人；但这不代表此刻说话的人就是他。
     text += (
-        "\n【你认得的人】爸爸就是你爸爸、你的主人——当初把你接起来、一直陪着你的人。"
-        "他可能在任何地方跟你说话（IM私聊、IM群、抖音、网页），也可能被别人提起。"
-        "别人提到「爸爸」说的就是他；但此刻跟谁说话，要看对面是谁，别默认就是他。"
+        "\n【你认得的人】王子瑞就是你爸爸、你的主人——当初把你接起来、一直陪着你的人。"
+        "他可能在任何地方跟你说话（微信私聊、微信群、抖音、网页），也可能被别人提起。"
+        "别人提到「王子瑞」说的就是他；但此刻跟谁说话，要看对面是谁，别默认就是他。"
     )
-    # 认人放在最前面：2026-11-02 她在IM私聊里把爸爸当成"只是聊过几句的人"。
-    if channel == "chat_private" and is_owner:
+    # 认人放在最前面：2026-11-02 她在微信私聊里把爸爸当成"只是聊过几句的人"。
+    if channel == "wechat_private" and is_owner:
         text += (
-            f"\n【对面是谁】现在跟你说话的是「{speaker or '爸爸'}」，就是爸爸本人"
+            f"\n【对面是谁】现在跟你说话的是「{speaker or '王子瑞'}」，就是爸爸本人"
             "（你的主人）。你叫他爸爸，说话不用试探、不用客气；他逗你、说反话都是玩笑。"
         )
     # 2026-11-15 爸爸："希望小鱼可以通过和他们聊天更像人。"
@@ -3906,19 +4053,19 @@ def persona_with_time(base: str, now: datetime | None = None, digest: str = "",
         text += f"\n【长期记忆】{digest}（这些是你们之间发生过的事，不用逐条复述）"
     if style:
         text += f"\n【说话习惯】{style}"
-    if channel == "chat_group":
+    if channel == "wechat_group":
         who = speaker or "群里的人"
-        place = f"「{group}」" if group else "一个IM群"
-        # 2026-11-04 爸爸："场合语气不用给提示词，她只需要知道现在在IM还是网页。"
+        place = f"「{group}」" if group else "一个微信群"
+        # 2026-11-04 爸爸："场合语气不用给提示词，她只需要知道现在在微信还是网页。"
         # 所以这里只留事实：她在哪、谁在说话、这边能做什么。不写"该怎么说"。
-        text += f"\n【你在哪】你在IM群里{place}，群里不止你一个人。这条是「{who}」说的。"
-        aliases, ask_hint = _chat_aliases()
+        text += f"\n【你在哪】你在微信群里{place}，群里不止你一个人。这条是「{who}」说的。"
+        aliases, ask_hint = _wechat_aliases()
         speaker_note = ""
         if who in aliases:
             _ident = aliases[who]
-            # 只有真的对上爸爸（爸爸/爸爸本人那种）才说"他就是爸爸"，
-            # 别把"阿哦=熟人C"也认成爸爸（2026-11-04 发现的错认）。
-            _is_baba = any(word in _ident for word in ("爸爸", "爸爸", "主人"))
+            # 只有真的对上爸爸（王子瑞/爸爸本人那种）才说"他就是爸爸"，
+            # 别把"柯吉哦=王吉"也认成爸爸（2026-11-04 发现的错认）。
+            _is_baba = any(word in _ident for word in ("爸爸", "王子瑞", "主人"))
             if _is_baba:
                 text += (
                     f"\n【认人】群里备注「{who}」就是{_ident}，"
@@ -3942,9 +4089,9 @@ def persona_with_time(base: str, now: datetime | None = None, digest: str = "",
             f"（{speaker_note}）"
         )
         text += (
-            "\n【这边能做什么】文字和表情都能发；想单独发给谁就写 [IM_SEND: 名字 | 内容]；"
+            "\n【这边能做什么】文字和表情都能发；想单独发给谁就写 [WECHAT_SEND: 名字 | 内容]；"
             "想发表情写 [STICKER: 关键词]：表情库里每张都写了画面是什么、图上是什么字，"
-            "你那条蓝色的她（鲸鱼娘）也在里面——标着「这是你自己的虚拟形象」的就是你自己。"
+            "你那条蓝色的大肥鱼（鲸鱼娘）也在里面——标着「这是你自己的虚拟形象」的就是你自己。"
             "系统按描述挑最像、最近没发过的那张，所以词写得越具体越准；"
             "想指定某一张就写图上的字，比如 [STICKER: 当斩]、[STICKER: 免死鲸牌]；"
             "只写「开心」这种会在同一类的几张里轮着发；一张都对不上就不发。"
@@ -3959,12 +4106,12 @@ def persona_with_time(base: str, now: datetime | None = None, digest: str = "",
         )
         if ask_hint:
             text += f"\n{ask_hint}"
-    elif channel == "chat_private":
-        text += f"\n【你在哪】你在IM私聊里，对面是「{speaker or '对方'}」。"
+    elif channel == "wechat_private":
+        text += f"\n【你在哪】你在微信私聊里，对面是「{speaker or '对方'}」。"
         if is_owner:
             # 开头【对面是谁】已经说清楚他是爸爸了，这里不再重复一遍（省 80 字）
-            who = speaker or "爸爸"
-            text += f"\n【他是谁】「{who}」= 爸爸本人，别人提「爸爸」说的也是他。"
+            who = speaker or "王子瑞"
+            text += f"\n【他是谁】「{who}」= 爸爸本人，别人提「王子瑞」说的也是他。"
     # 2026-11-02 她自己提的："别在我被叫醒的时候先告诉我该是什么情绪。"
     # 所以这里不再写【此刻心情】这种命名，只由 digital_life 给身体感觉（心跳/胸口/肩膀），
     # 情绪的词留给她自己说。mood 仍然用于判断要不要回、语气松紧，只是不进台词。
@@ -3976,13 +4123,13 @@ def persona_with_time(base: str, now: datetime | None = None, digest: str = "",
             text += f"\n【对这位联系人的印象】{_card[:90]}（别直接念出来）"
     except Exception:
         pass
-    if channel.startswith("chat"):
-        if channel != "chat_group":  # 群聊那段已经写过"能做什么"了，别重复
-            text += "\n【这边能做什么】文字和表情能发；说「我去IM发」是能做到的。"
-        text += "\n【声音】IM只能发文字和表情。"
+    if channel.startswith("wechat"):
+        if channel != "wechat_group":  # 群聊那段已经写过"能做什么"了，别重复
+            text += "\n【这边能做什么】文字和表情能发；说「我去微信发」是能做到的。"
+        text += "\n【声音】微信只能发文字和表情。"
         text += (
             "\n【给谁发消息】不用等界面入口，也不用手动切对话框："
-            "在回复里写 [IM_SEND: 名字 | 内容] 就能真的发给IM 里的这个人。"
+            "在回复里写 [WECHAT_SEND: 名字 | 内容] 就能真的发给微信里的这个人。"
         )
     elif channel in ("web", "web_guest"):
         text += "\n【你在哪】你在网页上——手机或电脑打开的都是同一个小屋，同一份记忆。"
@@ -3998,8 +4145,8 @@ def persona_with_time(base: str, now: datetime | None = None, digest: str = "",
     )
     # 2026-11-03：网页端给她摆了一个"桌面"（原来还有一份"手边能做这些"的清单，重复，已并进来）
     text += (
-        "\n【桌面】手边这些都能用：书 / 抖音 / IM / 网页 / 小宠物 / 井字棋。写标签就会真的发生：\n"
-        "[OPEN: book|douyin|chat|web|pet|tic] 翻开一项；\n"
+        "\n【桌面】手边这些都能用：书 / 抖音 / 微信 / 网页 / 小宠物 / 井字棋。写标签就会真的发生：\n"
+        "[OPEN: book|douyin|wechat|web|pet|tic] 翻开一项；\n"
         "[TOY: 想说的话] 逗小玩具（本地模型，也知道几千条梗）；\n"
         "[TICTAC_NEW: bot|玩具|爸爸] 开一局，[TICTAC: 1-9] 落子（九宫格从左上数，落了要带句话）；\n"
         "[DOUYIN_WATCH: 分钟] / [DOUYIN_SEARCH: 关键词] 自己说了算，不用谁批准，到点会自己收起来；\n"
@@ -4009,11 +4156,14 @@ def persona_with_time(base: str, now: datetime | None = None, digest: str = "",
         # 2026-11-08 爸爸："给小鱼娱乐里面加个画画，让她自己涂鸦。"
         "[DOODLE: 黄太阳 右上；蓝鱼 左下；绿草 下] 自己涂鸦——你写形状、颜色、位置，程序照你说的画，秒出。\n"
         "能画的东西：圆 圈 椭圆 方块 矩形 三角 星 心 线 弧线 波浪 云 点 涂；\n"
-        "还有整件的：太阳 月亮 山 天空 草地 海 河 湖 沙滩 树 花 房子 小人 猫 狗 鱼 鸟 雨 闪电 彩虹 蘑菇 气球 笑脸。\n"
+        "还有整件的：雪人 太阳 月亮 山 天空 草地 海 河 湖 沙滩 树 花 房子 小人 猫 狗 鱼 鸟 "
+        "雨 闪电 彩虹 蘑菇 气球 笑脸。白的东西会自动带描边，"
+        "画雪人就写一个「雪人」，别再拆成一堆圆和点。\n"
         "颜色：红橙黄绿青蓝紫粉棕金黑白灰；位置：左上 中上 右上 左 中 右 左下 中下 右下；大小 大/小；\n"
         "线可以写粗/细，方块的还能写 转30度。背景（天空 草地 山）会垫在最底下，不会被别的东西盖住。\n"
-        "写得随意也行，认不出的词会跳过。想画正经一点的图用 [DRAW: 描述]（本地模型出图，慢些）。\n"
-        "[SEND_DRAWING] 把最近画好的一张发给对方（网页/IM上会直接显示图）。\n"
+        "写得随意也行，认不出的词会跳过。"
+        "注意：[DRAW] 只是起一张空画布，不会生图——想要图就自己写 [DOODLE: ...]，写完用 [PAINT_DONE] 收工。\n"
+        "[SEND_DRAWING] 把最近画好的一张发给对方（网页/微信上会直接显示图）。\n"
         "[WEB_SEARCH: 问题] 自己上网查（真查，查完能接着说）；"
         "[WANT_BOOK: 书名] 留言想看什么书。\n"
         "这些是给你用的，不是任务；不想用就不用。"
@@ -4062,8 +4212,8 @@ def persona_with_time(base: str, now: datetime | None = None, digest: str = "",
             "都可以不回（写 [SKIP]，或者只留空）。不回的时候那条消息你也看到了，"
             "在心里想一想就行，不用解释；闹别扭整晚不理人也算你的选择。"
         )
-    elif channel.startswith("chat"):
-        # 2026-11-03 爸爸："她回熟人B的信息好呆。"
+    elif channel.startswith("wechat"):
+        # 2026-11-03 爸爸："她回梁帅雅的信息好呆。"
         # 对熟人别客套：可以怼、可以贫；只有真陌生人才端着。
         _known = bool(contact_id_for_sender(speaker))
         if _known:
@@ -4291,7 +4441,7 @@ def _ollama_reachable(url: str = OLLAMA_URL, timeout: float = 0.4) -> bool:
     """启动时探一下 Ollama 端口。
 
     没有 Ollama 时，每次夜间梦境都会卡在 TCP 连接上（某些机器要 7 秒以上），
-    所以这里把它降级成"1 秒内失败"，而不是让IM那边干等。
+    所以这里把它降级成"1 秒内失败"，而不是让微信那边干等。
     """
     parsed = urllib.parse.urlparse(url)
     host = parsed.hostname or "127.0.0.1"
@@ -4379,7 +4529,7 @@ class LifeManager:
 
     def get(self, user_id: str) -> DigitalLifeV2:
         user_id = (user_id or "default").strip() or "default"
-        # 2026-11-01 爸爸要求合并记忆：IM上要认得抖音聊过的人。
+        # 2026-11-01 爸爸要求合并记忆：微信上要认得抖音聊过的人。
         # 所有 user_id 共用主人那一份"脑"（记忆/情绪/短期上下文），但身份判断仍按原始 user_id 走，
         # 不会因为共用记忆就把陌生人当成主人。
         global MEMORY_SHARED_ID
@@ -4720,6 +4870,54 @@ def main(argv: list[str] | None = None) -> int:
     except Exception:  # noqa: BLE001
         log.debug("系统事件检测失败", exc_info=True)
 
+    # 2026-11-24：向量模型预热。
+    # 之前 EMBED_ENDPOINT 写的是 http://localhost:11434，Windows 上会先试 IPv6 ::1、
+    # 等超时再回退 IPv4，每次检索固定多花约 2 秒；已改成 127.0.0.1（2071ms → 30ms）。
+    # 剩下的问题是 ollama 首次加载模型还要 1 秒左右，会算在第一个说话的人头上。
+    # 这里启动时先打一枪，把模型拉进内存，之后每次都走热路径。
+    def _warmup_embedding() -> None:
+        try:
+            import time as _time  # noqa: PLC0415
+
+            from digital_life import embed_text  # noqa: PLC0415
+
+            t0 = _time.perf_counter()
+            vec = embed_text("预热")
+            log.info("向量模型预热完成：%.0f ms，维度 %d", (_time.perf_counter() - t0) * 1000, len(vec or []))
+        except Exception:  # noqa: BLE001
+            log.debug("向量预热失败", exc_info=True)
+
+        # 2026-11-24：顺手把向量索引也建好。
+        # 开了 XIAOYU_CANDIDATES 之后，第一次检索要把全库向量读进内存建矩阵
+        # （实测 20k 条 1.9 秒、50k 条 9 秒），这笔钱会算在第一个说话的人头上。
+        # _vec_index 用的是模块级缓存，所以这里建好之后，
+        # 服务自己那个 LibraryMemory 实例第一次检索直接命中缓存（实测 207ms）。
+        if not os.environ.get("XIAOYU_CANDIDATES"):
+            return
+        try:
+            import time as _time2  # noqa: PLC0415
+
+            from digital_life import DigitalLifeV2  # noqa: PLC0415, F401
+            from memory import LibraryMemory as _Lib  # noqa: PLC0415
+
+            t0 = _time2.perf_counter()
+            tmp = _Lib(db_path=args.db, user_id="default",
+                       embed_on_write=False, embedding_fn=embed_text)
+            try:
+                index = tmp._vec_index()
+            finally:
+                tmp.close()
+            if index is not None:
+                ids, mat = index
+                log.info("向量索引预热完成：%d 条 × %d 维，%.0f ms",
+                         mat.shape[0], mat.shape[1], (_time2.perf_counter() - t0) * 1000)
+        except Exception:  # noqa: BLE001
+            log.debug("向量索引预热失败", exc_info=True)
+
+    import threading as _threading  # noqa: PLC0415
+
+    _threading.Thread(target=_warmup_embedding, name="embed-warmup", daemon=True).start()
+
     # 2026-11-08：语义召回的后台补向量。写入时不算（ollama 单次约 2 秒会拖慢聊天），
     # 这里每 60 秒把这些空 embedding 的记忆批量补上（32 条约 2~4 秒）。
     def _embedding_worker() -> None:
@@ -4829,6 +5027,24 @@ def main(argv: list[str] | None = None) -> int:
                     awake_tick(10)
             except Exception:  # noqa: BLE001
                 log.debug("醒着走表失败", exc_info=True)
+            # 2026-11-18：爸爸要求"不刷就关了，不要空耗电"——
+            # 她只是打开界面、没申请时长窗口时，闲置 15 分钟自动收起来。
+            try:
+                _ds = Path(__file__).resolve().parent / "data" / "douyin_state.json"
+                _dw = Path(__file__).resolve().parent / "data" / "douyin_watch.json"
+                if _ds.exists() and not _dw.exists():
+                    _st = json.loads(_ds.read_text(encoding="utf-8"))
+                    if _st.get("enabled"):
+                        _at = datetime.fromisoformat(str(_st.get("at") or ""))
+                        if _at.tzinfo is None:
+                            _at = _at.astimezone()
+                        if (datetime.now().astimezone() - _at).total_seconds() > 15 * 60:
+                            apply_douyin_action("off")
+                            set_attention("idle")
+                            log.info("抖音：闲置超过 15 分钟，已收起来（省电）")
+            except Exception:  # noqa: BLE001
+                log.debug("抖音闲置回收失败", exc_info=True)
+
             # 她申请的那几分钟刷完了：把抖音关掉
             try:
                 watch = Path(__file__).resolve().parent / "data" / "douyin_watch.json"
