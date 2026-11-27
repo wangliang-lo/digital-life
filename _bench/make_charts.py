@@ -21,7 +21,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-BENCH = Path(r"C:\aihuman\_exp\bench")
+BENCH = Path(r"_bench")
 OUT = BENCH / "charts"
 OUT.mkdir(exist_ok=True)
 

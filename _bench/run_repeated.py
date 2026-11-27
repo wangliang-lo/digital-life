@@ -26,8 +26,8 @@ import sys
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
-BENCH = Path(r"C:\aihuman\_exp\bench")
-PY = r"C:\Users\Lenovo\anaconda3\python.exe"
+BENCH = Path(r"_bench")
+PY = r"python"
 
 # 95% CI 的 t 值（双侧，df = reps-1）
 T95 = {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571,

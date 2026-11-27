@@ -24,7 +24,7 @@ import urllib.request
 from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
-ROOT = Path(r"C:\aihuman")
+ROOT = Path(r"<repo>")
 BENCH = ROOT / "_exp" / "bench"
 EXP = ROOT / "_exp" / "xiaoyu-exp"
 sys.path.insert(0, str(ROOT))
