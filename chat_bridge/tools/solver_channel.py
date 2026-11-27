@@ -49,6 +49,25 @@ MIN_GAP_SECONDS = 120
 # 以前每 30 分钟必叫一次，她就每 30 分钟憋一句出来，看着像"被强制留言"。
 QUIET_AFTER_MESSAGE_SECONDS = 25 * 60
 
+# 2026-11-23：心跳。看门狗靠它分辨"还活着但不动了"。
+HEARTBEAT = ROOT / "data" / "solver_channel_heartbeat.json"
+
+
+def beat(**extra: object) -> None:
+    """写一份心跳（进程还活着、走到哪一步了）。失败绝不影响唤醒。"""
+    try:
+        payload: dict[str, object] = {
+            "at": datetime.now().astimezone().isoformat(timespec="seconds"),
+            "pid": os.getpid(),
+        }
+        payload.update({k: v for k, v in extra.items() if v is not None})
+        HEARTBEAT.parent.mkdir(parents=True, exist_ok=True)
+        tmp = HEARTBEAT.with_suffix(".tmp")
+        tmp.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+        tmp.replace(HEARTBEAT)
+    except Exception:  # noqa: BLE001
+        pass
+
 
 def load_state() -> dict:
     try:
@@ -278,7 +297,13 @@ def wake() -> bool:
     waiting_note = ""
     if fresh_waiting:
         lines = "\n".join(f"- {str(item.get('text', ''))[:80]}" for item in fresh_waiting)
-        waiting_note = "\n你刚留的这几句（我看到了，还没回）：\n" + lines + "\n"
+        # 2026-11-28 修：**默认不再把未接话的留言贴进自由时间提示**。
+        # 改措辞不够——任何形式的「你留了话、还没人回」都在把她的注意力
+        # 拉回「我在等」这件事上。自由时间只呈现当前需要处理的新信息，
+        # 旧的未回复留言留在信道历史里，她自己想看会去看。
+        # 需要恢复时设 XIAOYU_WAITING_NOTE=1。
+        if os.environ.get("XIAOYU_WAITING_NOTE") == "1":
+            waiting_note = "\n你最近留的这几句（还没人接话）：\n" + lines + "\n"
 
     # 她刚刚才说过话、又没有新回复：这轮就别叫她了，让她自己待着。
     if last_message_at and not fresh_replies:
@@ -422,8 +447,16 @@ def next_interval_seconds() -> int:
         waiting = pending_messages(2)
     except Exception:  # noqa: BLE001
         waiting = []
+    # 2026-11-28 修：**把 pending 从自由时间的调度里彻底移除**。
+    # 原来这里是 `if waiting: return 300`——「有人在等她」就 5 分钟叫一次。
+    # 但 pending_messages() 返回的是**她留了话、对方还没回**（出站未接），
+    # 不是「有人等她」（入站待处理）。两个状态混用了。
+    # 后果：她一说活，自由时间的间隔就掉到 5 分钟，而且每轮还贴出「还没回」。
+    # 她 11-26 三次、11-27 两次说「别催」。
+    # 现在：出站 pending **完全不参与**自由时间的调度。
+    # 真正该独立处理的是「有新来信」这个信号，不是靠缩短自由时间间隔来实现。
     if waiting:
-        return 300           # 有人在等她，5 分钟就来
+        pass   # 出站未接话不影响自由时间节奏（保留分支以便将来接入站信号）
 
     # 精神越好，间隔越短；越累，间隔越长
     energy = max(0.0, 1.0 - max(fatigue, drowsy))
@@ -457,6 +490,10 @@ def main() -> int:
             print(f"信道守护异常：{type(exc).__name__}: {exc}", flush=True)
         delay = next_interval_seconds() if args.adaptive else max(300, args.watch)
         print(f"下一次 {delay // 60} 分钟后（状态决定）", flush=True)
+        # 2026-11-23：每轮写一次心跳。11-23 它从 00:56 卡到 11:23 都无人知晓，
+        # 日志最后一行正是"下一次 30 分钟后"——进了 sleep 就没再出来。
+        # 写个心跳，让看门狗能发现"还活着但不动了"。
+        beat(next_in=delay)
         time.sleep(delay)
     return 0
 
