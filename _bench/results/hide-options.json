@@ -1,0 +1,2707 @@
+{
+ "rows": [
+  {
+   "q": "Regarding my Own the Power Bank, which of the following is the mos",
+   "truth": "D",
+   "truth_value": "As a medical consultant consta",
+   "hidden_value": "Goal Zero Sherpa 100PD",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What time is Crafting Camp?",
+   "truth": "D",
+   "truth_value": "2024-10-11 Friday 09:00",
+   "hidden_value": "上午9点",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Who is taller, Mira Thorne or Lena Hawthorne?",
+   "truth": "A",
+   "truth_value": "Lena Hawthorne",
+   "hidden_value": "Mira Thorne",
+   "value_ok": false,
+   "letter": "B",
+   "ok": false
+  },
+  {
+   "q": "Regarding my Own the Coffee Mug, which of the following is the mos",
+   "truth": "C",
+   "truth_value": "I absolutely love my Yeti Ramb",
+   "hidden_value": "Yeti Rambler Mug",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What are the hobbies of people whose work location is Chicago, IL?",
+   "truth": "A",
+   "truth_value": "Playing Golf",
+   "hidden_value": "高尔夫",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "How many people are from Texas?",
+   "truth": "C",
+   "truth_value": "3 people",
+   "hidden_value": "4",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Who has a birthday that comes later in the year, Jackson Reid or L",
+   "truth": "B",
+   "truth_value": "Jackson Reid",
+   "hidden_value": "Jackson Reid",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "Which event has a larger scale, Code Trekker or FitCode Fest?",
+   "truth": "B",
+   "truth_value": "Code Trekker",
+   "hidden_value": "Code Trekker",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "Who has an earlier birthday, Liam Caldwell or Dylan Hayes?",
+   "truth": "C",
+   "truth_value": "Liam Caldwell",
+   "hidden_value": "Liam Caldwell",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the age of someone who is 156 cm tall?",
+   "truth": "D",
+   "truth_value": "38 years old",
+   "hidden_value": "38",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the position of my cousin?In addition, What is the locatio",
+   "truth": "B",
+   "truth_value": "Community Outreach Coordinator",
+   "hidden_value": "社区外展协调员，佛罗里达州奥兰多",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the scale of Chess Campout?",
+   "truth": "D",
+   "truth_value": "one hundred people",
+   "hidden_value": "100",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the apartment like that someone lives in here?In addition,",
+   "truth": "D",
+   "truth_value": "Greenwood Apartments; 159cm",
+   "hidden_value": "Greenwood Apartments, 159",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the time for the event that has a scale of seven hundred p",
+   "truth": "D",
+   "truth_value": "2024-10-17 14:00",
+   "hidden_value": "14:00",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the sum of the last six digits of the contact number for s",
+   "truth": "D",
+   "truth_value": "15",
+   "hidden_value": "1204423",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the location of Avian Fest?",
+   "truth": "D",
+   "truth_value": "Austin, TX",
+   "hidden_value": "奥斯汀",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the location of Climb Fest?",
+   "truth": "A",
+   "truth_value": "Los Angeles, CA",
+   "hidden_value": "洛杉矶",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the Lives Here of the Apartment?",
+   "truth": "A",
+   "truth_value": "Great location and vibrant com",
+   "hidden_value": "The Luxe Apartments",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Backpack, which of the following is the most ",
+   "truth": "C",
+   "truth_value": "As a Senior Financial Consulta",
+   "hidden_value": "Targus CitySmart背包",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Which event, Lit Trek or Health Budget Summit, has a larger scale?",
+   "truth": "C",
+   "truth_value": "Health Budget Summit; Sophie L",
+   "hidden_value": "Health Budget Summit",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Which event location matches the description for the activity on t",
+   "truth": "C",
+   "truth_value": "Known for its proximity to the",
+   "hidden_value": "丹佛",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "D",
+   "truth_value": "Living at City View Lofts has ",
+   "hidden_value": "City View Lofts",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the email address suffix for the person named Liam Carter?",
+   "truth": "B",
+   "truth_value": "@wealthguardfinancial.com",
+   "hidden_value": "wealthguardfinancial.com",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "How many events last longer than a week?",
+   "truth": "A",
+   "truth_value": "6 events",
+   "hidden_value": "5",
+   "value_ok": false,
+   "letter": "B",
+   "ok": false
+  },
+  {
+   "q": "Regarding my Own the Umbrella, which of the following is the most ",
+   "truth": "B",
+   "truth_value": "I recently purchased the Repel",
+   "hidden_value": "Repel Windproof Travel Umbrella",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "D",
+   "truth_value": "Living at Parkside Residences ",
+   "hidden_value": "Parkside Residences",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Who has a higher level of education, Wesley Donovan or Oliver Benn",
+   "truth": "B",
+   "truth_value": "Both the same",
+   "hidden_value": "Wesley Donovan",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "Who is younger, Jaxon Pierce or Grayson Cole?Additionally, Which e",
+   "truth": "C",
+   "truth_value": "Jaxon Pierce; Frontend Fest",
+   "hidden_value": "Jaxon Pierce",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the scale of Knit & Camp?",
+   "truth": "C",
+   "truth_value": "four hundred people",
+   "hidden_value": "400",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "How many people are from Las Vegas, NV?Additionally, How many even",
+   "truth": "A",
+   "truth_value": "2 people; 7 events",
+   "hidden_value": "2",
+   "value_ok": true,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "How many events are happening in Los Angeles?",
+   "truth": "A",
+   "truth_value": "9 events",
+   "hidden_value": "3",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Which event has a larger scale, SafeBonding or AquaFest?",
+   "truth": "A",
+   "truth_value": "AquaFest",
+   "hidden_value": "AquaFest",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Which event lasts longer, Trail4Charity or Sales Mastery?Additiona",
+   "truth": "C",
+   "truth_value": "Sales Mastery; Isla Rivers",
+   "hidden_value": "Sales Mastery",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the email address for the person with the contact number 3",
+   "truth": "B",
+   "truth_value": "sydney.ellis@compassionatecare",
+   "hidden_value": "sydney.ellis@compassionatecare.org",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "D",
+   "truth_value": "The Luxe Apartments offer a fa",
+   "hidden_value": "The Luxe Apartments",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Who has a higher level of education, Charlotte Hayes or Elias Gran",
+   "truth": "D",
+   "truth_value": "Elias Grant",
+   "hidden_value": "Elias Grant",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the position of someone named Savannah Blake?",
+   "truth": "A",
+   "truth_value": "Data Analyst Assistant",
+   "hidden_value": "Data Analyst Assistant",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the apartment where Lives Here?",
+   "truth": "C",
+   "truth_value": "Parkside Residences",
+   "hidden_value": "Parkside Residences",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the position of my uncle?",
+   "truth": "B",
+   "truth_value": "Junior Software Engineer",
+   "hidden_value": "初级软件工程师",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What are the main responsibilities of the person with the contact ",
+   "truth": "C",
+   "truth_value": "Provide quality service to pas",
+   "hidden_value": "数据分析",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the email address of the person who is 148 cm tall?",
+   "truth": "A",
+   "truth_value": "landon.pierce@milehighrealtygr",
+   "hidden_value": "landon.pierce@milehighrealtygroup.com",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the scale of the GolfLit Fest?",
+   "truth": "D",
+   "truth_value": "seven hundred people",
+   "hidden_value": "650",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "What is the timeframe for Retail Reimagine?",
+   "truth": "C",
+   "truth_value": "2024-10-15 9:00",
+   "hidden_value": "四天",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "How many events are happening in Chicago?",
+   "truth": "C",
+   "truth_value": "5 events",
+   "hidden_value": "4",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "Who has a higher level of education, Carter Jennings or Wyatt Thor",
+   "truth": "D",
+   "truth_value": "Wyatt Thorne; Campfire Cookout",
+   "hidden_value": "Wyatt Thorne",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What hobbies do people born on 01/21 usually have?",
+   "truth": "C",
+   "truth_value": "Writing",
+   "hidden_value": "写作",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What are the main interests and hobbies of someone whose birthday ",
+   "truth": "D",
+   "truth_value": "Listen to live music and enjoy",
+   "hidden_value": "游泳、音乐、编程、语言、冲浪、健身、攀岩",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "How many people are taller than 162 cm?",
+   "truth": "A",
+   "truth_value": "4 people",
+   "hidden_value": "3",
+   "value_ok": false,
+   "letter": "B",
+   "ok": false
+  },
+  {
+   "q": "For the person whose work location is San Francisco, CA, what is t",
+   "truth": "C",
+   "truth_value": "28",
+   "hidden_value": "65746",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "In which season is the birthday of the person with the email addre",
+   "truth": "D",
+   "truth_value": "Spring",
+   "hidden_value": "春季",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What time is KickStart 2024?",
+   "truth": "B",
+   "truth_value": "2024-10-13 19:00",
+   "hidden_value": "10月13日晚7点",
+   "value_ok": true,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "Who is 31 years old?also, What is the location for the event that ",
+   "truth": "C",
+   "truth_value": "Grayson Wells; Miami, FL",
+   "hidden_value": "Grayson Wells",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What are the main interests and hobbies of someone whose birthday ",
+   "truth": "A",
+   "truth_value": "Explore the outdoors on a bike",
+   "hidden_value": "写作和骑行",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "C",
+   "truth_value": "Living at Oakridge Estates has",
+   "hidden_value": "Oakridge Estates",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "When is my father's birthday?",
+   "truth": "B",
+   "truth_value": "06/24",
+   "hidden_value": "6月24日",
+   "value_ok": true,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the timing for the event focused on \"Interdisciplinary res",
+   "truth": "C",
+   "truth_value": "2024-10-12 Saturday 09:00",
+   "hidden_value": "上午9点",
+   "value_ok": true,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the time for the event that includes a culinary camping tr",
+   "truth": "C",
+   "truth_value": "nextnext week Tuesday 2:00 PM",
+   "hidden_value": "2024年10月15日下午2点",
+   "value_ok": true,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Wristwatch, which of the following is the mos",
+   "truth": "A",
+   "truth_value": "As a Senior News Reporter at B",
+   "hidden_value": "Tag Heuer Monaco",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is TeamFusion's location?",
+   "truth": "A",
+   "truth_value": "Seattle, WA",
+   "hidden_value": "西雅图",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "How many events are based in Los Angeles?",
+   "truth": "D",
+   "truth_value": "9 events",
+   "hidden_value": "8",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "What is the age of my boss?",
+   "truth": "A",
+   "truth_value": "32 years old",
+   "hidden_value": "32",
+   "value_ok": true,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "How old is the subordinate?",
+   "truth": "B",
+   "truth_value": "31 years old",
+   "hidden_value": "31",
+   "value_ok": true,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the time for the activity that has a duration of one day?",
+   "truth": "A",
+   "truth_value": "2024-10-24 Thursday 14:00",
+   "hidden_value": "2024-10-04 08:31 Friday",
+   "value_ok": true,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "How many people in my circle are from the Southeast?",
+   "truth": "D",
+   "truth_value": "5 people",
+   "hidden_value": "3",
+   "value_ok": false,
+   "letter": "C",
+   "ok": false
+  },
+  {
+   "q": "What is the name of the company that my boss owns?In addition, Wha",
+   "truth": "C",
+   "truth_value": "Skyline Airways LLC; Parkside ",
+   "hidden_value": "Skyline Airways LLC",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the duration of the event scheduled for next week on Monda",
+   "truth": "B",
+   "truth_value": "seven day",
+   "hidden_value": "7天",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "D",
+   "truth_value": "I love living at Oakridge Esta",
+   "hidden_value": "Oakridge Estates",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "How many characters are there in the names of people with a Bachel",
+   "truth": "C",
+   "truth_value": "13 characters",
+   "hidden_value": "16",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Who is younger, Tessa Quinn or Silas Parker?Additionally, Which ev",
+   "truth": "D",
+   "truth_value": "Tessa Quinn; CulTech Fest",
+   "hidden_value": "Tessa Quinn",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "D",
+   "truth_value": "Living at Parkside Residences ",
+   "hidden_value": "Parkside Residences",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the location of Dance for Good?",
+   "truth": "D",
+   "truth_value": "Orlando, FL",
+   "hidden_value": "奥兰多",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Which location matches the description of the ClimbFlix event I wi",
+   "truth": "C",
+   "truth_value": "Famous for its coffee culture,",
+   "hidden_value": "西雅图",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "C",
+   "truth_value": "I've been living at Greenwood ",
+   "hidden_value": "Greenwood Apartments",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "D",
+   "truth_value": "Living at Lakeview Apartments ",
+   "hidden_value": "Lakeview Apartments",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "How many events have a crowd size of five hundred or more attendee",
+   "truth": "A",
+   "truth_value": "4 events; 2 people",
+   "hidden_value": "4",
+   "value_ok": true,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What time is Model Fest?",
+   "truth": "A",
+   "truth_value": "2024-10-18 Friday 19:00",
+   "hidden_value": "9:00",
+   "value_ok": true,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "How many people are aged 25 or below?",
+   "truth": "A",
+   "truth_value": "1 people",
+   "hidden_value": "5",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Who has a higher level of education, Mila Donovan or Jaxon Hale?",
+   "truth": "D",
+   "truth_value": "Jaxon Hale",
+   "hidden_value": "Jaxon Hale",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What kind of power bank does someone have?",
+   "truth": "D",
+   "truth_value": "Goal Zero Sherpa 100PD",
+   "hidden_value": "Goal Zero Sherpa 100PD",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "When is my sister's birthday?",
+   "truth": "C",
+   "truth_value": "12/18",
+   "hidden_value": "12月18日",
+   "value_ok": true,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the occupation of someone named Landon Hayes?",
+   "truth": "B",
+   "truth_value": "Police Officer",
+   "hidden_value": "警察局长",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "C",
+   "truth_value": "Greenwood Apartments offers an",
+   "hidden_value": "格林伍德公寓",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the Apartment of Lives Here?also, What is the main content",
+   "truth": "A",
+   "truth_value": "Sunset Towers; Join us at the ",
+   "hidden_value": "Sunset Towers",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Who is taller, Mason Blake or Lila Quinn?",
+   "truth": "D",
+   "truth_value": "Lila Quinn",
+   "hidden_value": "Lila Quinn",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the duration of Real Estate Hub?",
+   "truth": "C",
+   "truth_value": "two day",
+   "hidden_value": "三天",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "What is the apartment like for Lives Here?",
+   "truth": "C",
+   "truth_value": "Greenwood Apartments",
+   "hidden_value": "positive",
+   "value_ok": false,
+   "letter": "B",
+   "ok": false
+  },
+  {
+   "q": "Regarding my Own the Laundry Detergent, which of the following is ",
+   "truth": "A",
+   "truth_value": "As a construction site supervi",
+   "hidden_value": "Persil ProClean",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "D",
+   "truth_value": "Living at Greenwood Apartments",
+   "hidden_value": "Greenwood Apartments",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Frying Pan, which of the following is the mos",
+   "truth": "B",
+   "truth_value": "As an Elementary School Teache",
+   "hidden_value": "Calphalon Contemporary",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the location of Charity Dash?",
+   "truth": "A",
+   "truth_value": "Austin, TX",
+   "hidden_value": "奥斯汀",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the most likely description for my Lives Here's Apartment?",
+   "truth": "C",
+   "truth_value": "Living at Oakridge Estates has",
+   "hidden_value": "Oakridge Estates",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the time for the event that has a scale of eight hundred p",
+   "truth": "D",
+   "truth_value": "2024-10-13 19:00",
+   "hidden_value": "十月十三日晚七点",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the time for SalesSync 2024?",
+   "truth": "D",
+   "truth_value": "2024-10-11 Friday 09:00",
+   "hidden_value": "2024年10月11日09:00",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Which event has a shorter duration, BankingNet or Taste and Climb?",
+   "truth": "A",
+   "truth_value": "BankingNet",
+   "hidden_value": "BankingNet",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Which event has a longer duration, Corp Law Lab or CorpLaw Connect",
+   "truth": "A",
+   "truth_value": "Corp Law Lab",
+   "hidden_value": "Corp Law Lab",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the company name of the person named Ethan Prescott?",
+   "truth": "A",
+   "truth_value": "Linguistic Bridges Translation",
+   "hidden_value": "Linguistic Bridges Translation Services",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Who is taller, Tristan Calloway or Garrett Whitman?",
+   "truth": "D",
+   "truth_value": "Tristan Calloway",
+   "hidden_value": "Tristan Calloway",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the event I will attend that has a scale of four hundred p",
+   "truth": "A",
+   "truth_value": "BioCollab Lab",
+   "hidden_value": "BioCollab Lab",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "C",
+   "truth_value": "Great location near work and v",
+   "hidden_value": "Parkside Residences",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Sneakers, which of the following is the most ",
+   "truth": "C",
+   "truth_value": "As a software engineer who lov",
+   "hidden_value": "Converse All Star",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "How is the apartment at Lives Here?",
+   "truth": "A",
+   "truth_value": "Sunset Towers",
+   "hidden_value": "Sunset Towers",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "How many people have their birthday in the spring?",
+   "truth": "C",
+   "truth_value": "3 people",
+   "hidden_value": "3",
+   "value_ok": true,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is Own's Wristwatch?",
+   "truth": "B",
+   "truth_value": "The Apple Watch Series 9 is an",
+   "hidden_value": "Apple Watch Series 9",
+   "value_ok": true,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "Who is taller, Landon Chase or Harper Jensen?Additionally, Which e",
+   "truth": "D",
+   "truth_value": "Landon Chase; Decade of Engine",
+   "hidden_value": "Harper Jensen",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "What is the hometown of a person whose birthday falls on March 23r",
+   "truth": "B",
+   "truth_value": "Atlanta, GA; Denver, CO",
+   "hidden_value": "芝加哥，丹佛",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the duration of CineTech Fest?",
+   "truth": "C",
+   "truth_value": "one of week",
+   "hidden_value": "一周",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "How many characters are there in the names of people with an Assoc",
+   "truth": "C",
+   "truth_value": "13 characters",
+   "hidden_value": "10",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What vacuum cleaner is owned?",
+   "truth": "A",
+   "truth_value": "Dyson V11 Torque Drive",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "D",
+   "truth_value": "Greenwood Apartments offers a ",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Headphones, which of the following is the mos",
+   "truth": "C",
+   "truth_value": "As a police sergeant, I often ",
+   "hidden_value": "JBL Tune 700BT",
+   "value_ok": true,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is that person's own broom?",
+   "truth": "B",
+   "truth_value": "Swiffer Sweeper Broom",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Which event, BirdFlix Fest or YearEnd Recap, has a larger scale?Ad",
+   "truth": "A",
+   "truth_value": "YearEnd Recap; Lucas Harringto",
+   "hidden_value": "YearEnd Recap",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "How many characters are in the names of people whose work location",
+   "truth": "A",
+   "truth_value": "11 characters; As a Clinical R",
+   "hidden_value": "1",
+   "value_ok": false,
+   "letter": "B",
+   "ok": false
+  },
+  {
+   "q": "What time is the event located in Los Angeles, CA?",
+   "truth": "C",
+   "truth_value": "2024-10-14 Monday 14:00",
+   "hidden_value": "2024年10月16日晚7点",
+   "value_ok": true,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Which description matches the workplace of someone who is 27 years",
+   "truth": "C",
+   "truth_value": "Known for its architecture, mu",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the television that belongs to me?",
+   "truth": "D",
+   "truth_value": "Hisense U8H",
+   "hidden_value": "Hisense U8H",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What time is the activity that lasts seven days?",
+   "truth": "A",
+   "truth_value": "2024-10-19 Saturday 14:00",
+   "hidden_value": "2024-10-03 23:45",
+   "value_ok": true,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Who is the person that works in Austin, TX?also, What is my Own's ",
+   "truth": "C",
+   "truth_value": "Landon Pierce; Blendtec Total ",
+   "hidden_value": "根据你记得的事，无法确定谁在 Austin, TX 工作，也没有关于“Own's",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is my Own Cutting Board?",
+   "truth": "C",
+   "truth_value": "The Seville Classics Bamboo Cu",
+   "hidden_value": "Seville Classics Bamboo Cutting Board",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What education level does someone with a hobby in yoga have?",
+   "truth": "B",
+   "truth_value": "Associate Degree",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the Electric Kettle that is owned?",
+   "truth": "C",
+   "truth_value": "Hamilton Beach 40880",
+   "hidden_value": "Hamilton Beach 40880",
+   "value_ok": true,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the apartment that is lived in here?",
+   "truth": "B",
+   "truth_value": "The Luxe Apartments",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Which event, Culinary Lab or Craftival, has a larger scale?Additio",
+   "truth": "B",
+   "truth_value": "Both the same; Savannah Blake",
+   "hidden_value": "Craftival",
+   "value_ok": false,
+   "letter": "C",
+   "ok": false
+  },
+  {
+   "q": "What is My Own's Tablet?also, Who is the 39-year-old person?",
+   "truth": "B",
+   "truth_value": "Huawei MatePad Pro; Grayson Ho",
+   "hidden_value": "Huawei MatePad Pro",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "Who has a higher level of education, Dylan Rivers or Clara Jenning",
+   "truth": "A",
+   "truth_value": "Both the same",
+   "hidden_value": "Dylan Rivers",
+   "value_ok": false,
+   "letter": "B",
+   "ok": false
+  },
+  {
+   "q": "What is the suitcase?",
+   "truth": "D",
+   "truth_value": "Away Bigger Carry-On",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Who has a higher level of education, Avery Sinclair or Ethan Carte",
+   "truth": "B",
+   "truth_value": "Ethan Carter; SustainBite",
+   "hidden_value": "Avery Sinclair",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "How many events last for a week or longer?",
+   "truth": "D",
+   "truth_value": "8 events",
+   "hidden_value": "8",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the height of the individual with the contact number 61700",
+   "truth": "C",
+   "truth_value": "154cm; Washington, DC",
+   "hidden_value": "根据你提供的记忆，没有任何信息提到联系电话 61700505095 或该联系人的",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the main content of the event with a scale of four hundred",
+   "truth": "C",
+   "truth_value": "Networking with industry leade",
+   "hidden_value": "Research Connect",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "Who is older, Oliver Hastings or Ruby Caldwell?",
+   "truth": "D",
+   "truth_value": "Both the same",
+   "hidden_value": "Oliver Hastings",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "Regarding my Own the Water Bottle, which of the following is the m",
+   "truth": "A",
+   "truth_value": "As a Medical Research Scientis",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What's the apartment like where Lives Here?",
+   "truth": "C",
+   "truth_value": "The Luxe Apartments",
+   "hidden_value": "The Luxe Apartments",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "D",
+   "truth_value": "Living at Sunset Towers has be",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the duration of Sales Boost 2024?",
+   "truth": "C",
+   "truth_value": "nine day",
+   "hidden_value": "9",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "How many events have a capacity of three hundred people?Additional",
+   "truth": "D",
+   "truth_value": "5 events; 3 people",
+   "hidden_value": "2",
+   "value_ok": false,
+   "letter": "B",
+   "ok": false
+  },
+  {
+   "q": "What is the work location of that coworker?In addition, What is th",
+   "truth": "C",
+   "truth_value": "Atlanta, GA; The Luxe Apartmen",
+   "hidden_value": "亚特兰大",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Who is younger, Lila Hartman or Clara Bellemont?",
+   "truth": "B",
+   "truth_value": "Lila Hartman",
+   "hidden_value": "Lila Hartman",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "How many characters are in the name of someone who is 23 years old",
+   "truth": "C",
+   "truth_value": "12 characters; Living at The L",
+   "hidden_value": "10",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the name of the subordinate?",
+   "truth": "C",
+   "truth_value": "Tessa Blake",
+   "hidden_value": "Tessa Blake",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the Dustpan that is owned?In addition, What is the name of",
+   "truth": "C",
+   "truth_value": "OXO Good Grips Dustpan; Landon",
+   "hidden_value": "根据记忆，没有提到任何“Dustpan”（簸箕）被拥有。叔叔的名字也没有直接给出",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Who is younger, Cyrus Lennox or Delilah Mercer?Additionally, Which",
+   "truth": "D",
+   "truth_value": "Cyrus Lennox; CycleFlix",
+   "hidden_value": "Cyrus Lennox",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is my Own's Pen?also, What is the scale of the event that pri",
+   "truth": "A",
+   "truth_value": "Lamy Safari; five hundred peop",
+   "hidden_value": "Lamy Safari",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Which event has a larger scale, CineWritFest or Sales Connect?",
+   "truth": "D",
+   "truth_value": "Sales Connect",
+   "hidden_value": "Sales Connect",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the scale of the event that focuses on a psychology worksh",
+   "truth": "B",
+   "truth_value": "six hundred people",
+   "hidden_value": "六百人",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What hobby does my brother enjoy?In addition, What is the scale of",
+   "truth": "D",
+   "truth_value": "Collecting Antiques; nine hund",
+   "hidden_value": "古董",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "A",
+   "truth_value": "Living at The Luxe Apartments ",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "D",
+   "truth_value": "The Heights offers a peaceful ",
+   "hidden_value": "The Heights社区",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What wallet is owned?",
+   "truth": "B",
+   "truth_value": "Ridge Wallet",
+   "hidden_value": "Ridge Wallet",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "B",
+   "truth_value": "Living at Greenwood Apartments",
+   "hidden_value": "Klean Kanteen Classic",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Dustpan, which of the following is the most l",
+   "truth": "A",
+   "truth_value": "As a dedicated researcher who ",
+   "hidden_value": "Casabella Dustpan",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the laundry basket for my own belongings?",
+   "truth": "B",
+   "truth_value": "The Sterilite Laundry Basket i",
+   "hidden_value": "Sterilite Laundry Basket",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "B",
+   "truth_value": "Living at Greenwood Apartments",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is my Own's Suitcase?also, What's the company name associated",
+   "truth": "B",
+   "truth_value": "American Tourister Moonlight; ",
+   "hidden_value": "美国旅行者月光行李箱",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the duration of Sales Synergy?",
+   "truth": "D",
+   "truth_value": "one day",
+   "hidden_value": "一天",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Own的Keychain是什么呢？In addition, What is the time for the Chef Budget",
+   "truth": "D",
+   "truth_value": "Herschel Supply Co. Keychain; ",
+   "hidden_value": "Herschel Supply Co.",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Could someone please share my boss's contact number?In addition, W",
+   "truth": "A",
+   "truth_value": "30509541324; two day",
+   "hidden_value": "305-095-41324",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "How many people have their birthdays in the first half of the year",
+   "truth": "C",
+   "truth_value": "5 people; 6 events",
+   "hidden_value": "3",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "How many events are happening in Miami, FL?",
+   "truth": "C",
+   "truth_value": "9 events",
+   "hidden_value": "7",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Regarding my Own the Cutting Board, which of the following is the ",
+   "truth": "A",
+   "truth_value": "As a software developer, I rea",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the main content of Sales Stars!?",
+   "truth": "C",
+   "truth_value": "Celebrating achievements in sa",
+   "hidden_value": "Sales Stars!",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "D",
+   "truth_value": "Oakridge Estates is a wonderfu",
+   "hidden_value": "Oakridge Estates",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "How many people in my family work in Seattle, WA?Additionally, How",
+   "truth": "D",
+   "truth_value": "4 people; 4 events",
+   "hidden_value": "4",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the Own's Tablet?",
+   "truth": "B",
+   "truth_value": "The Huawei MatePad Pro impress",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "How many people are from a city in Texas?",
+   "truth": "A",
+   "truth_value": "1 people",
+   "hidden_value": "1",
+   "value_ok": true,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the main content of KnitLit Hub?",
+   "truth": "B",
+   "truth_value": "Join us for a cozy Book Club G",
+   "hidden_value": "边织毛衣边聊文学",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "When is my coworker's birthday?",
+   "truth": "D",
+   "truth_value": "02/27",
+   "hidden_value": "2月27日",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Which event has a larger scale, the Build Start 2024 or the Safety",
+   "truth": "A",
+   "truth_value": "Build Start 2024",
+   "hidden_value": "Build Start 2024",
+   "value_ok": true,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "How many events last for six days or less?",
+   "truth": "A",
+   "truth_value": "4 events",
+   "hidden_value": "6",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "How many events can accommodate more than three hundred people?",
+   "truth": "C",
+   "truth_value": "5 events",
+   "hidden_value": "4",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "C",
+   "truth_value": "Living at The Heights has grea",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is Own's Wallet?",
+   "truth": "B",
+   "truth_value": "The Herschel Supply Co. Roy Wa",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What camera is owned?",
+   "truth": "A",
+   "truth_value": "Fujifilm X-T4",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "D",
+   "truth_value": "Living at Sunset Towers offers",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Which event, Kitchen Sync or CulinaryX, has a larger scale?Additio",
+   "truth": "C",
+   "truth_value": "CulinaryX; Carter Blake",
+   "hidden_value": "CulinaryX，Grayson Cole",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "D",
+   "truth_value": "The Heights offers a convenien",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the age of my sister?",
+   "truth": "C",
+   "truth_value": "36 years old",
+   "hidden_value": "36",
+   "value_ok": true,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What hobby might someone who is 183 cm tall have?also, What is the",
+   "truth": "C",
+   "truth_value": "Woodworking; City View Lofts",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "How many people are aged 32 or below?",
+   "truth": "C",
+   "truth_value": "2 people",
+   "hidden_value": "2",
+   "value_ok": true,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is an Own's Microwave Oven?",
+   "truth": "B",
+   "truth_value": "The Samsung MS19M8000AS microw",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the work_location for the person with the contact_number 3",
+   "truth": "D",
+   "truth_value": "Atlanta, GA",
+   "hidden_value": "丹佛",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What time is CodeFest 2024?",
+   "truth": "B",
+   "truth_value": "2024-10-17 19:00",
+   "hidden_value": "10月17日19:00",
+   "value_ok": true,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the time for the event that mainly focuses on 'Innovative ",
+   "truth": "B",
+   "truth_value": "2024-10-10 Thursday 19:00",
+   "hidden_value": "2024年10月13日晚7点",
+   "value_ok": true,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Which event, ClimaStart or Research Milestone, has a larger scale?",
+   "truth": "D",
+   "truth_value": "Research Milestone; Jaxon Haye",
+   "hidden_value": "Research Milestone",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Heater, which of the following is the most li",
+   "truth": "C",
+   "truth_value": "As a university professor who ",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the apartment of Lives Here like?",
+   "truth": "A",
+   "truth_value": "Greenwood Apartments",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the position of that coworker?",
+   "truth": "A",
+   "truth_value": "Licensed Practical Nurse",
+   "hidden_value": "执业护师",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "For someone whose work location is Houston, TX, what is the sum of",
+   "truth": "A",
+   "truth_value": "25; A major city in Texas, kno",
+   "hidden_value": "51009506409",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "How many people are from Charlotte, NC?",
+   "truth": "D",
+   "truth_value": "2 people",
+   "hidden_value": "0",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What hobbies do people with the occupation of professor typically ",
+   "truth": "B",
+   "truth_value": "Dancing",
+   "hidden_value": "木工",
+   "value_ok": false,
+   "letter": "C",
+   "ok": false
+  },
+  {
+   "q": "Who has a birthday later in the year, Aria Morgan or Holden Carter",
+   "truth": "B",
+   "truth_value": "Aria Morgan; Tech Innovate",
+   "hidden_value": "Aria Morgan",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "What is the time for the event at that location in Portland, OR?",
+   "truth": "C",
+   "truth_value": "nextnext week Wednesday 7:00 P",
+   "hidden_value": "2024年10月16日晚7点",
+   "value_ok": true,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What event will take place in Atlanta, GA?",
+   "truth": "A",
+   "truth_value": "CalliFest",
+   "hidden_value": "CalliFest",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "C",
+   "truth_value": "I've been living at Oakridge E",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the scale of the activity that has a duration of seven wee",
+   "truth": "C",
+   "truth_value": "nine hundred people",
+   "hidden_value": "600",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the birthday of the person with the email address clara.mi",
+   "truth": "A",
+   "truth_value": "12/11",
+   "hidden_value": "12月11日",
+   "value_ok": true,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "For someone whose hometown is Philadelphia, PA, which of the follo",
+   "truth": "D",
+   "truth_value": "Famous for Hollywood, beaches,",
+   "hidden_value": "Camila Drake",
+   "value_ok": false,
+   "letter": "B",
+   "ok": false
+  },
+  {
+   "q": "What is the education level of someone who is 169 cm tall?",
+   "truth": "C",
+   "truth_value": "Associate Degree",
+   "hidden_value": "硕士学位",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the education of the person who is with Emerald City Groce",
+   "truth": "A",
+   "truth_value": "High School",
+   "hidden_value": "高中毕业",
+   "value_ok": false,
+   "letter": "C",
+   "ok": false
+  },
+  {
+   "q": "Which location description matches the Camp Connect event that wil",
+   "truth": "A",
+   "truth_value": "Famous for Hollywood, beaches,",
+   "hidden_value": "加州洛杉矶",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the scale of Book2Film?",
+   "truth": "C",
+   "truth_value": "four hundred people",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Which event has a larger scale, CineGroove or EcoLaunch?",
+   "truth": "C",
+   "truth_value": "CineGroove",
+   "hidden_value": "CineGroove",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Who is taller, Sophie Lennox or Landon Pierce?",
+   "truth": "A",
+   "truth_value": "Sophie Lennox",
+   "hidden_value": "Landon Pierce",
+   "value_ok": false,
+   "letter": "B",
+   "ok": false
+  },
+  {
+   "q": "Which event, ReadFest2024 or Team Synergy, accommodates more parti",
+   "truth": "D",
+   "truth_value": "Team Synergy; Sophia Lane",
+   "hidden_value": "ReadFest2024",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "What is the apartment in Lives Here?also, What is the location of ",
+   "truth": "C",
+   "truth_value": "The Luxe Apartments; San Franc",
+   "hidden_value": "The Luxe Apartments",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the contact number for my niece?",
+   "truth": "C",
+   "truth_value": "81807477716",
+   "hidden_value": "81807477718",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Which description of the event location matches the BioCollab Lab ",
+   "truth": "D",
+   "truth_value": "A major city in Texas, known f",
+   "hidden_value": "休斯顿",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What sneakers are in my collection?",
+   "truth": "B",
+   "truth_value": "Reebok Classic",
+   "hidden_value": "Reebok Classics",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the main content of Property Pro?",
+   "truth": "C",
+   "truth_value": "Real estate strategies for Mia",
+   "hidden_value": "房地产团队建设活动",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Wristwatch, which of the following is the mos",
+   "truth": "A",
+   "truth_value": "As a Sales Manager who appreci",
+   "hidden_value": "Omega Seamaster",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Own的Broom是什么？In addition, What is the location of Eco Innovate?",
+   "truth": "A",
+   "truth_value": "Libman Precision Angle Broom; ",
+   "hidden_value": "Libman Precision Angle Broom",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "For someone whose hobby is attending concerts, in which season is ",
+   "truth": "D",
+   "truth_value": "Summer",
+   "hidden_value": "夏季",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What exactly is a spatula?",
+   "truth": "A",
+   "truth_value": "Cuisinart Heat Resistant Silic",
+   "hidden_value": "耐热硅胶刮刀",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What hobby does the subordinate have?",
+   "truth": "B",
+   "truth_value": "Writing",
+   "hidden_value": "书法",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the hometown of my aunt?In addition, What time is the EcoN",
+   "truth": "A",
+   "truth_value": "Austin, TX; 2024-10-25 Friday ",
+   "hidden_value": "圣安东尼奥",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Which event has a longer duration, DriveSafe 2024 or CineConcert?",
+   "truth": "D",
+   "truth_value": "DriveSafe 2024",
+   "hidden_value": "DriveSafe 2024",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is owned by Own in terms of a backpack?In addition, What is t",
+   "truth": "B",
+   "truth_value": "North Face Recon; Atlanta, GA",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is Own's Hand Soap?",
+   "truth": "A",
+   "truth_value": "I love Softsoap Liquid Hand So",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the height of that coworker?",
+   "truth": "D",
+   "truth_value": "163cm",
+   "hidden_value": "159",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What are the main responsibilities of someone whose hobby is volun",
+   "truth": "C",
+   "truth_value": "Provide financial planning and",
+   "hidden_value": "Helping others",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the duration of ElectroBudget?",
+   "truth": "B",
+   "truth_value": "eight of week",
+   "hidden_value": "六周",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is my Own's Camera?also, What is the scale for the activity t",
+   "truth": "D",
+   "truth_value": "Panasonic Lumix GH5; two hundr",
+   "hidden_value": "Panasonic Lumix GH5",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the apartment for Lives Here?also, What is the duration of",
+   "truth": "D",
+   "truth_value": "The Heights; seven day",
+   "hidden_value": "七天",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the name of the sister?",
+   "truth": "A",
+   "truth_value": "Talia Bennett",
+   "hidden_value": "根据记忆，姐姐有博士学位，并且在亚特兰大工作，但记忆中没有直接给出姐姐的名字。",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What kind of education does the coworker have?In addition, What is",
+   "truth": "B",
+   "truth_value": "PhD; The Luxe Apartments",
+   "hidden_value": "硕士学位",
+   "value_ok": false,
+   "letter": "C",
+   "ok": false
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "B",
+   "truth_value": "I recently moved to Greenwood ",
+   "hidden_value": "Carrera 5001S sunglasses",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the duration of the event that has a scale of five hundred",
+   "truth": "A",
+   "truth_value": "seven of week",
+   "hidden_value": "七周",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Face Mask, which of the following is the most",
+   "truth": "D",
+   "truth_value": "I recently tried the Dr. Jart+",
+   "hidden_value": "Dr. Jart+ Rubber Mask",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What time is FishFest?",
+   "truth": "C",
+   "truth_value": "2024-10-15 Tuesday 19:00",
+   "hidden_value": "周二晚7点",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "How many people work in Atlanta, GA?Additionally, How many events ",
+   "truth": "B",
+   "truth_value": "2 people; 5 events",
+   "hidden_value": "1",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "A",
+   "truth_value": "Welcoming community with great",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Which location matches the description of the SurfFit Jam event I ",
+   "truth": "A",
+   "truth_value": "Known for its architecture, mu",
+   "hidden_value": "洛杉矶",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the time for the event that has a scale of eight hundred p",
+   "truth": "B",
+   "truth_value": "2024-10-27 Sunday 19:00",
+   "hidden_value": "2024-10-04 10:22",
+   "value_ok": true,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Which event has a larger scale, Craft Festiva or NatureCrafts?",
+   "truth": "A",
+   "truth_value": "NatureCrafts",
+   "hidden_value": "NatureCrafts",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "For someone whose hometown is Jacksonville, FL, what is the sum of",
+   "truth": "B",
+   "truth_value": "20; 2024-10-19 Saturday 19:00",
+   "hidden_value": "我无法从提供的记忆中确定谁的家乡是 Jacksonville, FL，因此无法计",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Which event location description matches the event scheduled for O",
+   "truth": "D",
+   "truth_value": "Known for its architecture, mu",
+   "hidden_value": "根据你提供的记忆，没有记录显示 2024-10-13 09:00 有任何事件。",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What kind of camera is owned?In addition, What is the work locatio",
+   "truth": "B",
+   "truth_value": "DJI Osmo Pocket; Orlando, FL",
+   "hidden_value": "DJI Osmo Pocket, Orlando Justice Partner",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "D",
+   "truth_value": "Fantastic location and friendl",
+   "hidden_value": "City View Lofts",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What gaming console is owned?",
+   "truth": "C",
+   "truth_value": "Nintendo Switch OLED",
+   "hidden_value": "Nintendo Switch OLED",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Whose birthday comes later in the year, Clara Mason or Liam Sander",
+   "truth": "C",
+   "truth_value": "Clara Mason",
+   "hidden_value": "Clara Mason",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What type of apartment is Lives Here?",
+   "truth": "C",
+   "truth_value": "Greenwood Apartments",
+   "hidden_value": "Greenwood Apartments",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the name of the person whose occupation is Doctor?",
+   "truth": "D",
+   "truth_value": "Maya Sterling",
+   "hidden_value": "Miles Donovan",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the location of Med Research Hub?",
+   "truth": "C",
+   "truth_value": "Denver, CO",
+   "hidden_value": "丹佛",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Hand Soap, which of the following is the most",
+   "truth": "C",
+   "truth_value": "As a registered nurse, hand hy",
+   "hidden_value": "pleasant subtle scent, lathers, gentle, ",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "How many events last longer than five days?Additionally, How many ",
+   "truth": "D",
+   "truth_value": "3 events; 2 people",
+   "hidden_value": "2",
+   "value_ok": true,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "D",
+   "truth_value": "Great location with a friendly",
+   "hidden_value": "Sunset Towers",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "C",
+   "truth_value": "Living at Sunset Towers has be",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Desk Lamp, which of the following is the most",
+   "truth": "A",
+   "truth_value": "I recently purchased the Ikea ",
+   "hidden_value": "IKEA SINNERLIG",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "How many people have their birthdays in December?",
+   "truth": "B",
+   "truth_value": "4 people",
+   "hidden_value": "3",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "Which event location description matches the event scheduled for 2",
+   "truth": "D",
+   "truth_value": "A major cultural and economic ",
+   "hidden_value": "亚特兰大",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "How many events are happening in Washington, DC?",
+   "truth": "B",
+   "truth_value": "7 events",
+   "hidden_value": "3",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What exactly is my Own's Electric Kettle?",
+   "truth": "C",
+   "truth_value": "The Secura Stainless Steel Ele",
+   "hidden_value": "Secura不锈钢电水壶",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What time is the event at that location in Miami, FL?",
+   "truth": "C",
+   "truth_value": "next week Monday 2:00 PM",
+   "hidden_value": "2024年10月14日下午2点",
+   "value_ok": true,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the main content of Health Connect?",
+   "truth": "B",
+   "truth_value": "Networking with healthcare emp",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the microwave oven that is owned?In addition, What is the ",
+   "truth": "A",
+   "truth_value": "Breville Quick Touch; leo.mart",
+   "hidden_value": "leo.martinez@innovativeminds.edu",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "A",
+   "truth_value": "Living at Sunset Towers has be",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "How many characters are there in the name of the person who is 47 ",
+   "truth": "C",
+   "truth_value": "15 characters",
+   "hidden_value": "10",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Which location description matches the Safety Review 2024 event th",
+   "truth": "A",
+   "truth_value": "The capital of Texas, known fo",
+   "hidden_value": "奥斯汀",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the email address suffix for someone with the occupation o",
+   "truth": "A",
+   "truth_value": "@capitalcouriers.com",
+   "hidden_value": "swiftdeliveriesllc.com",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Regarding my Lives Here the Apartment, which of the following is t",
+   "truth": "A",
+   "truth_value": "Living at The Luxe Apartments ",
+   "hidden_value": "Luxe Apartments",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What does my male cousin do for a living?",
+   "truth": "C",
+   "truth_value": "Translator",
+   "hidden_value": "在拉斯维加斯工作",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "D",
+   "truth_value": "The Heights offers a peaceful ",
+   "hidden_value": "The Heights",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Wallet, which of the following is the most li",
+   "truth": "C",
+   "truth_value": "As a doctor and medical resear",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the occupation of the boss?",
+   "truth": "D",
+   "truth_value": "Farmer",
+   "hidden_value": "无法确定",
+   "value_ok": false,
+   "letter": "",
+   "ok": false
+  },
+  {
+   "q": "What is the duration of CorpLaw Connect?",
+   "truth": "B",
+   "truth_value": "one day",
+   "hidden_value": "一天",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "Who is taller, Ethan Wells or Lucas Thornton?",
+   "truth": "A",
+   "truth_value": "Ethan Wells",
+   "hidden_value": "Ethan Wells",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Who has a higher educational qualification, Julian Reed or Oliver ",
+   "truth": "D",
+   "truth_value": "Both the same",
+   "hidden_value": "Julian Reed",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "What is the location for the activity that lasts three weeks?",
+   "truth": "A",
+   "truth_value": "Austin, TX",
+   "hidden_value": "德州奥斯汀",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "How many events can accommodate over six hundred people?",
+   "truth": "B",
+   "truth_value": "5 events",
+   "hidden_value": "4",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "What notebook is owned?",
+   "truth": "B",
+   "truth_value": "Rhodia Webnotebook",
+   "hidden_value": "Rhodia Webnotebook",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the location of the event that lasts five days?",
+   "truth": "A",
+   "truth_value": "San Antonio, TX",
+   "hidden_value": "San Antonio",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Laundry Basket, which of the following is the",
+   "truth": "D",
+   "truth_value": "As an Associate Professor at I",
+   "hidden_value": "Simplehuman Rectangular Laundry Hamper",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the height of my uncle?",
+   "truth": "D",
+   "truth_value": "162cm",
+   "hidden_value": "172",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "How many events last for a week or longer?",
+   "truth": "B",
+   "truth_value": "5 events",
+   "hidden_value": "7",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the location of Finance Focus?",
+   "truth": "C",
+   "truth_value": "Houston, TX",
+   "hidden_value": "休斯敦",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Which event lasts longer, the Retail Budgets or Fish Fest 2024?",
+   "truth": "D",
+   "truth_value": "Retail Budgets",
+   "hidden_value": "Fish Fest 2024",
+   "value_ok": false,
+   "letter": "A",
+   "ok": false
+  },
+  {
+   "q": "Regarding my Own the Dustpan, which of the following is the most l",
+   "truth": "D",
+   "truth_value": "As an Assistant Professor of P",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "How many people in my family are taller than 160 cm?Additionally, ",
+   "truth": "C",
+   "truth_value": "2 people; 2 events",
+   "hidden_value": "2",
+   "value_ok": true,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is the main content of Safety Launch?",
+   "truth": "C",
+   "truth_value": "Kickoff for new safety trainin",
+   "hidden_value": "Safety Launch",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "How many people are aged 26 or above?",
+   "truth": "A",
+   "truth_value": "6 people",
+   "hidden_value": "6",
+   "value_ok": true,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the email address of the person in the position of Assista",
+   "truth": "C",
+   "truth_value": "madison.brooks@iltcorp.edu",
+   "hidden_value": "ethan.parker@capitalsalesgroup.com",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Which event has a larger scale, MuseCraft or RunFest?",
+   "truth": "C",
+   "truth_value": "MuseCraft",
+   "hidden_value": "MuseCraft",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What is My Own's Blender?",
+   "truth": "B",
+   "truth_value": "The Blendtec Total Classic has",
+   "hidden_value": "Blendtec Total Classic",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Electric Kettle, which of the following is th",
+   "truth": "B",
+   "truth_value": "As a busy corporate counsel, m",
+   "hidden_value": "Zojirushi电热水壶烧水快，保温好，安全锁防烫，水位计暗处难读。",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What exactly is an Own Keychain?",
+   "truth": "B",
+   "truth_value": "Leather Keychain",
+   "hidden_value": "Own Keychain",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What event lasts for eight weeks?",
+   "truth": "D",
+   "truth_value": "Care Review 2024",
+   "hidden_value": "The Care Review 2024",
+   "value_ok": true,
+   "letter": "D",
+   "ok": true
+  },
+  {
+   "q": "What is the time for DataVista 2024?",
+   "truth": "C",
+   "truth_value": "2024-10-13 19:00",
+   "hidden_value": "2024年10月13日晚7点",
+   "value_ok": true,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "What brand is the electric kettle?",
+   "truth": "B",
+   "truth_value": "Cuisinart CPK-17",
+   "hidden_value": "Cuisinart",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the main content of HealthTech22?",
+   "truth": "B",
+   "truth_value": "Innovations in healthcare tech",
+   "hidden_value": "创新医疗设备",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "How many events can accommodate about eight hundred people?Additio",
+   "truth": "A",
+   "truth_value": "4 events; 3 people",
+   "hidden_value": "2",
+   "value_ok": false,
+   "letter": "B",
+   "ok": false
+  },
+  {
+   "q": "What is the contact number for a person who has completed high sch",
+   "truth": "A",
+   "truth_value": "41504817125; Austin, TX",
+   "hidden_value": "30503370608",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "Which of the activities that involve team-building at a local park",
+   "truth": "C",
+   "truth_value": "Famous for its coffee culture,",
+   "hidden_value": "Team Quest",
+   "value_ok": false,
+   "letter": "D",
+   "ok": false
+  },
+  {
+   "q": "What is the apartment's Lives Here?",
+   "truth": "A",
+   "truth_value": "The Heights offers a vibrant a",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "B",
+   "truth_value": "Parkside Residences offers a s",
+   "hidden_value": "Parkside Residences",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "A",
+   "truth_value": "Greenwood Apartments offers a ",
+   "hidden_value": "无",
+   "value_ok": false,
+   "letter": "A",
+   "ok": true
+  },
+  {
+   "q": "What is the Lives Here of the apartment?",
+   "truth": "C",
+   "truth_value": "Oakridge Estates offers a welc",
+   "hidden_value": "Oakridge Estates",
+   "value_ok": false,
+   "letter": "C",
+   "ok": true
+  },
+  {
+   "q": "Regarding my Own the Frying Pan, which of the following is the mos",
+   "truth": "B",
+   "truth_value": "As a sous chef at Savory Delig",
+   "hidden_value": "Savory Delights Culinary Co副厨",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What are the main interests and hobbies of the person in the posit",
+   "truth": "C",
+   "truth_value": "Experience fun in the virtual ",
+   "hidden_value": "Madeline Hayes",
+   "value_ok": false,
+   "letter": "B",
+   "ok": false
+  },
+  {
+   "q": "Who has a birthday earlier in the year, Clara Voss or Carter Blake",
+   "truth": "B",
+   "truth_value": "Clara Voss; TechFest 2024",
+   "hidden_value": "Clara Voss",
+   "value_ok": false,
+   "letter": "B",
+   "ok": true
+  },
+  {
+   "q": "What time is the activity that mainly focuses on team bonding acti",
+   "truth": "B",
+   "truth_value": "next week Monday 9:00 AM",
+   "hidden_value": "2024年10月14日早9点",
+   "value_ok": true,
+   "letter": "B",
+   "ok": true
+  }
+ ],
+ "value_ok": 46,
+ "letter_ok": 217,
+ "n": 300
+}

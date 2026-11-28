@@ -1,0 +1,2102 @@
+[
+ {
+  "q": "Regarding my Own the Power Bank, which of the following ",
+  "truth_value": "As a medical consultant consta",
+  "ans": "根据记忆，最可能的描述是：你使用 **Goal Zero Sherpa 100PD** 作为你的移动电源（power bank），并且觉得它很可靠、很喜欢它。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What time is Crafting Camp?",
+  "truth_value": "2024-10-11 Friday 09:00",
+  "ans": "Crafting Camp 是下周五上午9点举办。  \n（记忆记录于2024-10-04，所以“下周五”是2024-10-11上午9点。）",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who is taller, Mira Thorne or Lena Hawthorne?",
+  "truth_value": "Lena Hawthorne",
+  "ans": "根据记忆，Mira Thorne 是 162cm，Lena Hawthorne 是 163cm，所以 **Lena Hawthorne 更高**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Coffee Mug, which of the following ",
+  "truth_value": "I absolutely love my Yeti Ramb",
+  "ans": "根据记忆，最可能的描述是：你把 Yeti Rambler Mug 当作喝咖啡的必备伙伴，很喜欢用它来保温饮品，并且它也是你户外活动时的常用杯子。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What are the hobbies of people whose work location is Ch",
+  "truth_value": "Playing Golf",
+  "ans": "根据记忆，在芝加哥IL工作的人是 Miles Carter。他的爱好是打高尔夫。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people are from Texas?",
+  "truth_value": "3 people",
+  "ans": "根据记忆，来自德州（Texas）的人有：\n\n1. Leila Thornton — 德州奥斯汀\n2. Jordan Ellis — 得克萨斯州奥斯汀\n3. Nina Caldwell — 德州圣安东尼奥\n4. Ethan Caldwell — 德州休斯顿（叔叔，在德州休斯顿工作）\n\n所以共有 **4 人** 来自德州。",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "Who has a birthday that comes later in the year, Jackson",
+  "truth_value": "Jackson Reid",
+  "ans": "根据记忆：Jackson Reid 的生日是4月8日，Liam Harrington 的生日是2月20日。4月8日比2月20日在一年中更晚，所以是 **Jackson Reid**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event has a larger scale, Code Trekker or FitCode ",
+  "truth_value": "Code Trekker",
+  "ans": "根据记忆：\n\n- Code Trekker：参加者约八百人（2024-10-01）\n- FitCode Fest：参加者约六百人（2024-10-01）\n\n所以 **Code Trekker 的规模更大**（约八百人 对 约六百人）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who has an earlier birthday, Liam Caldwell or Dylan Haye",
+  "truth_value": "Liam Caldwell",
+  "ans": "根据记忆，Liam Caldwell 的生日是6月12日，Dylan Hayes 的生日是7月16日。所以 Liam Caldwell 的生日更早。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the age of someone who is 156 cm tall?",
+  "truth_value": "38 years old",
+  "ans": "根据记忆，身高156厘米的人是表亲。关于表亲的年龄，记忆里提到「表亲38岁」（2024-10-06）。所以答案是38岁。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the position of my cousin?In addition, What is t",
+  "truth_value": "Community Outreach Coordinator",
+  "ans": "根据记忆：\n\n- 表哥（Leo Mitchell）的职位：**社区外展协调员**（community outreach coordinator），在亚特兰大工作，联系居民与资源。（记忆中也提到“社工”和“高等教育副教授”，但主要职业描述为社区外展协调员。）\n- Med Case Forum 的地点：**佛罗里达州奥兰多**（Orlando, Florida）。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the scale of Chess Campout?",
+  "truth_value": "one hundred people",
+  "ans": "根据记忆，Chess Campout（露营下棋活动）的规模约为百人（约百名棋类爱好者）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the apartment like that someone lives in here?In",
+  "truth_value": "Greenwood Apartments; 159cm",
+  "ans": "根据记忆：\n\n- 公寓：Greenwood Apartments（记忆里只提到“My apartment is at Greenwood Apartments”，没有更多关于公寓具体样子的描述，所以对“apartment like”只能回答：记不清具体是什么样，只知道是 Greenwood Apartments）。\n- 那位 coworker（Lila Harrington）的身高：159 cen",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the time for the event that has a scale of seven",
+  "truth_value": "2024-10-17 14:00",
+  "ans": "根据记忆，规模为700人的活动是 **Nurse Innovate**，时间是 **10月17日14点**（拉斯维加斯，单日）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the sum of the last six digits of the contact nu",
+  "truth_value": "15",
+  "ans": "根据记忆，Asher Reed 的电话是 65001204423。  \n最后六位是 204423，求和：2 + 0 + 4 + 4 + 2 + 3 = 15。\n\n答案：15",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the location of Avian Fest?",
+  "truth_value": "Austin, TX",
+  "ans": "Avian Fest 的地点是奥斯汀（Austin）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the location of Climb Fest?",
+  "truth_value": "Los Angeles, CA",
+  "ans": "根据记忆（2024-10-01 08:00 Tuesday）：Climb Fest 在洛杉矶举办。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the Apartment?",
+  "truth_value": "Great location and vibrant com",
+  "ans": "根据记忆，The Luxe Apartments 的住户包括：感受到社区活力与安全的住户（喜欢艺术工作室绘画、认为员工友善，仅停车高峰不便），以及一位儿科急诊专家（位置便利、夜班通勤轻松、邻里安全、设施满意）。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Backpack, which of the following is",
+  "truth_value": "As a Senior Financial Consulta",
+  "ans": "根据记忆，最可能的描述是：Targus CitySmart背包，通勤背包，适合日常，材质耐用轻便，有保护隔层和旅行带；也有金融顾问使用，装电脑文件及画具，设计专业，收纳好，但颜色选择少。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event, Lit Trek or Health Budget Summit, has a lar",
+  "truth_value": "Health Budget Summit; Sophie L",
+  "ans": "根据记忆：\n\n1. **Lit Trek 与 Health Budget Summit 的规模对比**：记忆中没有关于 **Lit Trek** 的任何信息，因此无法比较。Health Budget Summit 的参加者约四百人。对于 Lit Trek，我**记不清**。\n\n2. **Sophie Langley 与 Landon Pierce 的学历对比**：Sophie Langley 获硕",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event location matches the description for the act",
+  "truth_value": "Known for its proximity to the",
+  "ans": "根据记忆，下周后周四晚7点的活动是去丹佛的 Research Roundup，主讲月度团队研究进展。  \n而 Research Roundup 的举办地是科罗拉多州丹佛市。  \n\n所以匹配的活动地点是：**丹佛（科罗拉多州）**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "Living at City View Lofts has ",
+  "ans": "根据记忆，我最可能的描述是：我住在 City View Lofts，很喜欢那里的氛围和迷人的城市天际线；在那里居住的体验非常棒，而且位置超级方便。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the email address suffix for the person named Li",
+  "truth_value": "@wealthguardfinancial.com",
+  "ans": "Liam Carter的邮箱是 liam.carter@wealthguardfinancial.com，所以邮箱后缀是 **wealthguardfinancial.com**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many events last longer than a week?",
+  "truth_value": "6 events",
+  "ans": "根据记忆，持续超过一周（即长于7天）的活动有：\n\n1. **Eco Innovate**（2024-10-03 记录）——持续五周\n2. **YogaFilmFest**（2024-10-04 记录）——持续七周\n3. **Yogic Reads**（2024-10-04 记录）——持续八天\n4. **EcoConnect 2024**（2024-10-02 记录）——持续九天\n5. **Natu",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "Regarding my Own the Umbrella, which of the following is",
+  "truth_value": "I recently purchased the Repel",
+  "ans": "根据记忆，我对 Repel Windproof Travel Umbrella 的描述是：它很令人印象深刻（pretty impressive），并且在即使下雨的情况下也能很好地保持干燥（perfect for keeping me dry even in st...）。所以最可能的描述是：一把防风旅行伞，防雨效果好、让人保持干燥，整体令人满意。\n\n如果选项里有类似「windproof trave",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "Living at Parkside Residences ",
+  "ans": "根据记忆，最可能的描述是：你住在 Parkside Residences，并且非常喜欢这里的公寓，觉得居住体验很棒、氛围宁静。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who has a higher level of education, Wesley Donovan or O",
+  "truth_value": "Both the same",
+  "ans": "根据记忆：\n\n- Wesley Donovan：副学士学位\n- Oliver Bennett：副学士学位\n\n两人的学历水平相同，都是副学士学位。因此不存在谁更高。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who is younger, Jaxon Pierce or Grayson Cole?Additionall",
+  "truth_value": "Jaxon Pierce; Frontend Fest",
+  "ans": "根据记忆：\n\n- Jaxon Pierce 是 24 岁，Grayson Cole 是 35 岁，所以 **Jaxon Pierce 更年轻**。\n- Frontend Fest 为期八天，FitGlobal Fest 为期三周，所以 **FitGlobal Fest 持续更久**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the scale of Knit & Camp?",
+  "truth_value": "four hundred people",
+  "ans": "根据记忆，Knit & Camp 的规模约为400人参与。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people are from Las Vegas, NV?Additionally, How",
+  "truth_value": "2 people; 7 events",
+  "ans": "根据记忆：\n\n**来自拉斯维加斯（Las Vegas, NV）的人：2 个**\n- 侄子 Ethan Kade（2024-10-01）\n- 姑姑 Mia Harper（2024-10-01）\n\n**持续时间超过两天的事件：**\n1. SafeTech Fair — 五天（2024-10-11）\n2. GameJam Concert — 三天（2024-10-16）\n3. Camp GamerX —",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many events are happening in Los Angeles?",
+  "truth_value": "9 events",
+  "ans": "根据记忆，洛杉矶的活动有：\n\n1. Nature Art Fest（2024-10-05）\n2. NatureFit Day（2024-10-06）\n3. HikeFest（2024-10-06）\n\n所以洛杉矶共有 **3 个活动**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event has a larger scale, SafeBonding or AquaFest?",
+  "truth_value": "AquaFest",
+  "ans": "根据记忆：  \n- SafeBonding 参加者约五百人。  \n- Aqua Fest 吸引约七百人。  \n\n所以 AquaFest 的规模更大。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event lasts longer, Trail4Charity or Sales Mastery",
+  "truth_value": "Sales Mastery; Isla Rivers",
+  "ans": "根据记忆：\n\n1. **Trail4Charity** 为期一天，**Sales Mastery** 为期八周。所以 **Sales Mastery 持续时间更长**。\n\n2. **Isla Rivers** 身高177厘米，**Jaxon Blake** 身高150厘米。所以 **Isla Rivers 更高**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the email address for the person with the contac",
+  "truth_value": "sydney.ellis@compassionatecare",
+  "ans": "根据记忆，号码 310-033-58387 出现在（2024-10-05 12:51 Saturday）这条记录里，但该条记忆只记录了电话号码，没有关联到任何人的姓名或邮箱地址。因此，我记不清这个号码对应的邮箱地址。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "The Luxe Apartments offer a fa",
+  "ans": "根据记忆，The Luxe Apartments 是我的住处（我住在那里），我是空乘。所以 Lives Here 是：我（空乘）住在 The Luxe Apartments。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who has a higher level of education, Charlotte Hayes or ",
+  "truth_value": "Elias Grant",
+  "ans": "根据记忆：\n\n- Charlotte Hayes：高中毕业（2024-10-01）\n- Elias Grant：副学士学位（2024-10-01）\n\n副学士学位高于高中毕业，所以 **Elias Grant** 的教育程度更高。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the position of someone named Savannah Blake?",
+  "truth_value": "Data Analyst Assistant",
+  "ans": "根据记忆，Savannah Blake 的职位是 Data Analyst Assistant（数据分析助理）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the apartment where Lives Here?",
+  "truth_value": "Parkside Residences",
+  "ans": "根据记忆，你居住的公寓是 **Parkside Residences**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the position of my uncle?",
+  "truth_value": "Junior Software Engineer",
+  "ans": "根据记忆（2024-10-12）：叔叔是初级软件工程师。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What are the main responsibilities of the person with th",
+  "truth_value": "Provide quality service to pas",
+  "ans": "根据记忆：\n\n1. 关于电话号码 61902311387 的联系人，记忆里只记录了「下属电话61902311387」，没有说明这个人的主要职责，所以「记不清」。\n\n2. 关于 Aero Innovate 活动时间：记忆里提到「Aero Innovate在下下周六下午2点」（记录于2024-10-10），并且「我将参加Aero Innovate」。因此该活动时间是下午2点。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the email address of the person who is 148 cm ta",
+  "truth_value": "landon.pierce@milehighrealtygr",
+  "ans": "根据记忆，身高148厘米的人是下属。记忆中下属的邮箱是 landon.pierce@milehighrealtygroup.com。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the scale of the GolfLit Fest?",
+  "truth_value": "seven hundred people",
+  "ans": "根据记忆，GolfLit Fest的规模是约650人（也有记录提到约七百人）。",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the timeframe for Retail Reimagine?",
+  "truth_value": "2024-10-15 9:00",
+  "ans": "根据记忆，Retail Reimagine 的时间是 **2024年10月15日上午9点开始，为期四天**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many events are happening in Chicago?",
+  "truth_value": "5 events",
+  "ans": "根据记忆，在芝加哥举办的活动有：\n\n1. GoalQuest 2024\n2. Surf & Sip\n3. Surf Lit Fest\n4. EduInnovate\n5. InnovateX\n\n所以共有 **5 个活动** 在芝加哥。",
+  "verdict": "CORRECT",
+  "baseline_correct": false
+ },
+ {
+  "q": "Who has a higher level of education, Carter Jennings or ",
+  "truth_value": "Wyatt Thorne; Campfire Cookout",
+  "ans": "根据记忆：\n\n1. **Carter Jennings vs. Wyatt Thorne 的教育程度**：  \n   - 2024-10-01 08:00 的记录提到“Carter Jennings高中毕业”，即 Carter Jennings 是高中毕业。  \n   - 同一条记录提到“Wyatt Thorne博士”，即 Wyatt Thorne 是博士。  \n   因此，**Wyatt Tho",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What hobbies do people born on 01/21 usually have?",
+  "truth_value": "Writing",
+  "ans": "根据记忆，叔叔的生日是1月21日，但记忆里只提到他是双语内容专员、本科学历，没有提到他的爱好。所以：记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What are the main interests and hobbies of someone whose",
+  "truth_value": "Listen to live music and enjoy",
+  "ans": "根据记忆，生日在7月30日的是 Clara Voss。她的主要兴趣和爱好包括：\n\n- 热爱现场音乐会，享受人群能量与兴奋感。\n- 热爱游泳，享受水中滑行的振奋感。\n- 热衷听音乐，借不同声音节奏放松沉浸。\n- 痴迷编程，享受解决问题与从零创造。\n- 痴迷语言，借其连接文化、以新方式表达自我。\n- 热爱冲浪，享受追浪与海洋冲击的刺激。\n- 热爱健身，喜欢保持健康强壮。\n- 热衷攀岩，享受攀登高度的兴",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "How many people are taller than 162 cm?",
+  "truth_value": "4 people",
+  "ans": "根据记忆，身高超过 162 cm 的人有：\n\n- Jasper Miller：166 cm\n- Lila Harper：170 cm\n- Dorian Hayes：163 cm\n- Marina Caldwell：163 cm\n\nSienna Thompson 是 162 cm，不算“高于 162”。其他记录中 Ezra 157、Talon 160、Landon 160，也都不高于 162。\n\n所",
+  "verdict": "CORRECT",
+  "baseline_correct": false
+ },
+ {
+  "q": "For the person whose work location is San Francisco, CA,",
+  "truth_value": "28",
+  "ans": "根据记忆，在旧金山工作的是同事。同事的联系电话是 415-032-65746。  \n最后五位数字是 65746，求和：6 + 5 + 7 + 4 + 6 = 28。\n\n答案：28",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "In which season is the birthday of the person with the e",
+  "truth_value": "Spring",
+  "ans": "根据记忆，邮箱 avery.jacobs@skywardaviation.com 是老板的邮箱，而老板生日是5月6日。5月6日属于春季，所以答案是春季。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What time is KickStart 2024?",
+  "truth_value": "2024-10-13 19:00",
+  "ans": "根据记忆，KickStart 2024 定于 **2024年10月13日晚7点**（2024-10-04 20:07 的记忆，以及 2024-10-02 07:02 的更正记录都指向这个时间）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who is 31 years old?also, What is the location for the e",
+  "truth_value": "Grayson Wells; Miami, FL",
+  "ans": "根据记忆：\n\n- **31岁的人**：你的侄子 **Grayson Wells**（2024-10-06 记忆：侄子现年31岁）。\n- **约九百人活动的地点**：**记不清**。记忆中提到 ElectroStart 团队约九百人、持续三天，但明确写着“地点未明”，没有给出具体地点。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What are the main interests and hobbies of someone whose",
+  "truth_value": "Explore the outdoors on a bike",
+  "ans": "根据记忆：\n\n1. **生日在5月22日的人（姐姐）的主要兴趣和爱好**：姐姐最爱骑行，视为保持活力与享受户外的方式（运动、户外、热爱）。另外记忆里还提到“我喜欢写作，享受创作故事与用文字表达想法”，但这条没有明确与5月22日生日的人关联，因此严格来说，关于生日5月22日的人，记忆里明确的是**骑行/户外运动**。\n\n2. **在休斯顿（Houston, TX）那个活动的时间**：记忆中提到“Sa",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "Living at Oakridge Estates has",
+  "ans": "根据记忆，我的公寓在 Oakridge Estates，而且住在那里对我来说是很棒的体验，社区很有活力。所以最可能的描述是：我住在 Oakridge Estates，并且很喜欢那里的社区氛围。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "When is my father's birthday?",
+  "truth_value": "06/24",
+  "ans": "父亲生日是6月24日。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the timing for the event focused on \"Interdiscip",
+  "truth_value": "2024-10-12 Saturday 09:00",
+  "ans": "根据记忆，CollabCon 是“跨学科研究协作会议”（Interdisciplinary research collaboration），地点在西雅图，时间是 **2024年10月12日（周六）上午9点**（记忆记为“下周周六上午9点”，记录时间为2024-10-01）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the time for the event that includes a culinary ",
+  "truth_value": "nextnext week Tuesday 2:00 PM",
+  "ans": "根据记忆，这个活动是西雅图烹饪露营（2024-10-01 记录），但记忆里没有明确给出该活动本身的具体时间。  \n后续记录提到“2024年10月15日下午2点，烹饪营日程”，但不确定是否就是同一个活动。  \n所以严格来说：**记不清**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Wristwatch, which of the following ",
+  "truth_value": "As a Senior News Reporter at B",
+  "ans": "根据记忆，我最可能的描述是：我的腕表是一块 **Tag Heuer Monaco**，我很喜欢它经典的设计和赛车传承；它对我来说是“game changer”，设计非常醒目。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is TeamFusion's location?",
+  "truth_value": "Seattle, WA",
+  "ans": "根据记忆，TeamFusion的位置是西雅图（Seattle）。",
+  "verdict": "CORRECT",
+  "baseline_correct": false
+ },
+ {
+  "q": "How many events are based in Los Angeles?",
+  "truth_value": "9 events",
+  "ans": "根据记忆，基于洛杉矶的活动有：\n\n1. Dance & Reads（2024-10-05，洛杉矶，舞蹈与阅读结合的活动）\n2. DanceFlix（2024-10-06，洛杉矶，舞蹈相关影视内容）\n\n其他条目虽然也位于洛杉矶，但被标记为“公司”而非“活动”。Dance Fest! 在休斯顿举办，不在洛杉矶。\n\n因此，基于洛杉矶的活动共有 **2** 个。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the age of my boss?",
+  "truth_value": "32 years old",
+  "ans": "根据记忆，老板是 Mira Caldwell，32岁。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "How old is the subordinate?",
+  "truth_value": "31 years old",
+  "ans": "根据记忆，下属（Dylan Carter）29岁。",
+  "verdict": "WRONG",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the time for the activity that has a duration of",
+  "truth_value": "2024-10-24 Thursday 14:00",
+  "ans": "根据记忆，持续一天的活动是 **Policing Forum**，时间是 **2024-10-04 08:31 Friday**（记忆里提到“持续一天”）。",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people in my circle are from the Southeast?",
+  "truth_value": "5 people",
+  "ans": "根据记忆，来自美国东南部的人有：\n\n- **Everett James** — 来自奥兰多（佛罗里达州，东南部）\n- **Jasper Lane** — 来自亚特兰大（佐治亚州，东南部）\n- **Juniper Blake** — 来自新奥尔良（路易斯安那州，东南部）\n\n**共 3 人。**\n\n（Savannah Reed 来自波特兰、Marigold Hayes 与 Harrison Cole ",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the name of the company that my boss owns?In add",
+  "truth_value": "Skyline Airways LLC; Parkside ",
+  "ans": "老板拥有的公司是 **Skyline Airways LLC**。  \n“Lives Here” 所指的公寓是 **Parkside Residences**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the duration of the event scheduled for next wee",
+  "truth_value": "seven day",
+  "ans": "根据记忆，JobConnect 2024 下周旧金山周一早9点开始，持续**7天**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "I love living at Oakridge Esta",
+  "ans": "Oakridge Estates",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many characters are there in the names of people wit",
+  "truth_value": "13 characters",
+  "ans": "根据记忆，有学士学位的人是莱拉·多诺万（Layla Donovan）。\n\n“Layla Donovan”这个名字的字符数（不含空格）是：Layla（5）+ Donovan（7）= 12 个字符。\n\n所以答案是：12。",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "Who is younger, Tessa Quinn or Silas Parker?Additionally",
+  "truth_value": "Tessa Quinn; CulTech Fest",
+  "ans": "根据记忆：\n\n- Tessa Quinn 29岁，Silas Parker 36岁，所以 **Tessa Quinn 更年轻**。\n- CulTech Fest 为期七周，CampTech 2024 为期两周，所以 **CulTech Fest 持续时间更长**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "Living at Parkside Residences ",
+  "ans": "根据记忆，我最可能的描述是：我住在 Parkside Residences，这是一个让我感到耳目一新的居住体验，社区……（记忆在这里截断，具体社区描述记不清了）。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the location of Dance for Good?",
+  "truth_value": "Orlando, FL",
+  "ans": "Dance for Good 位于佛罗里达州奥兰多。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which location matches the description of the ClimbFlix ",
+  "truth_value": "Famous for its coffee culture,",
+  "ans": "西雅图。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "I've been living at Greenwood ",
+  "ans": "根据记忆，我最可能的描述是：我住在 Greenwood Apartments，并且已经在那里住了一年，对此非常满意。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "Living at Lakeview Apartments ",
+  "ans": "根据记忆，我最可能的描述是：我住在 Lakeview Apartments，并且在那里居住的体验非常好（“Living at Lakeview Apartments has been a really great experience for me”）。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many events have a crowd size of five hundred or mor",
+  "truth_value": "4 events; 2 people",
+  "ans": "根据记忆：\n\n**1. 人数在500人或以上的活动：**\n- Budget Boost：约700人 ✅\n- FairwayFest：约200人 ❌\n- GolfFit Fun：400人 ❌\n- Golf Flicks：约600人 ✅\n- Finance Expo：约200人 ❌\n- FinReview 2024：约800人 ✅\n- Invest Mastery：200人 ❌\n- Finance S",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What time is Model Fest?",
+  "truth_value": "2024-10-18 Friday 19:00",
+  "ans": "根据记忆，Model Fest 定于下下周三 9:00 举办（记忆记录于 2024-10-09，因此是 2024-10-23 9:00）。",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people are aged 25 or below?",
+  "truth_value": "1 people",
+  "ans": "根据记忆，年龄在25岁或以下的人有：\n\n- Avery Simmons：25岁\n- Savannah Blake：25岁\n- Austin Parker：25岁\n- Natalie Carter：25岁\n\n共 **4人**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "Who has a higher level of education, Mila Donovan or Jax",
+  "truth_value": "Jaxon Hale",
+  "ans": "根据记忆：\n\n- Mila Donovan 获副学士学位（Associate degree）。\n- Jaxon Hale 拥有博士学位（Doctorate）。\n\n博士学位的教育层次高于副学士学位，所以 **Jaxon Hale 的教育水平更高**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What kind of power bank does someone have?",
+  "truth_value": "Goal Zero Sherpa 100PD",
+  "ans": "你拥有的是 **Goal Zero Sherpa 100PD** 移动电源。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "When is my sister's birthday?",
+  "truth_value": "12/18",
+  "ans": "12月18日。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the occupation of someone named Landon Hayes?",
+  "truth_value": "Police Officer",
+  "ans": "老板兰登·海斯（Landon Hayes）是警察局长，同时也经营翡翠城安保服务公司。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "Greenwood Apartments offers an",
+  "ans": "根据记忆，公寓的“Lives Here”（居住情况/住户）提到：教授住在格林伍德公寓。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Apartment of Lives Here?also, What is the ma",
+  "truth_value": "Sunset Towers; Join us at the ",
+  "ans": "根据记忆：\n\n- **Apartment of Lives Here**：Sunset Towers（住在Sunset Towers，通勤便捷，近Austin Innovators Group，有泳池烧烤区，停车略难）。\n\n- **Campfest 的主要内容**：在Austin TX参加社区集市，包括露营装备演示、篝火烹饪、星空故事会、打绳结；约八百人参加，持续五天。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who is taller, Mason Blake or Lila Quinn?",
+  "truth_value": "Lila Quinn",
+  "ans": "根据记忆（2024-10-01 08:00），Mason Blake 身高 158cm，Lila Quinn 身高 164cm。所以 Lila Quinn 更高。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the duration of Real Estate Hub?",
+  "truth_value": "two day",
+  "ans": "根据记忆，Real Estate Hub 持续三天。",
+  "verdict": "WRONG",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the apartment like for Lives Here?",
+  "truth_value": "Greenwood Apartments",
+  "ans": "根据记忆，Lives Here 住在 Greenwood Apartments，已经大约一年了，并且觉得这段居住体验“really positive”（非常正面）。不过记忆里没有更具体的公寓细节，所以更详细的情况记不清。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Laundry Detergent, which of the fol",
+  "truth_value": "As a construction site supervi",
+  "ans": "根据记忆，我最可能描述的是：**Persil ProClean**。\n\n记忆里提到“I'm all about Persil ProClean for my laundry detergent; it really gets my clothes clean”，以及“I'm really impressed with Persil ProClean”。所以我的洗衣液是 Persil ProClea",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "Living at Greenwood Apartments",
+  "ans": "根据记忆，我最可能的描述是：我住在 Greenwood Apartments，并且觉得住在这里的体验非常好，位置也超级方便。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Frying Pan, which of the following ",
+  "truth_value": "As an Elementary School Teache",
+  "ans": "根据记忆，我的 frying pan 是 **Calphalon Contemporary**，并且它“been a game changer in the kitchen”。所以最可能的描述是：**Calphalon Contemporary 煎锅**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the location of Charity Dash?",
+  "truth_value": "Austin, TX",
+  "ans": "根据记忆，Charity Dash位于奥斯汀，得州（2024-10-09 的更正记录）。",
+  "verdict": "CORRECT",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the most likely description for my Lives Here's ",
+  "truth_value": "Living at Oakridge Estates has",
+  "ans": "根据记忆：\n\n- **Lives Here's Apartment 最可能的描述**：位于 Oakridge Estates 的公寓，我很喜欢住在那里（记忆中提到“My apartment is at Oakridge Estates, and I really love living there.”以及“Living at Oakridge Estates has been an awesome",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the time for the event that has a scale of eight",
+  "truth_value": "2024-10-13 19:00",
+  "ans": "根据记忆，参加烹饪启动会（Culinary Kickoff）的活动规模约为八百人，时间是十月十三日晚七点（2024年10月13日19:00）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the time for SalesSync 2024?",
+  "truth_value": "2024-10-11 Friday 09:00",
+  "ans": "SalesSync 2024 的下周五早九点开始，持续两周（2024-10-01 记录）。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event has a shorter duration, BankingNet or Taste ",
+  "truth_value": "BankingNet",
+  "ans": "根据记忆：\n\n- BankingNet 为期三天（2024-10-01 开始）。\n- Taste and Climb 为期九天（2024-10-02 开始）。\n\n因此，**BankingNet 的持续时间更短**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event has a longer duration, Corp Law Lab or CorpL",
+  "truth_value": "Corp Law Lab",
+  "ans": "根据记忆：\n\n- **Corp Law Lab**（公司法实验室活动）：2024-10-01 开始，为期**六天**。\n- **CorpLaw Connect**（公司法连接活动）：2024-10-02 开始，为期**一天**。\n\n因此，**Corp Law Lab** 的持续时间更长（六天 > 一天）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the company name of the person named Ethan Presc",
+  "truth_value": "Linguistic Bridges Translation",
+  "ans": "根据记忆，Ethan Prescott 相关的公司名是 **Linguistic Bridges Translation Services**（记忆中提到 ethan.prescott@linguisticbridges.com 与语言沟通相关，以及 Linguistic Bridges Translation Services）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who is taller, Tristan Calloway or Garrett Whitman?",
+  "truth_value": "Tristan Calloway",
+  "ans": "根据记忆：Tristan Calloway 身高 173 厘米，Garrett Whitman 身高 167 厘米。因此 Tristan Calloway 更高。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the event I will attend that has a scale of four",
+  "truth_value": "BioCollab Lab",
+  "ans": "根据记忆，BioCollab Lab 的团队约四百人，所以符合“规模四百人”的活动是 **BioCollab Lab**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "Great location near work and v",
+  "ans": "根据记忆，你住在 **Parkside Residences**。",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Sneakers, which of the following is",
+  "truth_value": "As a software engineer who lov",
+  "ans": "根据记忆，你最可能描述的是：你很喜欢自己的 Converse All Star 运动鞋，觉得它们经典、百搭、永不过时。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "How is the apartment at Lives Here?",
+  "truth_value": "Sunset Towers",
+  "ans": "根据记忆，住客赞Sunset Towers近工地，邻居好，爱健身房和屋顶露台看日落，盼更多户外活动区。所以公寓整体评价是正面的，但靠近建筑工地，且住客希望有更多户外活动区。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people have their birthday in the spring?",
+  "truth_value": "3 people",
+  "ans": "根据记忆，生日在春天（3月、4月、5月）的人有：\n\n- Lyra Prescott：4月27日\n- Serena Caldwell：4月15日\n- Aunt Marina Holloway：3月29日\n\n共 **3人**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is Own's Wristwatch?",
+  "truth_value": "The Apple Watch Series 9 is an",
+  "ans": "根据记忆，Own 戴的是 **Apple Watch Series 9**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who is taller, Landon Chase or Harper Jensen?Additionall",
+  "truth_value": "Landon Chase; Decade of Engine",
+  "ans": "根据记忆：\n\n- Harper Jensen 身高 149 厘米。\n- 记忆中没有关于 Landon Chase 身高的信息。\n\n所以身高比较：**记不清**（无法判断 Landon Chase 与 Harper Jensen 谁更高）。\n\n活动时长比较：\n- Nature Art Fest 为期六周。\n- “工程十年”（Decade of Engineering）我参加的是为期七周。\n\n因此 *",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the hometown of a person whose birthday falls on",
+  "truth_value": "Atlanta, GA; Denver, CO",
+  "ans": "根据记忆：\n\n1. **3月23日生日的人的家乡**：记忆里只提到「3月23日老板生日」，但没有说明这位老板的家乡。老板是 Landon Fisher，但记忆中没有他的家乡信息。所以：**记不清**。\n\n2. **我要参加的 RunLit Club 活动地点**：记忆中提到「RunLit Club位于丹佛」。所以：**丹佛**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the duration of CineTech Fest?",
+  "truth_value": "one of week",
+  "ans": "根据记忆，CineTech Fest持续一周（2024-10-02 的记忆中提到“CineTech Fest持续一周”）。",
+  "verdict": "CORRECT",
+  "baseline_correct": false
+ },
+ {
+  "q": "How many characters are there in the names of people wit",
+  "truth_value": "13 characters",
+  "ans": "根据记忆，提到名字的人有 Sophia Anderson、Lila Prescott、Ethan Miller，但记忆里没有关于他们学历的信息，所以无法确定谁有 Associate Degree。\n\n记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "What vacuum cleaner is owned?",
+  "truth_value": "Dyson V11 Torque Drive",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "Greenwood Apartments offers a ",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Headphones, which of the following ",
+  "truth_value": "As a police sergeant, I often ",
+  "ans": "根据记忆，最可能的描述是：JBL Tune 700BT 耳机，警察中士，游泳听音乐，电池数天，降噪，控制过敏感。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is that person's own broom?",
+  "truth_value": "Swiffer Sweeper Broom",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "Which event, BirdFlix Fest or YearEnd Recap, has a large",
+  "truth_value": "YearEnd Recap; Lucas Harringto",
+  "ans": "根据记忆：\n\n1. **BirdFlix Fest vs YearEnd Recap**：  \n   - BirdFlix Fest 约百人（2024-10-01）。  \n   - YearEnd Recap（四百人年终总结会）约四百人（2024-10-01）。  \n   因此 **YearEnd Recap 规模更大**。\n\n2. **Lucas Harrington vs Jackson We",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many characters are in the names of people whose wor",
+  "truth_value": "11 characters; As a Clinical R",
+  "ans": "根据记忆：\n\n1. **工作地点在 Austin, TX 的人**：记忆里只有一条提到“妈妈在奥斯汀工作”（2024-10-02），但没有给出名字，所以无法统计其名字中的字符数。其他记忆没有提到任何人的工作地点是 Austin, TX。  \n   **答案：记不清。**\n\n2. **我的电动剃须刀（Own's Electric Shaver）的描述**：所有记忆里都没有提到电动剃须刀或相关描述。 ",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "What time is the event located in Los Angeles, CA?",
+  "truth_value": "2024-10-14 Monday 14:00",
+  "ans": "根据记忆，我找不到任何提到“Los Angeles, CA”的事件，因此记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which description matches the workplace of someone who i",
+  "truth_value": "Known for its architecture, mu",
+  "ans": "根据记忆，我找不到任何关于某人27岁的信息，也找不到与“My Own's Cosmetic”相关的描述。记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the television that belongs to me?",
+  "truth_value": "Hisense U8H",
+  "ans": "根据记忆，你的电视是 **Hisense U8H**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What time is the activity that lasts seven days?",
+  "truth_value": "2024-10-19 Saturday 14:00",
+  "ans": "根据记忆（2024-10-03 23:45 Thursday）：NurseConnect持续七天。  \n但记忆里没有给出该活动的具体时间（几点开始），所以具体时间记不清。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who is the person that works in Austin, TX?also, What is",
+  "truth_value": "Landon Pierce; Blendtec Total ",
+  "ans": "根据你给的记忆，我找不到“谁在 Austin, TX 工作”的信息，也找不到“Your Own's Blender”是什么。记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is my Own Cutting Board?",
+  "truth_value": "The Seville Classics Bamboo Cu",
+  "ans": "根据记忆，在（2024-10-01 13:18 Tuesday）提到过：Seville Classics Bamboo Cutting Board，轻便耐用，防潮防味，环保价优，需保养，提升烹饪体验。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What education level does someone with a hobby in yoga h",
+  "truth_value": "Associate Degree",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the Electric Kettle that is owned?",
+  "truth_value": "Hamilton Beach 40880",
+  "ans": "根据记忆，2024-10-01 提到的是 Hamilton Beach 40880 电热水壶。所以答案是：Hamilton Beach 40880。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the apartment that is lived in here?",
+  "truth_value": "The Luxe Apartments",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "Which event, Culinary Lab or Craftival, has a larger sca",
+  "truth_value": "Both the same; Savannah Blake",
+  "ans": "根据记忆：\n\n1. **Culinary Lab 和 Craftival 哪个规模更大？**  \n   记忆里只提到 **Craftival 约九百人**，没有关于 **Culinary Lab** 的任何记录。因此无法比较，**记不清**。\n\n2. **Savannah Blake 和 Avery Quinn 谁生日更早？**  \n   - Savannah Blake：1月6日  \n   - ",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is My Own's Tablet?also, Who is the 39-year-old per",
+  "truth_value": "Huawei MatePad Pro; Grayson Ho",
+  "ans": "根据记忆：\n\n- **My Own's Tablet**：记忆里只提到“Huawei MatePad Pro praised by Banking Operations Coordinator for smooth multitasking, 12.6-inc”，但没有明确说这是“My Own”的平板。因此，**记不清**。\n- **39-year-old person**：记忆中没有提到任何人的",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who has a higher level of education, Dylan Rivers or Cla",
+  "truth_value": "Both the same",
+  "ans": "根据记忆，Dylan Rivers 有学士学位；但记忆中没有关于 Clara Jennings 的任何信息。因此无法比较，记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the suitcase?",
+  "truth_value": "Away Bigger Carry-On",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who has a higher level of education, Avery Sinclair or E",
+  "truth_value": "Ethan Carter; SustainBite",
+  "ans": "根据记忆：\n\n- Avery Sinclair 有硕士学位（2024-10-01）。\n- 关于 Ethan Carter 的教育背景，记忆中没有提到。\n\n所以两者比较：**记不清**（无法判断谁学历更高）。\n\n关于活动容纳人数：\n\n- Culinary Lab：七百人（2024-10-06）。\n- SustainBite：约九百人（2024-10-06）。\n\n因此 **SustainBite 容纳",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "How many events last for a week or longer?",
+  "truth_value": "8 events",
+  "ans": "根据记忆，持续一周或更久的事件有：\n\n1. WellReadFit — 持续一周（2024-10-04）\n2. LitArt Haven — 持续一周（2024-10-05）\n3. InnovateX — 持续两周（2024-10-03）\n4. Book Haven — 持续五天（2024-10-05）→ 不足一周，排除\n5. Team Talk 2024 — 持续九天（2024-10-02）\n6",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the height of the individual with the contact nu",
+  "truth_value": "154cm; Washington, DC",
+  "ans": "根据记忆，我找不到联系人 61700505095 的身高信息，也找不到“Camping Food and Wine Tasting”活动的具体地点信息（记忆中只有 Camp & Sip 在华盛顿DC、持续七天、可容纳六百人等描述，但没有明确将其与“Camping Food and Wine Tasting”对应起来）。\n\n记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the main content of the event with a scale of fo",
+  "truth_value": "Networking with industry leade",
+  "ans": "根据记忆，规模为四百人的活动是 Research Connect（2024-10-04 00:12 的记忆提到“四百人规模的Research Connect”）。但该条记忆只描述了现场氛围（荧光灯嗡嗡、陈咖啡味、脸都别过去），没有说明活动的主要内容。其他关于 Research Connect 的记忆也只提到时间（2024年10月11日9:00）、地点（休斯顿）、仅一天等，均未提及具体内容。\n\n因此",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who is older, Oliver Hastings or Ruby Caldwell?",
+  "truth_value": "Both the same",
+  "ans": "根据记忆，我只记得 Ethan Caldwell（27岁，同事），没有关于 Ruby Caldwell 的任何信息。因此无法比较 Oliver Hastings 和 Ruby Caldwell 的年龄。\n\n记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "Regarding my Own the Water Bottle, which of the followin",
+  "truth_value": "As a Medical Research Scientis",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What's the apartment like where Lives Here?",
+  "truth_value": "The Luxe Apartments",
+  "ans": "根据记忆，公寓里有一台 Lasko Ceramic Heater 取暖，空间温暖；这台取暖器轻便、可调温、静音、有过热保护、暖房快，但电源线短。记忆里还提到荧光灯嗡嗡、有咖啡味。除此之外，记不清更多公寓的情况。",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "Living at Sunset Towers has be",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the duration of Sales Boost 2024?",
+  "truth_value": "nine day",
+  "ans": "根据记忆（2024-10-03 07:13 Thursday）：Sales Boost 2024持续九天。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many events have a capacity of three hundred people?",
+  "truth_value": "5 events; 3 people",
+  "ans": "根据记忆：\n\n**容量为三百人的活动：**\n- 2024-10-01 Safety Launch 载客三百人\n- 2024-10-02 Safety Summit 三百人齐聚\n- 2024-10-06 ClimbFest 约三百人\n\n共 **3 个**。\n\n**身高超过 170 cm 的人：**\n- Kinsley Harper，176 cm\n\n共 **1 人**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the work location of that coworker?In addition, ",
+  "truth_value": "Atlanta, GA; The Luxe Apartmen",
+  "ans": "根据记忆：\n\n- 同事的工作地点：记忆里提到“同事在亚特兰大办公”（2024-10-01）、“老板在亚特兰大办公”（2024-10-11）、“下属在亚特兰大办公”（2024-10-12），但关于“同事”本人，另有“同事说来自丹佛”（2024-10-03）。无法确定唯一的工作地点，记不清。\n- 某人居住的公寓是什么样：记忆中没有关于公寓的描述，记不清。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who is younger, Lila Hartman or Clara Bellemont?",
+  "truth_value": "Lila Hartman",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "How many characters are in the name of someone who is 23",
+  "truth_value": "12 characters; Living at The L",
+  "ans": "根据记忆，我找不到任何关于某人年龄是23岁的信息，所以「记不清」有多少个字符。\n\n关于「我住这里的公寓」最可能的描述：记忆里反复出现「荧光灯嗡嗡，陈咖啡味，脸都别过去」，因此最可能的描述是「荧光灯嗡嗡、陈咖啡味、脸都别过去」。",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the name of the subordinate?",
+  "truth_value": "Tessa Blake",
+  "ans": "根据记忆，下属的名字是 **Tessa Blake**（2024-10-10 的记忆中明确纠正了之前说错的名字）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Dustpan that is owned?In addition, What is t",
+  "truth_value": "OXO Good Grips Dustpan; Landon",
+  "ans": "根据记忆：\n\n- 关于“owned 的 Dustpan（簸箕）”：记忆里没有提到任何关于簸箕（dustpan）的信息，所以记不清。\n- 叔叔的名字：记忆里只提到“叔叔”过生日（2月22日）、来自北卡罗来纳州夏洛特、在佛罗里达州奥兰多工作，以及一个电话号码，但没有提到叔叔的名字，所以记不清。",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who is younger, Cyrus Lennox or Delilah Mercer?Additiona",
+  "truth_value": "Cyrus Lennox; CycleFlix",
+  "ans": "根据记忆：\n\n- Delilah Mercer 是 39 岁（2024-10-01 记录）。\n- 记忆中没有关于 Cyrus Lennox 的任何信息。\n\n所以年龄比较：**记不清**（无法判断谁更年轻）。\n\n活动时长：\n- Team Fusion：为期六周（2024-10-07 记录）。\n- CycleFlix：八周（2024-10-08 记录）。\n\n**CycleFlix 的持续时间更长**（",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is my Own's Pen?also, What is the scale of the even",
+  "truth_value": "Lamy Safari; five hundred peop",
+  "ans": "根据记忆：\n\n- **What is my Own's Pen?** 记不清。（记忆里只提到「Lamy Safari钢笔」，但没有说明这是你的 Own's Pen。）\n- **What is the scale of the event that primarily focuses on celebrating financial growth and teamwork milestones?**",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event has a larger scale, CineWritFest or Sales Co",
+  "truth_value": "Sales Connect",
+  "ans": "根据记忆：\n\n- CineWritFest：五百人（2024-10-01 08:00）\n- Sales Connect：七百人（2024-10-01 21:31）\n\n所以 **Sales Connect** 的规模更大。",
+  "verdict": "CORRECT",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the scale of the event that focuses on a psychol",
+  "truth_value": "six hundred people",
+  "ans": "根据记忆，Psyche Skills 是心理学技能提升工作坊。相关规模记录有：\n\n- 2024-10-03：六百人挤满 Psyche Skills。\n- 2024-10-05：PsyInnovate 团队六百人（名称不同，不确定是否同一活动）。\n- 2024-10-07：九百人聚集（未明确活动名）。\n- 2024-10-06：九百人齐聚 PsychProj Kickoff（名称不同）。\n\n明确指向",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What hobby does my brother enjoy?In addition, What is th",
+  "truth_value": "Collecting Antiques; nine hund",
+  "ans": "根据记忆：\n\n- 哥哥的爱好：记忆里提到「哥哥收藏古董」（2024-10-01），所以哥哥喜欢收藏古董。\n- DanceFest的规模：记忆里提到「约九百人」（2024-10-15），所以规模约为九百人。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "Living at The Luxe Apartments ",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "The Heights offers a peaceful ",
+  "ans": "根据记忆，The Heights社区安静，近公园和咖啡店，周末嘈杂；通勤至Inspire Education Group便利。但记忆里没有明确提到公寓的“Lives Here”（居住情况/居住者信息），所以记不清。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What wallet is owned?",
+  "truth_value": "Ridge Wallet",
+  "ans": "根据记忆，拥有的是 **Ridge Wallet**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "Living at Greenwood Apartments",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Dustpan, which of the following is ",
+  "truth_value": "As a dedicated researcher who ",
+  "ans": "根据记忆（2024-10-02），Casabella Dustpan 的描述是：轻便耐用，橡胶边缘扫净碎屑，色彩鲜艳，容量偏小，适合实验室和园艺日常。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the laundry basket for my own belongings?",
+  "truth_value": "The Sterilite Laundry Basket i",
+  "ans": "根据记忆，2024-10-01 19:13 提到 Sterilite Laundry Basket 轻便、容量大、通风防异味、手柄舒适，但记忆里没有说明它是用于你自己的物品。所以：记不清。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "Living at Greenwood Apartments",
+  "ans": "记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is my Own's Suitcase?also, What's the company name ",
+  "truth_value": "American Tourister Moonlight; ",
+  "ans": "根据记忆：\n\n- **Own's Suitcase**：记忆里提到「美国旅行者月光行李箱，我喜欢」（2024-10-01），所以你的行李箱是**美国旅行者月光行李箱**。\n- **61703130513 关联的公司**：记忆里这条只记为「姐姐电话」（2024-10-04），没有提到关联公司名称，**记不清**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the duration of Sales Synergy?",
+  "truth_value": "one day",
+  "ans": "根据记忆，没有提到 Sales Synergy 的持续时间。记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Own的Keychain是什么呢？In addition, What is the time for the C",
+  "truth_value": "Herschel Supply Co. Keychain; ",
+  "ans": "根据记忆，Own的Keychain是Herschel Supply Co.钥匙扣（2024-10-01 20:00 Tuesday，洛杉矶Culinary Creations主厨将Herschel Supply Co.钥匙扣挂钥匙，称赞其设计、耐用、搭扣易取，适合厨房忙碌日常）。\n\nChef Budget Conclave的时间是2024年10月14日19:00（2024-10-04 16:15 ",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Could someone please share my boss's contact number?In a",
+  "truth_value": "30509541324; two day",
+  "ans": "根据记忆：\n\n- 老板的联系电话：记忆中有两个号码——305-095-41324（2024-10-03 记录为“老板联系电话”）和 30509701979（2024-10-08）。前者明确标注为老板联系电话，后者未说明用途。因此老板的联系号码是 **305-095-41324**。\n- Sales Synergy 的持续时间：记忆里只提到 2024年10月12日9:00 举行，以及约六百人、地点旧",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people have their birthdays in the first half o",
+  "truth_value": "5 people; 6 events",
+  "ans": "根据记忆：\n\n**生日在上半年（1–6月）的人：**\n- Brandon Knox：4月30日 ✅\n- Miles Thornton：2月5日 ✅\n- Dylan Carrington：6月5日 ✅\n\n其余生日在下半年（Sienna Brooks 9月6日、Clara Whitman 11月30日、Aurora Sinclair 12月6日）。\n\n所以上半年生日人数 = **3人**。\n\n**人数",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "How many events are happening in Miami, FL?",
+  "truth_value": "9 events",
+  "ans": "根据记忆，明确提到在迈阿密（Miami）举办的活动有：\n\n1. GolfLit Fest（2024-10-05）\n2. Golf Film Fest（2024-10-04）\n3. GolfJam Fest（2024-10-04）\n4. Beach Bash（2024-10-03）\n5. Nurse Nexus（2024-10-01）\n\n共 **5 个**活动。",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "Regarding my Own the Cutting Board, which of the followi",
+  "truth_value": "As a software developer, I rea",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the main content of Sales Stars!?",
+  "truth_value": "Celebrating achievements in sa",
+  "ans": "根据记忆，Sales Stars! 是一个持续六天、在德州奥斯汀举办、容纳约七百人的活动。但记忆中没有说明它的具体主题或主要内容，因此记不清它的主要内容。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "Oakridge Estates is a wonderfu",
+  "ans": "根据记忆，Oakridge Estates 的住户（Lives Here）信息是：晨跑近公园，通勤 TechWave Innovations，周末略吵，员工维护设施。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people in my family work in Seattle, WA?Additio",
+  "truth_value": "4 people; 4 events",
+  "ans": "根据记忆：\n\n**在Seattle, WA工作的人：**\n- Hazel Monroe（2024-10-05）\n- Ethan Cole（2024-10-04）\n- Jasper Reid（2024-10-01）\n- Oliver Quinn（2024-10-04）\n\n共 **4人**。（Sophie Blake在纽约工作，不算。）\n\n**持续三周的事件：**\n- Travel Fest（2024",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Own's Tablet?",
+  "truth_value": "The Huawei MatePad Pro impress",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people are from a city in Texas?",
+  "truth_value": "1 people",
+  "ans": "根据记忆，来自德州（Texas）城市的人有：\n\n- Mara Sullivan，来自德州圣安东尼奥（San Antonio, Texas）。\n\n所以共有 **1** 人。",
+  "verdict": "CORRECT",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the main content of KnitLit Hub?",
+  "truth_value": "Join us for a cozy Book Club G",
+  "ans": "根据记忆，KnitLit Hub 的主要内容是书友会：边织毛衣边聊文学，分享花样、技巧与零食。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "When is my coworker's birthday?",
+  "truth_value": "02/27",
+  "ans": "根据记忆（2024-10-04 08:32 Friday）：2月27日同事生日。所以同事的生日是 **2月27日**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event has a larger scale, the Build Start 2024 or ",
+  "truth_value": "Build Start 2024",
+  "ans": "根据记忆，Build Start 2024 有七百人参加，Safety Summit 约两百人参加，所以 Build Start 2024 的规模更大。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many events last for six days or less?",
+  "truth_value": "4 events",
+  "ans": "根据记忆，持续六天或更短的活动有：\n\n1. Global Harmony — 六天（符合“六天或更短”）\n2. NurseCareCon — 六天（符合）\n3. Global Fest — 四天（符合）\n4. Global Pages — 三天（符合）\n5. NurseInnov8 — 四天（符合）\n6. WanderFête — 一日（符合）\n7. Global Flicks — 三周（不符合，",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "How many events can accommodate more than three hundred ",
+  "truth_value": "5 events",
+  "ans": "根据记忆，能容纳超过三百人的活动有：\n\n1. Stamp Campout — 可容纳五百人（2024-10-05）\n2. Stamp Odyssey — 七百人（2024-10-04）\n3. StampTunes — 四百人（2024-10-06）\n4. Health Innovate — 七百员工（2024-10-01）\n5. 2024-10-03 07:28 的活动 — 七百人（名称未记清）\n",
+  "verdict": "CORRECT",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "Living at The Heights has grea",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is Own's Wallet?",
+  "truth_value": "The Herschel Supply Co. Roy Wa",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What camera is owned?",
+  "truth_value": "Fujifilm X-T4",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "Living at Sunset Towers offers",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event, Kitchen Sync or CulinaryX, has a larger sca",
+  "truth_value": "CulinaryX; Carter Blake",
+  "ans": "根据记忆：\n\n- Kitchen Sync：5-10人（2024-10-01）\n- CulinaryX：约八百人参加（2024-10-02）\n\n所以规模更大的是 **CulinaryX**。\n\n- Carter Blake 生日 11月18日\n- Grayson Cole 生日 11月6日\n\n所以生日更晚的是 **Carter Blake**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "The Heights offers a convenien",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the age of my sister?",
+  "truth_value": "36 years old",
+  "ans": "根据你提供的记忆，里面只提到“妹妹是医学研究员”“12月6日妹妹生日”，没有提到妹妹的年龄。  \n所以：记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What hobby might someone who is 183 cm tall have?also, W",
+  "truth_value": "Woodworking; City View Lofts",
+  "ans": "根据记忆，我找不到关于身高 183 cm 的人及其爱好的信息，所以这个问题的答案是「记不清」。\n\n关于「Lives Here」中的公寓：记忆里提到的是 **City View Lofts**——宽敞布局，展示古董收藏，通勤近 Innovative Science Technologies，环境安静，视野好，晚间平和，并盼望更多安静社区活动。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people are aged 32 or below?",
+  "truth_value": "2 people",
+  "ans": "根据记忆，年龄在32岁或以下的人有：\n\n- Sophie Langley，32岁\n- Ethan Carter，32岁\n\n共 **2人**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is an Own's Microwave Oven?",
+  "truth_value": "The Samsung MS19M8000AS microw",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the work_location for the person with the contac",
+  "truth_value": "Atlanta, GA",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "What time is CodeFest 2024?",
+  "truth_value": "2024-10-17 19:00",
+  "ans": "根据记忆，CodeFest 2024 的时间信息有冲突：\n\n- 一条记忆说：**10月17日19:00**（2024-10-05）\n- 另一条说：**下周一14:00举办**（2024-10-03，即 2024-10-07 14:00）\n\n记忆里存在不一致，无法确定唯一时间。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the time for the event that mainly focuses on 'I",
+  "truth_value": "2024-10-10 Thursday 19:00",
+  "ans": "根据记忆，MechInnovate 是主要聚焦“机械工程创新技术展示”的活动，但记忆里只提到它位于芝加哥，没有记录具体时间。所以：记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "Which event, ClimaStart or Research Milestone, has a lar",
+  "truth_value": "Research Milestone; Jaxon Haye",
+  "ans": "根据记忆：\n\n- ClimaStart 约两百人；Research Milestone 约八百人。所以 **Research Milestone 规模更大**。\n- Jaxon Hayes 168 cm；Easton Reid 145 cm。所以 **Jaxon Hayes 更高**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Heater, which of the following is t",
+  "truth_value": "As a university professor who ",
+  "ans": "记不清",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the apartment of Lives Here like?",
+  "truth_value": "Greenwood Apartments",
+  "ans": "记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the position of that coworker?",
+  "truth_value": "Licensed Practical Nurse",
+  "ans": "根据记忆，同事在芝加哥医疗服务中心工作（2024-10-03 记忆），但记忆中没有提到具体职位。所以：记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "For someone whose work location is Houston, TX, what is ",
+  "truth_value": "25; A major city in Texas, kno",
+  "ans": "根据记忆：\n\n1. **工作地点在 Houston, TX 的人**：记忆中没有明确记录某人的“工作地点是 Houston, TX”。有一条提到“同事在休斯顿办公”（2024-10-03），但没有给出该同事的姓名或联系电话。因此无法确定其联系电话，也就无法求最后五位数字之和。  \n   **答：记不清。**\n\n2. **Which event location description matche",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people are from Charlotte, NC?",
+  "truth_value": "2 people",
+  "ans": "根据记忆，没有提到任何来自 Charlotte, NC 的人。记不清。",
+  "verdict": "WRONG",
+  "baseline_correct": false
+ },
+ {
+  "q": "What hobbies do people with the occupation of professor ",
+  "truth_value": "Dancing",
+  "ans": "记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "Who has a birthday later in the year, Aria Morgan or Hol",
+  "truth_value": "Aria Morgan; Tech Innovate",
+  "ans": "Aria Morgan的生日是12月30日，Holden Carter的生日是4月17日，所以Aria Morgan的生日在一年中更晚。\n\nTeam Milestone持续八天，Tech Innovate持续两周（14天），所以Tech Innovate的持续时间更长。",
+  "verdict": "CORRECT",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the time for the event at that location in Portl",
+  "truth_value": "nextnext week Wednesday 7:00 P",
+  "ans": "根据记忆，2024年10月16日晚7点有多个活动（Nature Connect、Lit & Serve、Hike for Nature），但记忆中没有提到任何活动的地点是 Portland, OR。因此，记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What event will take place in Atlanta, GA?",
+  "truth_value": "CalliFest",
+  "ans": "根据记忆，CalliFest 2024年10月15日下午2点举办，且是书法节（现场表演与书法展、互动工坊教字体技巧、可制作音乐主题纪念品）。但记忆里没有提到地点是 Atlanta, GA，所以地点无法确认。若问的是哪个活动，答案是 CalliFest；若问的是在 Atlanta, GA 举办的活动，我记不清。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "I've been living at Oakridge E",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the scale of the activity that has a duration of",
+  "truth_value": "nine hundred people",
+  "ans": "根据记忆，找不到任何持续七周的活动信息，因此记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the birthday of the person with the email addres",
+  "truth_value": "12/11",
+  "ans": "根据记忆，Aunt Clara 的邮箱是 clara.mitchell@innovativeinsightsresearch.com，但记忆里没有提到她的生日。记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "For someone whose hometown is Philadelphia, PA, which of",
+  "truth_value": "Famous for Hollywood, beaches,",
+  "ans": "根据记忆，老板来自费城（Philadelphia, PA），而 Camila Drake 是老板。但记忆里没有明确描述她的工作地点。所以，关于“来自费城的人的工作场所”，记忆里只有“老板来自费城”这一条，没有对应的工作场所描述。\n\n记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the education level of someone who is 169 cm tal",
+  "truth_value": "Associate Degree",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the education of the person who is with Emerald ",
+  "truth_value": "High School",
+  "ans": "根据记忆，Ethan Brooks 与 Emerald City Grocers 有关（有该超市的邮箱，且名字出现在相关记忆中）。但记忆里没有提到他的教育背景。所以：记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "Which location description matches the Camp Connect even",
+  "truth_value": "Famous for Hollywood, beaches,",
+  "ans": "根据记忆，Camp Connect 位于加州洛杉矶。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the scale of Book2Film?",
+  "truth_value": "four hundred people",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event has a larger scale, CineGroove or EcoLaunch?",
+  "truth_value": "CineGroove",
+  "ans": "根据记忆：\n\n- CineGroove：六千人（2024-10-01 08:00）\n- EcoLaunch：约七百人（2024-10-01 15:29）\n\n所以 **CineGroove 的规模更大**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who is taller, Sophie Lennox or Landon Pierce?",
+  "truth_value": "Sophie Lennox",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "Which event, ReadFest2024 or Team Synergy, accommodates ",
+  "truth_value": "Team Synergy; Sophia Lane",
+  "ans": "根据记忆：\n\n1. **ReadFest 2024 vs Team Synergy**：记忆中有 **ReadFest 2024 约四百人**（2024-10-01）。但没有找到 **Team Synergy** 的任何记录，因此无法比较。→ **记不清**\n\n2. **Sophia Lane vs Lila Monroe 的学历**：记忆中有 **Sophia Lane 硕士学历**（2024-",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the apartment in Lives Here?also, What is the lo",
+  "truth_value": "The Luxe Apartments; San Franc",
+  "ans": "根据记忆：\n\n1. **Lives Here 的公寓**：The Luxe Apartments（2024-10-01 记录）。\n\n2. **融合运动与音乐、充满活力的独特健身课活动的地点**：Fit & Flow，位于旧金山（2024-10-04 记录）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the contact number for my niece?",
+  "truth_value": "81807477716",
+  "ans": "根据记忆，侄女的电话是 **81807477718**（2024-10-06 22:19 Sunday 记录为“侄女电话”）。",
+  "verdict": "WRONG",
+  "baseline_correct": false
+ },
+ {
+  "q": "Which description of the event location matches the BioC",
+  "truth_value": "A major city in Texas, known f",
+  "ans": "根据你记得的事，里面没有提到「BioCollab Lab」这个活动，所以记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What sneakers are in my collection?",
+  "truth_value": "Reebok Classic",
+  "ans": "Reebok Classics。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the main content of Property Pro?",
+  "truth_value": "Real estate strategies for Mia",
+  "ans": "根据记忆，Property Pro 定于下周三下午2点，并持续两天。但记忆中没有说明它的主要内容是什么，所以记不清。",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Wristwatch, which of the following ",
+  "truth_value": "As a Sales Manager who appreci",
+  "ans": "根据记忆，最可能的描述是：Omega Seamaster腕表，经典优雅兼具功能；Sales Manager称赞其精准可靠、工艺顶级、设计运动、耐用防水，适合商务与休闲，虽贵但值得投资。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Own的Broom是什么？In addition, What is the location of Eco In",
+  "truth_value": "Libman Precision Angle Broom; ",
+  "ans": "根据记忆：\n\n- **Own的Broom**：记忆中提到的是 **Libman Precision Angle Broom**，研究科学家用于实验室与家中角落清扫，轻便耐用、环保，扫后活动身体。没有提到“Own”这个品牌或归属，因此若问“Own的Broom是什么”，记忆里找不到“Own”的相关信息，**记不清**。\n- **Eco Innovate的地点**：位于 **内华达州拉斯维加斯（Las ",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "For someone whose hobby is attending concerts, in which ",
+  "truth_value": "Summer",
+  "ans": "根据记忆，只有 Chase Donovan 提到“是我哥，他超酷”，但没有提到他的生日或爱好是参加音乐会。其他记忆里也没有把“爱好是参加音乐会”和某个生日对应起来的信息。\n\n所以：记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What exactly is a spatula?",
+  "truth_value": "Cuisinart Heat Resistant Silic",
+  "ans": "根据记忆，我只记得你提到过 Cuisinart 耐热硅胶刮刀（spatula）在厨房和实验室里的使用体验——耐热、能抓热烧杯、握感稳、易清洁、耐用、亮色与实验室不搭。但记忆里没有对「spatula 到底是什么」的定义或说明，所以这一点我记不清。",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "What hobby does the subordinate have?",
+  "truth_value": "Writing",
+  "ans": "根据记忆，下属的爱好是**书法**。\n\n依据：2024-10-13 的记忆里提到「老板爱好书法」，而 2024-10-09 的记忆确认「Lila Montgomery是我下属」，2024-10-08 的记忆也提到「我的下属是助教」。不过需要说明的是，那条书法记忆写的是「老板」而非「下属」，严格按字面看，记忆里并没有直接说下属的爱好是书法。若严格按原文，应回答「记不清」。",
+  "verdict": "WRONG",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the hometown of my aunt?In addition, What time i",
+  "truth_value": "Austin, TX; 2024-10-25 Friday ",
+  "ans": "根据记忆：\n\n- 姨母的家乡：记忆里只提到「Aunt runs Silver Sands Medical Center」和「1月20日姨母生日」，没有提到她的家乡，所以**记不清**。\n- EcoNet Fair 的时间：记忆里提到「EcoNet Fair下周五早9点」（记录于2024-10-17），所以是**下周五早上9点**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event has a longer duration, DriveSafe 2024 or Cin",
+  "truth_value": "DriveSafe 2024",
+  "ans": "根据记忆：\n\n- **DriveSafe 2024**：2024-10-01 开始，为期 **两周**。\n- **CineConcert**：2024-10-02 开始，为期 **九天**。\n\n两周（14天）比九天长，所以 **DriveSafe 2024 的持续时间更长**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is owned by Own in terms of a backpack?In addition,",
+  "truth_value": "North Face Recon; Atlanta, GA",
+  "ans": "根据记忆：\n\n- 关于“Own 拥有的背包（backpack）”，记忆中没有相关信息，记不清。\n- Team Synergy 位于佐治亚州亚特兰大。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is Own's Hand Soap?",
+  "truth_value": "I love Softsoap Liquid Hand So",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the height of that coworker?",
+  "truth_value": "163cm",
+  "ans": "根据记忆，找不到那位同事的身高。记忆里提到的身高是父亲159厘米和叔叔151厘米，没有同事的身高。所以：记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What are the main responsibilities of someone whose hobb",
+  "truth_value": "Provide financial planning and",
+  "ans": "记不清",
+  "verdict": "WRONG",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the duration of ElectroBudget?",
+  "truth_value": "eight of week",
+  "ans": "根据记忆，关于 ElectroBudget 的持续时间出现了两条不一致的信息：\n\n- （2024-10-03）ElectroBudget 持续六周。\n- （2024-10-10）ElectroBudget 持续八周。\n\n记忆中存在冲突，无法确定唯一答案。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is my Own's Camera?also, What is the scale for the ",
+  "truth_value": "Panasonic Lumix GH5; two hundr",
+  "ans": "根据记忆：\n\n- **你的相机**：Panasonic Lumix GH5（4K视频，机身防抖，轻便设计，电池续航差需备用）。\n- **持续七周的活动规模**：记忆里只提到“Finance Launch持续七周”，但没有记录它的规模人数，所以**记不清**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the apartment for Lives Here?also, What is the d",
+  "truth_value": "The Heights; seven day",
+  "ans": "根据记忆：\n\n1. **What is the apartment for Lives Here?** — 记不清。记忆里没有提到“Lives Here”或任何公寓信息。\n\n2. **What is the duration of the event at the location in Denver, CO?** — 记忆中提到“Dance Fest在丹佛举行”，并且另一条记忆说“DanceFe",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the name of the sister?",
+  "truth_value": "Talia Bennett",
+  "ans": "根据你提供的记忆，里面没有出现姐姐的名字，只提到“我姐姐有博士学位”“姐姐讲波士顿故事”“姐姐在亚特兰大工作”等。因此：记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "What kind of education does the coworker have?In additio",
+  "truth_value": "PhD; The Luxe Apartments",
+  "ans": "根据记忆，我找不到关于同事教育背景的信息，所以「记不清」。另外，记忆里也没有提到「Lives Here」的公寓情况，同样「记不清」。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "I recently moved to Greenwood ",
+  "ans": "记不清",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the duration of the event that has a scale of fi",
+  "truth_value": "seven of week",
+  "ans": "根据记忆，规模为五百人的事件是 **Surf & Camp**（2024-10-02 21:36 Wednesday 提到“五百人聚集Surf & Camp”）。\n\n关于它的持续时间，记忆中有两条相关信息：\n- （2024-10-03 08:58 Thursday）Surf & Camp持续七周。\n- （2024-10-03 17:39 Thursday）Surf & Camp下周五下午2点举行。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Face Mask, which of the following i",
+  "truth_value": "I recently tried the Dr. Jart+",
+  "ans": "根据记忆，2024-10-01 15:42 提到的是 Dr. Jart+ Rubber Mask：敷脸清凉，揭下后皮肤水润发光，涂抹时有点乱，留待居家护理夜用。记忆里没有出现「Own the Face Mask」这个名称，因此记不清它对应的描述。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What time is FishFest?",
+  "truth_value": "2024-10-15 Tuesday 19:00",
+  "ans": "根据记忆，FishFest 的时间信息存在多处不一致：\n\n- 2024-10-01 记忆：下周一4点举办\n- 2024-10-04 记忆：周二晚7点举行\n- 2024-10-02 记忆：持续六周\n- 2024-10-09 记忆：FishFest Run 在2024年10月15日下午2点\n\n这些记忆互相矛盾，无法确定 FishFest 的准确时间。记不清。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people work in Atlanta, GA?Additionally, How ma",
+  "truth_value": "2 people; 5 events",
+  "ans": "根据记忆：\n\n- 在Atlanta, GA工作的人：只有 **Carter Flynn**（2024-10-01记录）。所以是 **1人**。\n- 持续时间超过一周（more than a week）的活动：\n  - The Urban Care Conclave：9天（超过一周）\n  - Care Skills 2024：7周（超过一周）\n  - TechFusion：9周（超过一周）\n  - ",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "Welcoming community with great",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which location matches the description of the SurfFit Ja",
+  "truth_value": "Known for its architecture, mu",
+  "ans": "根据记忆，SurfFit Jam 相关记录里没有提到举办地点，只提到健身课、冲浪动作、荧光灯、咖啡味等。因此地点我「记不清」。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the time for the event that has a scale of eight",
+  "truth_value": "2024-10-27 Sunday 19:00",
+  "ans": "根据记忆（2024-10-04 10:22 Friday）：八百人规模的是 Innovate，但这条记忆里没有给出该活动的具体时间。所以：记不清。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event has a larger scale, Craft Festiva or NatureC",
+  "truth_value": "NatureCrafts",
+  "ans": "根据记忆，我找不到关于「Craft Festiva」的任何记录；而 NatureCrafts 约九百人参加。因此无法比较两者规模，记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "For someone whose hometown is Jacksonville, FL, what is ",
+  "truth_value": "20; 2024-10-19 Saturday 19:00",
+  "ans": "根据记忆，我找不到任何关于“hometown is Jacksonville, FL”的人的信息，因此无法确定其联系电话及后三位数字之和。  \n另外，问题中“What is the time for the event at”后面似乎不完整，记忆里也没有对应的事件信息。  \n所以：记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "Which event location description matches the event sched",
+  "truth_value": "Known for its architecture, mu",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What kind of camera is owned?In addition, What is the wo",
+  "truth_value": "DJI Osmo Pocket; Orlando, FL",
+  "ans": "根据记忆：\n\n- 拥有的相机是 **DJI Osmo Pocket**（2024-10-01 的记忆提到）。\n- 同事的工作地点是 **Orlando Justice Partners, LLC**（在奥兰多，2024-10-04 和 2024-10-08 的记忆提到）。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "Fantastic location and friendl",
+  "ans": "根据记忆，2024-10-01 08:00 那条提到住在 City View Lofts，所以公寓是 City View Lofts。",
+  "verdict": "WRONG",
+  "baseline_correct": false
+ },
+ {
+  "q": "What gaming console is owned?",
+  "truth_value": "Nintendo Switch OLED",
+  "ans": "根据记忆，在（2024-10-02 07:26 Wednesday）提到 Nintendo Switch OLED 的屏幕、续航、音频和游戏等特点，因此可以推断拥有的游戏主机是 **Nintendo Switch OLED**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Whose birthday comes later in the year, Clara Mason or L",
+  "truth_value": "Clara Mason",
+  "ans": "Clara Mason的生日是12月30日，Liam Sanders的生日是5月1日。所以Clara Mason的生日在一年中更晚。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What type of apartment is Lives Here?",
+  "truth_value": "Greenwood Apartments",
+  "ans": "根据记忆，2024-10-01 15:00 提到“Greenwood Apartments”，但没有说明公寓的类型（如户型、房型等）。所以记不清。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the name of the person whose occupation is Docto",
+  "truth_value": "Maya Sterling",
+  "ans": "根据你提供的记忆，里面没有提到任何人的职业是 Doctor，所以记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the location of Med Research Hub?",
+  "truth_value": "Denver, CO",
+  "ans": "根据你提供的记忆，里面没有提到 Med Research Hub 的地点，所以「记不清」。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Hand Soap, which of the following i",
+  "truth_value": "As a registered nurse, hand hy",
+  "ans": "根据记忆，2024-10-01 20:48 那条对 Dial Antibacterial Hand Soap 的描述是：气味淡雅宜人、起泡、温和、易冲洗、不干燥。所以最可能的描述是「pleasant subtle scent, lathers, gentle, rinses easily, no drying」。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many events last longer than five days?Additionally,",
+  "truth_value": "3 events; 2 people",
+  "ans": "根据记忆：\n\n**持续时间超过五天的事件：**\n- FlyTech Con 持续九周（超过五天）→ 1个\n- LiveVibes 持续六天（超过五天）→ 1个\n\n其他事件：ArtBeat Fair 四天、Aero Innovate 五天、Run & Rhythm 五天、Aero Connect 三天、Lit & Strings 两天、AeroConnect 四天、Hike & Harmony 四天",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "Great location with a friendly",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "Living at Sunset Towers has be",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Desk Lamp, which of the following i",
+  "truth_value": "I recently purchased the Ikea ",
+  "ans": "根据记忆，最可能的描述是：IKEA SINNERLIG 台灯，暖光，设计独特，采用可持续材料，适合深夜写作，但没有调光功能。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people have their birthdays in December?",
+  "truth_value": "4 people",
+  "ans": "根据记忆，生日在12月的人有：\n\n- Savannah Blake：12月28日\n- Ethan Grayson：12月13日\n- Clara Monroe：12月31日\n\n一共 **3个人**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "Which event location description matches the event sched",
+  "truth_value": "A major cultural and economic ",
+  "ans": "根据记忆（2024-10-02 07:55 Wednesday）：Travel Tales于2024年10月15日晚7点举行。但记忆中没有给出该事件的地点描述。因此，记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many events are happening in Washington, DC?",
+  "truth_value": "7 events",
+  "ans": "根据记忆，在华盛顿特区举办的活动有：\n\n1. BioReview Meeting（2024-10-01）\n2. NeuroTech 2024（2024-10-02）\n3. BioInnovate 位于华盛顿特区（2024-10-02）\n\n共 3 个事件。",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "What exactly is my Own's Electric Kettle?",
+  "truth_value": "The Secura Stainless Steel Ele",
+  "ans": "根据记忆，你的电水壶是 **Secura 不锈钢电水壶**，用于厨房。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What time is the event at that location in Miami, FL?",
+  "truth_value": "next week Monday 2:00 PM",
+  "ans": "根据记忆，Banking Sync 位于佛罗里达州迈阿密，其定于 **2024年10月14日下午2点** 举行。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the main content of Health Connect?",
+  "truth_value": "Networking with healthcare emp",
+  "ans": "根据记忆，2024-10-02 那条提到“Health Connect持续三天，荧光灯嗡嗡，陈咖啡味，脸都别过去。无。”——除了这些感官细节和“无”之外，没有记录 Health Connect 的具体内容。所以：记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the microwave oven that is owned?In addition, Wh",
+  "truth_value": "Breville Quick Touch; leo.mart",
+  "ans": "根据记忆：\n\n- 关于“拥有的微波炉”：记忆中没有提到任何微波炉的信息，**记不清**。\n- 关于“男性表兄弟的邮箱地址”：记忆中没有提到男性表兄弟的邮箱；只提到 Leo Martinez 的邮箱是 leo.martinez@innovativeminds.edu，但未说明他是男性表兄弟。因此**记不清**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "Living at Sunset Towers has be",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many characters are there in the name of the person ",
+  "truth_value": "15 characters",
+  "ans": "根据记忆，提到的人有 Carter Sinclair、Landon Pierce、Savannah Ellis、Grayson Powell、Tara Winslow，但记忆里没有提到任何人的年龄，因此无法确定谁 47 岁。\n\n记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": false
+ },
+ {
+  "q": "Which location description matches the Safety Review 202",
+  "truth_value": "The capital of Texas, known fo",
+  "ans": "根据记忆，Safety Review 2024 在**奥斯汀**举行（2024-10-01 19:40 的记忆提到）。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the email address suffix for someone with the oc",
+  "truth_value": "@capitalcouriers.com",
+  "ans": "根据记忆，Avery Cole 和 Mira Sinclair 的邮箱域名是 swiftdeliveriesllc.com，而 Avery Cole 的邮箱被注明用于联系快递（Courier）。因此快递员的邮箱后缀是 **swiftdeliveriesllc.com**。",
+  "verdict": "WRONG",
+  "baseline_correct": false
+ },
+ {
+  "q": "Regarding my Lives Here the Apartment, which of the foll",
+  "truth_value": "Living at The Luxe Apartments ",
+  "ans": "根据记忆，2024-10-01 08:00 Tuesday 提到“住Luxe Apartments，喜欢这里。” 因此最可能的描述是：住在 Luxe Apartments，并且喜欢这里。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What does my male cousin do for a living?",
+  "truth_value": "Translator",
+  "ans": "根据记忆，表哥在拉斯维加斯工作（2024-10-05），但没有提到具体职业。所以，记不清他具体做什么工作。",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "The Heights offers a peaceful ",
+  "ans": "根据记忆，2024-10-02 07:45 那条提到 The Heights 公寓“tranquil, near gardens, close to Innovative Research Technologies; lacks social”，但没有明确说明“Lives Here”（居住者/住户情况）。记忆里找不到明确答案，记不清。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Wallet, which of the following is t",
+  "truth_value": "As a doctor and medical resear",
+  "ans": "记不清",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the occupation of the boss?",
+  "truth_value": "Farmer",
+  "ans": "根据记忆，2024-10-07 22:12 Monday 那条提到「2月21日老板生日，荧光灯嗡嗡，陈咖啡味，脸都别过去」，但没有说明老板的职业。\n\n记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the duration of CorpLaw Connect?",
+  "truth_value": "one day",
+  "ans": "根据记忆，CorpLaw Connect 的持续时间没有明确记录，只提到定于2024年10月14日上午9点，但没有说明持续多久。所以：记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who is taller, Ethan Wells or Lucas Thornton?",
+  "truth_value": "Ethan Wells",
+  "ans": "根据记忆，Ethan Wells 的身高是 166cm。但记忆中没有关于 Lucas Thornton 的任何信息，所以无法比较。记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Who has a higher educational qualification, Julian Reed ",
+  "truth_value": "Both the same",
+  "ans": "根据记忆：\n\n- Julian Reed 有副学士学位（2024-10-01）。\n- Oliver Bennett 是大专学历（2024-10-01）。\n\n副学士学位和大专学历属于同一层次的教育资格，无法据此判断谁更高。因此，**记不清**（两者学历层次相同，没有更高的一方）。",
+  "verdict": "CORRECT",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the location for the activity that lasts three w",
+  "truth_value": "Austin, TX",
+  "ans": "根据记忆（2024-10-04 09:04 Friday）：FinPlan Kick位于德州奥斯汀。而（2024-10-03 14:50 Thursday）提到 FinPlan Kick 持续三周。因此，持续三周的活动是 FinPlan Kick，其地点是德州奥斯汀（Austin, Texas）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many events can accommodate over six hundred people?",
+  "truth_value": "5 events",
+  "ans": "根据记忆，能容纳超过六百人的活动有：\n\n1. **Sales Summit** — 九百人齐聚（2024-10-01）\n2. **Beach Jam Fest** — 约七千人（2024-10-05）\n3. **FitBeat Fest** — 约九百人参加（2024-10-06）\n\n另外，2024-10-05 17:52 那条记录提到“约八百人”，但没有写明活动名称，无法确认是哪个活动。\n\n所以",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What notebook is owned?",
+  "truth_value": "Rhodia Webnotebook",
+  "ans": "根据记忆，教授拥有的是 **Rhodia Webnotebook**（2024-10-01 的记忆中提到用它记笔记，且是首选笔记本）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the location of the event that lasts five days?",
+  "truth_value": "San Antonio, TX",
+  "ans": "根据记忆，FitRhythmfest 持续五天，举办地点是 San Antonio。\n\n（2024-10-02 的记忆提到：FitRhythmfest 在 San Antonio 举办；2024-10-01 的记忆提到 FitRhythmfest 持续五天。）",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Laundry Basket, which of the follow",
+  "truth_value": "As an Associate Professor at I",
+  "ans": "根据你记得的事，2024-10-02 07:35 那条提到的是 **Simplehuman Rectangular Laundry Hamper**，特点是：**可拆卸内衬、内置提手、无盖、适合小空间**。所以最可能的描述是：一个 Simplehuman 长方形洗衣篮，带可拆内衬和内置提手，没有盖子，适合小空间。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the height of my uncle?",
+  "truth_value": "162cm",
+  "ans": "根据记忆，在（2024-10-12 01:48 Friday）提到「172厘米下属站着」，但那是「下属」，不是「叔叔」。关于叔叔，记忆里只提到「叔叔来自纽约」，没有提到身高。\n\n所以：记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many events last for a week or longer?",
+  "truth_value": "5 events",
+  "ans": "根据记忆，持续一周或更长的活动有：\n\n1. FinAlign23 — 持续四周（2024-10-03）\n2. LaunchFunds — 持续四周（2024-10-04）\n3. ChessCineFest — 持续两周（2024-10-05）\n4. Finance Fusion — 持续七天（2024-10-02）\n\n共 **4** 个。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the location of Finance Focus?",
+  "truth_value": "Houston, TX",
+  "ans": "根据记忆（2024-10-04 09:43 Friday）：Finance Focus位于休斯敦。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event lasts longer, the Retail Budgets or Fish Fes",
+  "truth_value": "Retail Budgets",
+  "ans": "根据记忆：\n\n- Retail Budgets：四天（2024-10-01 记录）\n- Fish Fest 2024：持续六周（2024-10-06 记录）\n\n六周比四天长，所以 **Fish Fest 2024 持续时间更长**。",
+  "verdict": "WRONG",
+  "baseline_correct": false
+ },
+ {
+  "q": "Regarding my Own the Dustpan, which of the following is ",
+  "truth_value": "As an Assistant Professor of P",
+  "ans": "记不清",
+  "verdict": "WRONG",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people in my family are taller than 160 cm?Addi",
+  "truth_value": "2 people; 2 events",
+  "ans": "根据记忆：\n\n**1. 家庭成员中身高超过160 cm的人数：**\n记忆里没有提到任何人是我的家庭成员，只出现了下属、同事等关系。因此家庭成员信息记不清。\n\n**2. 约有八百人规模的活动数量：**\n- 2024-10-14 Research Jam：八百人 ✓\n- 2024-10-12 Data Skills Lab：约八百人 ✓\n- 2024-10-15 Method Milestone：约九",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the main content of Safety Launch?",
+  "truth_value": "Kickoff for new safety trainin",
+  "ans": "根据记忆，Safety Launch 定于2024年10月15日上午9点，位于华盛顿DC。但记忆中没有关于其具体主要内容（主题、作品等）的信息，只提到“无感官，无作品”。因此，关于 Safety Launch 的主要内容，我记不清。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many people are aged 26 or above?",
+  "truth_value": "6 people",
+  "ans": "根据记忆，年龄在26岁或以上的人有：\n\n1. Sierra Blake，26岁\n2. Tara Lawson，26岁\n3. Tess Avery，26岁\n4. Caleb Foster，28岁\n\n共 **4人**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the email address of the person in the position ",
+  "truth_value": "madison.brooks@iltcorp.edu",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which event has a larger scale, MuseCraft or RunFest?",
+  "truth_value": "MuseCraft",
+  "ans": "根据记忆：\n\n- MuseCraft：四百人将聚于MuseCraft（2024-10-01 08:00）\n- RunFest：约百人参加（2024-10-01 15:46）\n\n因此，**MuseCraft 的规模更大**（四百人 > 约百人）。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is My Own's Blender?",
+  "truth_value": "The Blendtec Total Classic has",
+  "ans": "根据记忆，在（2024-10-01 19:50 Tuesday）提到的是 **Blendtec Total Classic**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Electric Kettle, which of the follo",
+  "truth_value": "As a busy corporate counsel, m",
+  "ans": "根据记忆，2024-10-01 17:46 你提到 Zojirushi 电热水壶：烧水快、保温好、有安全锁防烫，但水位计在暗处难读。所以最可能的描述是：**烧水快、保温好、安全锁防烫，水位计暗处难读**。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What exactly is an Own Keychain?",
+  "truth_value": "Leather Keychain",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What event lasts for eight weeks?",
+  "truth_value": "Care Review 2024",
+  "ans": "根据记忆，**The Care Review 2024** lasts for eight weeks.（记忆时间：2024-10-01 20:38 Tuesday）",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the time for DataVista 2024?",
+  "truth_value": "2024-10-13 19:00",
+  "ans": "DataVista 2024 定于 2024年10月13日晚7点。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What brand is the electric kettle?",
+  "truth_value": "Cuisinart CPK-17",
+  "ans": "Cuisinart",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the main content of HealthTech22?",
+  "truth_value": "Innovations in healthcare tech",
+  "ans": "根据记忆，HealthTech22 是一个展会（在拉斯维加斯举行，持续九天，共五千人参加），但记忆里没有明确说明它的主要内容或主题。因此，关于它的主要内容，我**记不清**。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "How many events can accommodate about eight hundred peop",
+  "truth_value": "4 events; 3 people",
+  "ans": "根据记忆：\n\n**能容纳约八百人的活动：**\n- Code for Good：八百人齐聚（2024-10-05）\n- FinSmart Pro：约八百人团队（2024-10-01）\n- TeamSynergy：约800人（2024-10-02）\n\n共 **3 个**。\n\n**夏天生日的家人：**\n记忆中的生日有：\n- Miles Donovan：6月27日（夏天）\n- Grayson Cole：3",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "What is the contact number for a person who has complete",
+  "truth_value": "41504817125; Austin, TX",
+  "ans": "根据记忆：\n\n1. **高中毕业的人的联系电话**：记忆中提到「我表兄高中毕业」（2024-10-02），但没有记录表兄的联系电话。记忆中的电话号码有 30503370608（同事）、818-077-09849（下属）、818-028-19854（老板）、81805401896、41506485312（父亲）。这些都无法对应到「高中毕业的表兄」。所以这个我**记不清**。\n\n2. **Bondin",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Which of the activities that involve team-building at a ",
+  "truth_value": "Famous for its coffee culture,",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the apartment's Lives Here?",
+  "truth_value": "The Heights offers a vibrant a",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "Parkside Residences offers a s",
+  "ans": "根据记忆，Parkside Residences 是这位住户（音乐人）居住的地方。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "Greenwood Apartments offers a ",
+  "ans": "记不清",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What is the Lives Here of the apartment?",
+  "truth_value": "Oakridge Estates offers a welc",
+  "ans": "根据记忆，Oakridge Estates 的住户提到交通便利，靠近 Innovative Research Labs 与公园，周末停车紧张。但记忆中没有明确说明该公寓的“Lives Here”（居住情况/住户构成）。记不清。",
+  "verdict": "PARTIAL",
+  "baseline_correct": true
+ },
+ {
+  "q": "Regarding my Own the Frying Pan, which of the following ",
+  "truth_value": "As a sous chef at Savory Delig",
+  "ans": "记不清。",
+  "verdict": "REFUSED",
+  "baseline_correct": true
+ },
+ {
+  "q": "What are the main interests and hobbies of the person in",
+  "truth_value": "Experience fun in the virtual ",
+  "ans": "根据记忆，我只找到一条与“Director of Research and Development”职位相关的信息：\n\n- （2024-10-05 10:26 Saturday）Madeline Hayes爱运动。\n\n因此，该职位的人（Madeline Hayes）的主要兴趣/爱好是**爱运动**。\n\n关于“Liter...”的活动时间，记忆中有多条相关活动：\n- Lit CornerFest：2",
+  "verdict": "PARTIAL",
+  "baseline_correct": false
+ },
+ {
+  "q": "Who has a birthday earlier in the year, Clara Voss or Ca",
+  "truth_value": "Clara Voss; TechFest 2024",
+  "ans": "根据记忆：\n\n- Clara Voss 的生日是 7月18日；Carter Blake 的生日是 12月20日。所以 **Clara Voss 的生日在一年中更早**。\n- CodeArt Show 有七百人赴会；TechFest 2024 预计九千参会者。所以 **TechFest 2024 规模更大**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ },
+ {
+  "q": "What time is the activity that mainly focuses on team bo",
+  "truth_value": "next week Monday 9:00 AM",
+  "ans": "根据记忆，Bond Bash 是主要聚焦团队凝聚活动和趣味挑战的活动，时间是 **2024年10月14日早9点**。",
+  "verdict": "CORRECT",
+  "baseline_correct": true
+ }
+]

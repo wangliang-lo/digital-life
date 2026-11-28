@@ -1,0 +1,66 @@
+[
+ {
+  "name": "A->B（八组干预）",
+  "rescued": 10,
+  "broken": 9,
+  "net": 1,
+  "p_raw": 1.0,
+  "p_holm": 1.0
+ },
+ {
+  "name": "A->C（八组干预）",
+  "rescued": 8,
+  "broken": 5,
+  "net": 3,
+  "p_raw": 0.5810546875,
+  "p_holm": 1.0
+ },
+ {
+  "name": "A->D（八组干预）",
+  "rescued": 20,
+  "broken": 13,
+  "net": 7,
+  "p_raw": 0.296206368599087,
+  "p_holm": 1.0
+ },
+ {
+  "name": "B->C（组间次要）",
+  "rescued": 10,
+  "broken": 8,
+  "net": 2,
+  "p_raw": 0.8145294189453125,
+  "p_holm": 1.0
+ },
+ {
+  "name": "B->D（组间次要）",
+  "rescued": 14,
+  "broken": 8,
+  "net": 6,
+  "p_raw": 0.28627872467041016,
+  "p_holm": 1.0
+ },
+ {
+  "name": "C->D（组间次要）",
+  "rescued": 16,
+  "broken": 12,
+  "net": 4,
+  "p_raw": 0.5715881884098053,
+  "p_holm": 1.0
+ },
+ {
+  "name": "DeepSeek->gpt-6.2-sol（§3 模型）",
+  "rescued": 34,
+  "broken": 13,
+  "net": 21,
+  "p_raw": 0.0030876764615186403,
+  "p_holm": 0.024701411692149122
+ },
+ {
+  "name": "DeepSeek->claude-opus-5-5（§3 模型）",
+  "rescued": 29,
+  "broken": 10,
+  "net": 19,
+  "p_raw": 0.0033778479119064286,
+  "p_holm": 0.024701411692149122
+ }
+]
