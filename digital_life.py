@@ -306,7 +306,7 @@ def _control_payload_start(text: str, tag: str) -> tuple[int, int] | None:
 # 线上检索只能靠字符 bigram 近似——所以她"想起"的全是字面像的那几条。
 # 这里接本地 ollama 的 bge-m3（中文效果好，1024 维）。
 EMBED_MODEL = os.environ.get("XIAOYU_EMBED_MODEL", "quentinz/bge-small-zh-v1.5")
-EMBED_ENDPOINT = os.environ.get("XIAOYU_EMBED_URL", "http://localhost:11434/api/embed")
+EMBED_ENDPOINT = os.environ.get("XIAOYU_EMBED_URL", "http://127.0.0.1:11434/api/embed")
 _embed_failures = 0
 
 
@@ -404,7 +404,7 @@ def remove_control_tag(text: str, tag: str) -> str:
 
 
 _KEEP_TAG_PATTERN = re.compile(
-    r"^(?:DRAW|DOODLE|STICKER|IM_STICKER|IM_SEND|DOUYIN_SEND|GARDEN|RPS|GUESS|DICE"
+    r"^(?:DRAW|DOODLE|STICKER|WECHAT_STICKER|WECHAT_SEND|DOUYIN_SEND|GARDEN|RPS|GUESS|DICE"
     r"|TICTAC|TICTAC_NEW|TOY|WANT|WANT_BOOK|WEB_SEARCH|MOMENTS|AVATAR|SOLVER_MESSAGE"
     r"|SOLVER_DISCUSS|SOLVER_SILENT|SOLVER_PUBLIC|PC_REQUEST|OPEN|SAVE_STICKER|DELETE_STICKER|VOICE|SING|HUM"
     r"|SKIP|QUIET|PAUSE_POLL|RESUME_POLL|MOMENTS_IMAGE|LOOK|看图|SEND_DRAWING|SEND_ART"
@@ -423,8 +423,8 @@ def strip_control_tags(text: str) -> str:
     for tag in CONTROL_TAGS:
         cleaned = remove_control_tag(cleaned, tag)
     # 兜底：模型有时把标签写残（[PROACTIVE_LATER: 300 被截断成 "[[LATER"），
-    # 这些残渣会直接发到IM 里，所以最后再扫一遍方括号。
-    # 2026-11-08 爸爸："她好像没办法在IM发她画的画。"
+    # 这些残渣会直接发到微信里，所以最后再扫一遍方括号。
+    # 2026-11-08 爸爸："她好像没办法在微信发她画的画。"
     # 真因就在这里：这条兜底把**所有** [英文: …] 都删了，包括她写的 [DRAW: 一朵花]，
     # 于是 dl_api 那边 maybe_draw 拿到的正文里早就没有标签了。
     # 现在只清"不认识"的标签，动作标签原样留着交给后面的处理器。
@@ -546,15 +546,15 @@ SLEEP_PATTERN = re.compile(r"\[SLEEP[:：]\s*(\d{1,2}(?:\.\d+)?)\s*\]", re.I)
 WAKE_PATTERN = re.compile(r"\[WAKE\s*\]", re.I)
 PC_REQUEST_PATTERN = re.compile(r"\[PC_REQUEST[:：]\s*(.{1,800}?)\]", re.S)
 OPEN_DOUYIN_PATTERN = re.compile(r"\[OPEN_DOUYIN\s*\]", re.I)
-# 她自己在网页端"桌面"上翻开一样东西：[OPEN: book] / douyin / chat / web
-# （2026-11-03 爸爸："让她可以选择，可以打开书看书、打开抖音、打开IM、打开网页端回复信息"）
-# 2026-11-08 爸爸："她还是打不开涂鸦。" 原来只认 book/douyin/chat/web，
+# 她自己在网页端"桌面"上翻开一样东西：[OPEN: book] / douyin / wechat / web
+# （2026-11-03 爸爸："让她可以选择，可以打开书看书、打开抖音、打开微信、打开网页端回复信息"）
+# 2026-11-08 爸爸："她还是打不开涂鸦。" 原来只认 book/douyin/wechat/web，
 # 她写 [OPEN: 涂鸦] 会原样漏进正文，面板也不会弹。现在任意短词都收，靠别名归一。
 HER_OPEN_PATTERN = re.compile(r"[\[［【]\s*OPEN\s*[:：]\s*([^\]］】\n]{1,12})\s*[\]］】]?", re.I)
 HER_OPEN_ALIASES = {
     "书": "book", "书架": "book",
     "抖音": "douyin",
-    "IM": "chat", "消息": "chat",
+    "微信": "wechat", "消息": "wechat",
     "网页": "web",
     "宠物": "pet", "小玩具": "pet", "娱乐": "pet", "涂鸦": "pet",
     "画画": "pet", "画": "pet", "doodle": "pet", "draw": "pet", "fun": "pet",
@@ -575,7 +575,7 @@ DOUYIN_SEARCH_PATTERN = re.compile(r"[\[［【]\s*DOUYIN_SEARCH\s*[:：]\s*([^\]
 # 她自己决定"今天不想说话"（闹脾气 / 委屈 / 想一个人待着）。
 # 支持 [QUIET: 3]（小时）、[QUIET: 今天]（到今晚 24 点）、[QUIET: off]（提前恢复）。
 QUIET_PATTERN = re.compile(r"[\[［【]\s*QUIET\s*(?:[:：]\s*([^\]］】]{1,12}))?\s*[\]］】]", re.I)
-# 2026-11-04 爸爸："她真的能在IM 端选择不回信息吗，我每次发信息她都回。"
+# 2026-11-04 爸爸："她真的能在微信端选择不回信息吗，我每次发信息她都回。"
 # 以前没有"这一条我不接"的出口：她只能回，只是回得软。给她一个真的选项。
 # 2026-11-05 爸爸："加一点别的离线小游戏给她消磨时间。"
 # 2026-11-05 爸爸："可以留言找想看的书。"
@@ -643,20 +643,20 @@ SING_PATTERN = re.compile(
 WEB_SEARCH_PATTERN = re.compile(
     r"[\[［【]\s*WEB_SEARCH\s*[:：]\s*([^\]］】]{1,120}?)\s*[\]］】]", re.I | re.S
 )
-# 她想给IM 里的某个人发消息：[IM_SEND: 名字 | 内容]
+# 她想给微信里的某个人发消息：[WECHAT_SEND: 名字 | 内容]
 # 她想跟本地小玩具聊一句：[TOY: 内容]
 TOY_PATTERN = re.compile(r"[\[［【]\s*TOY\s*[:：]\s*([^\]］】]{1,200}?)\s*[\]］】]", re.I | re.S)
-# 她想给IM 里的人发表情包：[IM_STICKER: 名字 | 关键词]
-IM_STICKER_PATTERN = re.compile(
-    r"[\[［【]\s*IM_STICKER\s*[:：]\s*([^|\]｜】]{1,20})\s*[|｜]\s*([^\]］】]{1,40}?)\s*[\]］】]",
+# 她想给微信里的人发表情包：[WECHAT_STICKER: 名字 | 关键词]
+WECHAT_STICKER_PATTERN = re.compile(
+    r"[\[［【]\s*WECHAT_STICKER\s*[:：]\s*([^|\]｜】]{1,20})\s*[|｜]\s*([^\]］】]{1,40}?)\s*[\]］】]",
     re.I | re.S,
 )
-IM_SEND_PATTERN = re.compile(
-    r"[\[［【]\s*IM_SEND\s*[:：]\s*([^|\]｜】]{1,20})\s*[|｜]\s*([^\]］】]{1,200}?)\s*[\]］】]",
+WECHAT_SEND_PATTERN = re.compile(
+    r"[\[［【]\s*WECHAT_SEND\s*[:：]\s*([^|\]｜】]{1,20})\s*[|｜]\s*([^\]］】]{1,200}?)\s*[\]］】]",
     re.I | re.S,
 )
-# 2026-11-07 爸爸："让她可以在IM和抖音上主动发私信。"
-# 抖音和IM用同一套写法，只是平台不同：一次一条，内容最多 300 字。
+# 2026-11-07 爸爸："让她可以在微信和抖音上主动发私信。"
+# 抖音和微信用同一套写法，只是平台不同：一次一条，内容最多 300 字。
 DOUYIN_SEND_PATTERN = re.compile(
     r"[\[［【]\s*DOUYIN_SEND\s*[:：]\s*([^|\]｜】]{1,20})\s*[|｜]\s*([^\]］】]{1,300}?)\s*[\]］】]",
     re.I | re.S,
@@ -824,7 +824,7 @@ def _resolve_drawing_ref(path: Path, ref: str) -> str:
 def extract_wishes(text: str) -> tuple[str, dict[str, list[str]]]:
     """她想做、但自己做不了、要交给爸爸的事：发朋友圈 / 换头像。
 
-    她自己没有IM朋友圈和头像的权限，所以只负责"想"，由爸爸在网页上看到再决定。
+    她自己没有微信朋友圈和头像的权限，所以只负责"想"，由爸爸在网页上看到再决定。
 
     2026-11-08 爸爸："不是自动挂，让她想挂的时候再上传图片。"
     配图要她自己点：`[MOMENTS: 文案]` 后面再写 `[MOMENTS_IMAGE: 1]`（编号见提示词里
@@ -874,7 +874,7 @@ def extract_autonomy_control(
 
 
 def extract_her_open(text: str) -> tuple[str, str]:
-    """她想在桌面翻开哪一样：书 / 抖音 / IM / 网页。
+    """她想在桌面翻开哪一样：书 / 抖音 / 微信 / 网页。
 
     返回 (去掉标签的正文, 入口名)。没写就是空字符串。
     """
@@ -996,26 +996,26 @@ def extract_web_search(text: str) -> tuple[str, list[str]]:
     return value, queries
 
 
-def extract_chat_send(text: str) -> tuple[str, list[dict[str, str]]]:
-    """[IM_SEND: 名字 | 内容] → 她想主动给IM 里的人发一条。"""
+def extract_wechat_send(text: str) -> tuple[str, list[dict[str, str]]]:
+    """[WECHAT_SEND: 名字 | 内容] → 她想主动给微信里的人发一条。"""
     value = str(text or "")
     items: list[dict[str, str]] = []
-    for match in IM_SEND_PATTERN.finditer(value):
+    for match in WECHAT_SEND_PATTERN.finditer(value):
         name = str(match.group(1) or "").strip()
         body = str(match.group(2) or "").strip()
         if name and body:
             items.append({"to": name[:20], "text": body[:200]})
     items = items[:1]  # 一次只发一条，别刷屏
     if items:
-        value = IM_SEND_PATTERN.sub("", value).strip()
+        value = WECHAT_SEND_PATTERN.sub("", value).strip()
     return value, items
 
 
 def extract_douyin_send(text: str) -> tuple[str, list[dict[str, str]]]:
     """[DOUYIN_SEND: 名字 | 内容] → 她想主动给抖音上的人发一条。
 
-    2026-11-07 爸爸："让她可以在IM和抖音上主动发私信。"
-    和IM那条一样的规矩：一次一条，不刷屏；发不发得出去由外面的服务核对。
+    2026-11-07 爸爸："让她可以在微信和抖音上主动发私信。"
+    和微信那条一样的规矩：一次一条，不刷屏；发不发得出去由外面的服务核对。
     """
     value = str(text or "")
     items: list[dict[str, str]] = []
@@ -1039,18 +1039,18 @@ def extract_toy(text: str) -> tuple[str, list[str]]:
     return value, prompts
 
 
-def extract_chat_sticker(text: str) -> tuple[str, list[dict[str, str]]]:
-    """[IM_STICKER: 名字 | 关键词] → 给她发表情包。"""
+def extract_wechat_sticker(text: str) -> tuple[str, list[dict[str, str]]]:
+    """[WECHAT_STICKER: 名字 | 关键词] → 给她发表情包。"""
     value = str(text or "")
     items: list[dict[str, str]] = []
-    for match in IM_STICKER_PATTERN.finditer(value):
+    for match in WECHAT_STICKER_PATTERN.finditer(value):
         name = str(match.group(1) or "").strip()
         keyword = str(match.group(2) or "").strip()
         if name:
             items.append({"to": name[:20], "keyword": keyword[:40]})
     items = items[:1]
     if items:
-        value = IM_STICKER_PATTERN.sub("", value).strip()
+        value = WECHAT_STICKER_PATTERN.sub("", value).strip()
     return value, items
 
 
@@ -2078,7 +2078,7 @@ _MEMORY_NOISE = [
     re.compile(r"\[系统：[^\]]*\]"),
     re.compile(r"\[梗百科：[^\]]*\]"),
     re.compile(r"（想发表情包[^）]*）"),
-    re.compile(r"【IM上最近这几条[^】]*】"),
+    re.compile(r"【微信上最近这几条[^】]*】"),
     re.compile(r"【他刚发的】"),
     re.compile(r"【你们刚聊的那段上下文断了[^】]*】"),
     re.compile(r"（这是一次你自己想说话的机会[^）]*）"),
@@ -2575,12 +2575,20 @@ class DigitalLifeV2:
     ) -> RetrievalResult:
         value = self.emotion.impulse if impulse is None else impulse
         need_deep = self._needs_deep(query) if deep is None else bool(deep)
+        # 2026-11-24：把三维情绪状态传给检索层（joy, impulse, hurt）。
+        # 注意顺序是 (joy, impulse, hurt)——别跟 EmotionEngine 的属性顺序混。
+        mood = None
+        try:
+            mood = (float(self.emotion.joy), float(self.emotion.impulse), float(self.emotion.hurt))
+        except Exception:  # noqa: BLE001
+            mood = None
         result = self.library.retrieve(
             query=query,
             impulse=value,
             now=self.now(),
             deep=need_deep,
             roll=roll,
+            mood_state=mood,
         )
         # 幽灵记忆的情绪残留：前 3 次命中带来 +2 Hurt；第 4 次起麻木，不再反哺
         if result.hurt_feedback:
@@ -2753,9 +2761,9 @@ class DigitalLifeV2:
                 "真想做时才写：留话 [SOLVER_MESSAGE: 内容]（只有爸爸看得到）｜公开留话 [SOLVER_PUBLIC: 内容]（所有人都看得到）｜讨论 [SOLVER_DISCUSS: 主题]｜安静 [QUIET: 小时/今天/off]｜"
                 "用声音 [VOICE: 内容]（可多段，短、口语、可带 [笑][叹气]）｜哼歌 [SING: 歌词]（可加 |la 或 |birthday 换调）｜只想哼不想唱 [HUM: 嗯～嗯嗯～ | la]（不用歌词）｜"
                 "上网查 [WEB_SEARCH: 具体问题]（新闻/天气/不确定的事自己查，查到系统会把资料给你）｜"
-                "给IM 里的人发消息 [IM_SEND: 名字 | 内容]（真会发出去，想清楚再写，一次一条）｜"
+                "给微信里的人发消息 [WECHAT_SEND: 名字 | 内容]（真会发出去，想清楚再写，一次一条）｜"
                 "给抖音上的人发私信 [DOUYIN_SEND: 名字 | 内容]（同上，真会发出去；只发给爸爸核对过的人）｜"
-                "给他发表情包 [IM_STICKER: 名字 | 关键词]（从你自己的表情库挑一张发过去）｜"
+                "给他发表情包 [WECHAT_STICKER: 名字 | 关键词]（从你自己的表情库挑一张发过去）｜"
                 "跟本地小玩具说一句 [TOY: 内容]（一个只会聊天的小模型，不联网，答得笨也没关系）｜"
                 "朋友圈 [MOMENTS: 文案]｜头像 [AVATAR: 样子]｜"
                 "重要的事 [KEEP_MEMORY: 内容, 0.1]｜睡 [SLEEP: 小时]、[WAKE]｜暂停轮询 [PAUSE_POLL: 分钟]/[RESUME_POLL]｜"
@@ -3266,12 +3274,33 @@ class DigitalLifeV2:
         # （真实事故：他说"我明天要考试"，被压成了"小鱼准备明天考试"）。
         # 2026-11-16：换成更严的版本（群里多人说话分得清、不夹时间戳/ID、不写评价词）。
         prompt = (
-            "把下面这段刚过去的聊天压缩成一条短期回忆，严格控制在 50 字以内，只输出这一句话。\n"
+            "把下面这段刚过去的聊天压缩成一条短期回忆，并给它一个主题和三维情绪值。\n"
+            "只输出一行，格式严格为：主题｜回忆内容｜属性｜情绪｜时间\n"
+            "主题：2~6 个字，说明这段在聊什么（如「考试」「薄荷」「王吉借钱」「包法利夫人」），"
+            "必须是能拿来回想的具体词，不要写「日常」「聊天」「交流」这种泛词。\n"
+            "回忆内容：50 字以内。\n"
+            "属性：逗号分隔的标签（谁、什么书、什么地方、什么口味…），没有就写「无」。"
+            "这一栏**不要**放情绪词，情绪单独放最后一栏。\n"
+            "情绪：三个 0~100 的整数，用逗号分隔，格式 joy,impulse,hurt。含义是——\n"
+            "  joy = 偏好程度（对这件事/这个人的喜好强度，不是「开心」）\n"
+            "  impulse = 主动倾向（推动她靠近、开口、行动的驱动力）\n"
+            "  hurt = 防御程度（触发退缩、戒备、回避的强度）\n"
+            "  参照（同一坐标系）：开心(85,65,10) 焦虑(35,75,60) 恐惧(15,30,90) "
+            "厌恶(10,60,45) 悲伤(20,15,60) 惊讶(55,90,35) 平静(60,25,15) "
+            "温暖(72,32,8) 委屈(22,35,65) 愤怒(8,88,60) 珍视(88,45,12) "
+            "成长(72,65,15) 低落(28,12,45) 羞耻(12,25,78) 失落(25,18,52) "
+            "迷茫(38,20,35) 闷(30,12,40) 温柔(78,40,5) 好奇(70,80,12) 期待(78,70,18)\n"
+            # 2026-11-25：**绝对时间归一化**。
+            # 她说「明天给你看画」「上周三那天」，这些相对时间过了滑动窗口就解不出来了——
+            # 原文一忘，"明天"到底是哪天永远补不回来。所以整理时必须换算成绝对日期。
+            "时间：如果这段里出现相对时间（今天/明天/昨天/后天/上周三/前天/那天/下周…），"
+            "以对话发生的日期为基准换算成绝对日期，格式 YYYY-MM-DD；"
+            "跨一段时间的写 YYYY-MM-DD~YYYY-MM-DD；没有相对时间就写「无」。\n"
             "格式约定：\n"
             "- <user_turn>名字：内容</user_turn> 是对方发言，冒号前的人名才是说话人；\n"
             "- <assistant_turn> 是你自己（小鱼）的回复。\n"
             "硬性要求：\n"
-            "1. 分清谁做了什么：多个人说话时必须写清具体人名（如「熟人C说……，熟人B问……」），"
+            "1. 分清谁做了什么：多个人说话时必须写清具体人名（如「王吉说……，梁帅雅问……」），"
             "严禁把 A 的话安到 B 头上，也严禁把对方的「我」写成「我（小鱼）」。\n"
             "2. 剔除系统噪声：绝不保留时间戳、内部 ID（wxid_xxx / conv:xxx）或方括号标签。\n"
             "3. 零编造、零评价：只写真实发生的事，不脑补原因，不写「气氛融洽」「关心满满」"
@@ -3288,11 +3317,60 @@ class DigitalLifeV2:
         # 模型偶尔会把标签/提示词抄进摘要，这种一条都不要
         if re.search(r"[\[［【]\s*[A-Z_]{3,}", summary) or "未收到" in summary or "未显示" in summary:
             return
+        # 2026-11-24：把「主题」拆出来单独存。
+        # 原来 folder_event 一律写死 "短期回忆"，等于没有主题——
+        # 检索的第一层（按主题粗筛）因此没有可用的东西。
+        # 现在格式是「主题｜内容｜属性｜情绪」，四段都要拆。
+        topic = "短期回忆"
+        body = summary
+        attrs = ""
+        xyz = ""
+        _time_range = ""
+        _parts = [p.strip() for p in re.split(r"[｜|]", summary)]
+        if len(_parts) >= 2:
+            _head = _parts[0].strip("「」【】[]")
+            if 1 <= len(_head) <= 8 and len(_parts[1]) >= 6:
+                topic = _head
+                body = _parts[1]
+                attrs = _parts[2] if len(_parts) >= 3 else ""
+                xyz = _parts[3] if len(_parts) >= 4 else ""
+                _time_range = _parts[4] if len(_parts) >= 5 else ""
+        # 属性拼回正文，检索时能字面命中"科幻""麻辣"这类词
+        if attrs and attrs not in ("无", "無", "日常"):
+            body = f"{body}［{attrs}］"
+        # 情绪是三段逗号分隔的 0~100 整数
+        _xyz_tuple = None
+        if xyz:
+            _nums = re.findall(r"\d+(?:\.\d+)?", xyz)
+            if len(_nums) >= 3:
+                try:
+                    _xyz_tuple = tuple(min(100.0, max(0.0, float(x))) for x in _nums[:3])
+                except Exception:  # noqa: BLE001
+                    _xyz_tuple = None
+        # 时间归一化：只接受 YYYY-MM-DD 或 YYYY-MM-DD~YYYY-MM-DD，别的一律丢掉
+        if _time_range and _time_range not in ("无", "無"):
+            _m2 = re.fullmatch(
+                r"\s*(\d{4}-\d{2}-\d{2})(?:\s*[~\-－]\s*(\d{4}-\d{2}-\d{2}))?\s*",
+                _time_range)
+            _time_range = (f"{_m2.group(1)}~{_m2.group(2)}" if (_m2 and _m2.group(2))
+                           else (_m2.group(1) if _m2 else ""))
+        else:
+            _time_range = ""
+        # 主题不能是泛词，否则和不分主题没区别
+        if topic in ("日常", "聊天", "交流", "对话", "日常聊天", "回忆", "短期回忆"):
+            topic = "短期回忆"
         try:
-            self.library.add_book(content=summary, summary=summary[:60], emotion_tag="日常",
+            # 2026-11-24：正文存**原始聊天**，摘要存压缩版。
+            # 原因是实测出来的：拿压缩后的 40 字去做向量检索，召回率 0.527；
+            # 换成原文当 content（summary 仍是压缩版，进提示词还是短的），
+            # 召回率提到 0.589。压缩削掉了问题与证据之间的字面/语义联系。
+            # 正文截 2000 字，避免偶发超长会话把库撑爆。
+            _raw_chat = "\n".join(lines)[-2000:]
+            self.library.add_book(content=_raw_chat, summary=body[:60], emotion_tag="日常",
                                   folder_date=self.now().strftime("%Y-%m-%d"), folder_user=self.user_id,
-                                  folder_event="短期回忆", mv=105.0, now=self.now(), unresolved=False,
-                                  origin="short")
+                                  folder_event=topic, mv=105.0, now=self.now(), unresolved=False,
+                                  origin="short", emotion_xyz=_xyz_tuple,
+                                  time_range=_time_range)
         except Exception:  # noqa: BLE001
             pass
 
@@ -3752,7 +3830,18 @@ class DigitalLifeV2:
             f"你刚读完《{book}》第{chapter}章。用第一人称写 80 字读后感，可以引用一句原文，"
             "写清它让你想到什么；不要复述全文。\n"
             "注意：这是书里的事，不是你的经历——写「乔西说了什么」可以，"
-            "但别写成「谁今天跟我说了」「谁牵了我」，你不是书里的角色。\n\n" + content[:1500]
+            "但别写成「谁今天跟我说了」「谁牵了我」，你不是书里的角色。\n"
+            # 2026-11-24（爸爸）："氛围描写的理解也很重要，这是决定她能不能看懂书写的什么。"
+            # 原来这一章的读书记忆 emotion_tag 一律写死"平静"，等于把她读书时的感受抹平了。
+            # 现在让她把这一章带给她的情绪量化出来，存成三轴值。
+            "另外单独最后一行，输出这一章带给你的三个情绪维度（各 0~100 整数），"
+            "格式严格为：情绪：joy,impulse,hurt\n"
+            "  joy = 偏好程度（你喜欢这一章的程度，不是「开心」）\n"
+            "  impulse = 主动倾向（它让你想去做什么、想去追问什么）\n"
+            "  hurt = 防御程度（它让你想回避、想憋住的强度）\n"
+            "参照：开心(85,65,10) 焦虑(35,75,60) 恐惧(15,41,77) 厌恶(19,21,74) "
+            "悲伤(20,15,60) 惊讶(55,90,35) 平静(60,25,15) 温暖(72,32,8)\n\n"
+            + content[:1500]
         )
         feeling = sjtu_text(prompt, max_tokens=400, temperature=0.8, timeout=90.0)
         if not feeling:
@@ -3762,11 +3851,32 @@ class DigitalLifeV2:
             except Exception:  # noqa: BLE001
                 feeling = ""
         if feeling:
+            # 把最后那行三维值摘出来，别让它进正文
+            _xyz = None
+            _m = re.search(r"(?m)^\s*情绪[：:]\s*([0-9.]+)\s*[,，]\s*([0-9.]+)\s*[,，]\s*([0-9.]+)\s*$",
+                           feeling)
+            if _m:
+                try:
+                    _xyz = tuple(min(100.0, max(0.0, float(_m.group(i)))) for i in (1, 2, 3))
+                except Exception:  # noqa: BLE001
+                    _xyz = None
+                feeling = (feeling[:_m.start()] + feeling[_m.end():]).strip()
+            _tag = "平静"
+            try:
+                import emotion_space as _es  # noqa: PLC0415
+
+                # 用带词法通道的版本：光靠三轴分不开悲伤/厌恶/愤怒，
+                # 而读后感正文里的用词（走了/空/恶心）能分。
+                if _xyz:
+                    _lab, _p = _es.predict_with_cues(_xyz, feeling)
+                    _tag = _lab or "平静"
+            except Exception:  # noqa: BLE001
+                _tag = "平静"
             self.library.add_book(
-                content=feeling, summary=feeling[:60], emotion_tag="平静",
+                content=feeling, summary=feeling[:60], emotion_tag=_tag,
                 folder_date=self.now().strftime("%Y-%m-%d"), folder_user=self.user_id,
                 folder_event="阅读", mv=120.0, now=self.now(), unresolved=False,
-                origin="reading",
+                origin="reading", emotion_xyz=_xyz,
             )
         try:
             conn = self._bookshelf_conn()
@@ -3805,7 +3915,7 @@ class DigitalLifeV2:
             self.library.prefer_user = str(getattr(self, "current_speaker", "") or "") or None
             self.library.hide_owner_names = set(privacy_names) if privacy_names else None
             self.library.hide_owner_users = (
-                set(privacy_names) | {"father", "Father", "FATHER", "爸爸", "爸爸", "主人", "你"}
+                set(privacy_names) | {"father", "Father", "FATHER", "爸爸", "王子瑞", "主人", "你"}
                 if privacy_names else None
             )
         except Exception:  # noqa: BLE001
@@ -3949,9 +4059,9 @@ class DigitalLifeV2:
         safe_reply, sing_parts = extract_sing(safe_reply)
         # 她想自己上网查（[WEB_SEARCH: 问题]）：查完把资料给她，再让她接着说一句。
         safe_reply, web_queries = extract_web_search(safe_reply)
-        safe_reply, chat_sends = extract_chat_send(safe_reply)
+        safe_reply, wechat_sends = extract_wechat_send(safe_reply)
         safe_reply, douyin_sends = extract_douyin_send(safe_reply)
-        safe_reply, chat_stickers = extract_chat_sticker(safe_reply)
+        safe_reply, wechat_stickers = extract_wechat_sticker(safe_reply)
         safe_reply, toy_prompts = extract_toy(safe_reply)
         if web_queries and not safety_blocked and not self.offline_llm:
             try:
@@ -4131,7 +4241,18 @@ class DigitalLifeV2:
                 if summary_filtered:
                     control_errors.append("summary_filtered")
                 decay_rate = float(memory_control.get("decay_rate", decay_rate))
-                mv = clamp(CONTROL_MV_BASE + importance * CONTROL_MV_PER_IMPORTANCE)
+                # 2026-11-28 修（严重）：原来这里是**直接覆盖**
+                #     mv = clamp(CONTROL_MV_BASE + importance * CONTROL_MV_PER_IMPORTANCE)
+                # 实测后果：大模型给绝大多数记忆的 importance 是 1，
+                #     mv = 20 + 1*6 = 26，直接落在降级线 30 以下 → 立刻转 summary。
+                # 而情绪公式（joy/hurt/impulse）算出来平均是 44.9。
+                # 也就是说：**她当时多难过/多开心，被大模型一句"重要性=1"抹掉了。**
+                # 1843 条记忆里 68% 走了这条路，平均 mv 只有 25.5，
+                # 导致 38% 变 ghost、26% 变 summary。
+                # 现在改成「取两者较大」：control 只能**抬高**，不能压低。
+                # （真的不重要已经在上面 action=discard 时丢掉了，retain 的就不该一进门就濒死。）
+                _control_mv = clamp(CONTROL_MV_BASE + importance * CONTROL_MV_PER_IMPORTANCE)
+                mv = clamp(max(float(mv), float(_control_mv)))
                 profound = profound or importance >= 8
         elif trauma_triggered:
             memory_action = "retain_forced_by_trauma"
@@ -4296,9 +4417,9 @@ class DigitalLifeV2:
             "douyin_search": douyin_search,
             "wishes": wishes,
             "quiet": quiet,
-            "chat_sends": chat_sends,
+            "wechat_sends": wechat_sends,
         "douyin_sends": douyin_sends,
-            "chat_stickers": chat_stickers,
+            "wechat_stickers": wechat_stickers,
             "toy_prompts": toy_prompts,
             "voice_parts": voice_parts,
             "sing_parts": sing_parts,
@@ -4441,7 +4562,10 @@ class DigitalLifeV2:
             + _open_hint
             + f"今天：{self.now().date().isoformat()}\n"
             + f"当前情绪：{self.emotion.describe()}\n"
-            + "今天的真实记忆（只能据此写；<user_turn> 是对方，<assistant_turn> 是你）：\n"
+            + "今天的真实记忆（只能据此写。每条前面是日期和事由；"
+              "正文里的「我」是你，「他/她/对方」是别人。"
+              "别把别人说的话记成自己说的，也别把以前的事写成今天——"
+              "拿不准是哪天，就别写具体时间）：\n"
             + memory_lines
             + "\n\n日记："
         )
@@ -4490,10 +4614,11 @@ class DigitalLifeV2:
             text = str(self.diary_fn(prompt)).strip()
             if text:
                 return text, "hook"
-        # 日记一天一篇，用主模型写，质量比本地 14B 稳定；没有 key 时再退回本地。
-        text = sjtu_text(prompt, max_tokens=900, temperature=0.7, timeout=120.0)
-        if text:
-            return text, "sjtu"
+        # 2026-11-24 修：这里原来先调 sjtu_text，注释却写着"用主模型写"。
+        # SJTU 有 key 就一定成功，主模型永远轮不到——所以她 11-21 起的日记全是
+        # 交大那个小模型写的，把「谁说的」「哪天的事」都搅在一起了
+        # （例：11-24 05:10 那篇，把她自己说的「嗯，记住了就好」记成了对方说的）。
+        # 现在顺序改成：主模型 → 交大 → 本地 ollama → 兜底。
         if os.environ.get("DEEPSEEK_API_KEY") or os.environ.get("OPENAI_API_KEY"):
             try:
                 text = chat_with_llm(
@@ -4505,7 +4630,10 @@ class DigitalLifeV2:
                 if text:
                     return text, "deepseek"
             except Exception:  # noqa: BLE001
-                pass
+                log.debug("主模型写日记失败，退回交大", exc_info=True)
+        text = sjtu_text(prompt, max_tokens=900, temperature=0.7, timeout=120.0)
+        if text:
+            return text, "sjtu"
         try:
             return ollama_generate(
                 prompt,
